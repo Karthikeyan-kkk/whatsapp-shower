@@ -1,0 +1,25 @@
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.csprojResolveAssemblyReference.cache
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Properties.Resources.resources
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.csproj.GenerateResource.Cache
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.pdb
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WhatsAppApi.dll
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WhatsAppApi.pdb
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.exe
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.pdb
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Form1.resources
+C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\AlphaBlendTextBox.dll
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.exe
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.pdb
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.pdb
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WhatsAppApi.dll
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WhatsAppApi.pdb
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.csprojResolveAssemblyReference.cache
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Form1.resources
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Properties.Resources.resources
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.csproj.GenerateResource.Cache
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WhatsAppPort.exe
+C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln first work with picture\WhatsAPINet-master\WindowsFormsApplication2\bin\Debug\WhatsAppPort.pdb
