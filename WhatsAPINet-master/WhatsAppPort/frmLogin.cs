@@ -16,28 +16,29 @@ namespace WhatsAppPort
         {
             InitializeComponent();
             
-            this.textBoxPhone.Text = WhatsappProperties.getPhonenumber();
-            this.textBoxPass.Text = WhatsappProperties.getPassword();
-            this.textBoxNick.Text = WhatsappProperties.getNickName();
+            //this.textBoxPhone.Text = WhatsappProperties.getPhonenumber();
+            //this.textBoxPass.Text = WhatsappProperties.getPassword();
+            //this.textBoxNick.Text = WhatsappProperties.getNickName();
                
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
-            WhatsappProperties.savePhonenumber(this.textBoxPhone.Text);
-            WhatsappProperties.saveNickName(this.textBoxNick.Text);
+           // WhatsappProperties.savePhonenumber(this.textBoxPhone.Text);
+            //WhatsappProperties.saveNickName(this.textBoxNick.Text);
 
-            if (!this.CheckLogin(this.textBoxPhone.Text, this.textBoxPass.Text))
-            {
-                WhatsappProperties.savePassword("");
-                MessageBox.Show(this, "Login failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-           
+            //if (!this.CheckLogin(this.textBoxPhone.Text, this.textBoxPass.Text))
+            //{
+            //    WhatsappProperties.savePassword("");
+            //    MessageBox.Show(this, "Login failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+           WhatsappProperties.initProperties();
            using (var frm = new WhatsappShower(this.textBoxPhone.Text, this.textBoxPass.Text, this.textBoxNick.Text))
             {
-                WhatsappProperties.savePassword(this.textBoxPass.Text);
+               // WhatsappProperties.savePassword(this.textBoxPass.Text);
+                WhatsappProperties.initProperties();
                 frm.ShowDialog();
                 this.Visible = false;
                 this.Close();
