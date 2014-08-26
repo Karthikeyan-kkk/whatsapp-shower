@@ -16,3 +16,21 @@ C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WhatsAppPort\ob
 C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln\WhatsAPINet-master\WhatsAppPort\bin\Debug\WhatsAppPort.exe.config
 C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.exe
 C:\Users\Idan\Desktop\whatsapp .net\Apis\WhatsAPINet-masterAsSln\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.pdb
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\WhatsAppPort.exe.config
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\WhatsAppPort.exe
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\WhatsAppPort.pdb
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\WhatsAppApi.dll
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\WindowsFormsApplication2.exe
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\WhatsAppApi.pdb
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\WindowsFormsApplication2.pdb
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.csprojResolveAssemblyReference.cache
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.frmForm.resources
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.frmAddUser.resources
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.frmLogin.resources
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.frmRegister.resources
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.frmUserChat.resources
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.Properties.Resources.resources
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.csproj.GenerateResource.Cache
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.exe
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\obj\x86\Debug\WhatsAppPort.pdb
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppPort\bin\Debug\whatsappShow.property

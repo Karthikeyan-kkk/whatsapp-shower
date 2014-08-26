@@ -15,7 +15,9 @@ namespace WindowsFormsApplication2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            WhatsappProperties.initProperties();
             Application.Run(new WhatsappShower());
+            
 
 
 

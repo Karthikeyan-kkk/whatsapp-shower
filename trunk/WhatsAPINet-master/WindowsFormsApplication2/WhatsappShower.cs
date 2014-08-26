@@ -25,22 +25,13 @@ namespace WindowsFormsApplication2
     public partial class WhatsappShower : Form
     {
         public static readonly Random random = new Random();
+       
         Dictionary<string, Color> dictionary = new Dictionary<string, Color>();
-        int paddingTop = 10;
-        int paddingLeft = 20;
-        int charPerRow = 50;
-        int imageMaxWidth = 80000000;
-        int imageMaxHeight = 400;
-        static Single textFontSize = 18;
-        static Single phoneFontSize = 12;
-        static Single houerFontSize = 10;
-        Color textBackGroundColor = Color.FromArgb(252, 251, 246);
-        Color shadowColor = Color.FromArgb(100, 0, 0, 0);
-        Color textColor = Color.Black;
-        Color houerColor = Color.Gray;
-        Font phonerFont = new System.Drawing.Font("Arial", phoneFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-        Font houerFont = new System.Drawing.Font("Choco", houerFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-        Font font = new System.Drawing.Font("Choco", textFontSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+        Font runnigTextFont = new System.Drawing.Font("Choco", WhatsappProperties.RunnigTextSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+        Font phonerFont = new System.Drawing.Font("Arial", WhatsappProperties.PhoneFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+        Font houerFont = new System.Drawing.Font("Choco", WhatsappProperties.HouerFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+        Font font = new System.Drawing.Font("Choco", WhatsappProperties.TextFontSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+        
         string nickname = "test12";
         string sender = "972524376363"; // Mobile number with country code (but without + or 00)
         string password = "TicJAMworhafW+84w3vuA4yMS5o=";//v2 password
@@ -64,6 +55,11 @@ namespace WindowsFormsApplication2
             InitializeComponent();
             
             this.WindowState = FormWindowState.Maximized;
+            System.Windows.Forms.Timer MarqueeTimer = new System.Windows.Forms.Timer();
+            MarqueeTimer.Enabled = true;
+            MarqueeTimer.Interval = WhatsappProperties.RuningTextSpeed;
+            MarqueeTimer.Tick += new EventHandler(MarqueeUpdate);
+
 
             if (showExample)
             {
@@ -71,12 +67,37 @@ namespace WindowsFormsApplication2
             }
             else
             {
-                WhatsappProperties.saveNickName("test");
+                //WhatsappProperties.saveNickName("test");
                 addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "0524376362");
                // addPicture("AmQcOXsWg7cQgVLk1VlHkmk52jZGSM2Cjix-_D2AzUIw.jpg", "524376363");
                 //addPicture("AqnoddKDiXvuaYsynkBJSQH_L1rPH1eQ-i82OsU5UjKP.jpg", "524376363");
                 addText(" עוד טקסט לבדיקה", "0524376362");
+                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "0524376362");
+                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "0524376362");
+
+
             }
+        }
+        void MarqueeUpdate(object sender, EventArgs e)
+        {
+            this.label1.Text = WhatsappProperties.RunnigText;
+            this.label1.Font = runnigTextFont;
+            this.label1.ForeColor = WhatsappProperties.RunnigTextColor;
+            WhatsappProperties.StartRunnigLocation = WhatsappProperties.StartRunnigLocation + WhatsappProperties.RuningTextjumpingLocation;
+            Size tableSize = this.tableLayoutPanel1.Size;
+            Size labelSize = this.label1.Size;
+            if (WhatsappProperties.StartRunnigLocation + labelSize.Width >= tableSize.Width)
+            {
+                WhatsappProperties.RuningTextjumpingLocation = WhatsappProperties.RuningTextjumpingLocation * -1;
+                WhatsappProperties.StartRunnigLocation = WhatsappProperties.StartRunnigLocation + WhatsappProperties.RuningTextjumpingLocation + WhatsappProperties.RuningTextjumpingLocation;
+            }
+            if (WhatsappProperties.StartRunnigLocation == 0)
+            {
+                WhatsappProperties.RuningTextjumpingLocation = WhatsappProperties.RuningTextjumpingLocation * -1;
+            }
+            this.label1.Margin = new System.Windows.Forms.Padding(WhatsappProperties.StartRunnigLocation, WhatsappProperties.PaddingTop, 0, 0);
+            Invalidate();
+
         }
         public WhatsappShower()
         {
@@ -241,23 +262,23 @@ namespace WindowsFormsApplication2
 
             text = text.Trim();
             int textSize = text.Length;
-            double num3 = (double)textSize / (double)charPerRow;
+            double num3 = (double)textSize / (double)WhatsappProperties.CharPerRow;
             int textRowNumber = (int)Math.Ceiling(num3);
 
             if (textRowNumber > 1)
             {
-                text = modifayTextNewLine(text, charPerRow, textRowNumber);
+                text = modifayTextNewLine(text, WhatsappProperties.CharPerRow, textRowNumber);
             }
 
-            Image image = DrawText(text, font, phoneNumber, phonerFont, houerFont, Color.Gray, textColor, textBackGroundColor);
+            Image image = DrawText(text, font, phoneNumber, phonerFont, houerFont, Color.Gray, WhatsappProperties.TextColor, WhatsappProperties.TextBackGroundColor);
 
             PictureBox pictureBox = new PictureBox();
             pictureBox.Image = image;
             pictureBox.BackColor = System.Drawing.Color.Transparent;
             pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox.Margin = new System.Windows.Forms.Padding(paddingLeft, paddingTop, 0, 0);
+            pictureBox.Margin = new System.Windows.Forms.Padding(WhatsappProperties.PaddingLeft, WhatsappProperties.PaddingTop, 0, 0);
 
-            AddImageWithShadow(image, 3, 2, shadowColor, pictureBox);
+            AddImageWithShadow(image, 3, 2, WhatsappProperties.ShadowColor, pictureBox);
 
             if (panel1.InvokeRequired)
             {
@@ -338,7 +359,7 @@ namespace WindowsFormsApplication2
         public void addPicture(Image i2, String from)
         {
 
-            i2 = ScaleImage(i2, imageMaxWidth, imageMaxHeight);
+            i2 = ScaleImage(i2, WhatsappProperties.ImageMaxWidth, WhatsappProperties.ImageMaxHeight);
             Graphics drawing = Graphics.FromImage(i2);
             Brush phoneBrush = new SolidBrush(Color.White);
             drawing.DrawString(from, phonerFont, phoneBrush, 10, 10);
@@ -348,7 +369,7 @@ namespace WindowsFormsApplication2
             PictureBox pictureBox = new PictureBox();
             pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBox.Image = i2;
-            pictureBox.Margin = new System.Windows.Forms.Padding(paddingLeft, paddingTop, 0, 0);
+            pictureBox.Margin = new System.Windows.Forms.Padding(WhatsappProperties.PaddingLeft, WhatsappProperties.PaddingTop, 0, 0);
             this.panel1.Invoke(new MethodInvoker(delegate { this.panel1.Controls.Add(pictureBox); }));
             
         }
