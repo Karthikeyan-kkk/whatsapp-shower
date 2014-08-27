@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>winapp.ico</ApplicationIcon>
+    <ApplicationIcon>mensage.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -212,9 +212,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="mensage.ico" />
     <Content Include="notify.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Icon1.ico" />
     <Content Include="winapp.ico" />
   </ItemGroup>
   <ItemGroup>

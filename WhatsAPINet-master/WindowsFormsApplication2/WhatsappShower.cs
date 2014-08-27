@@ -53,6 +53,11 @@ namespace WindowsFormsApplication2
 
            // String s = WhatsAppApi.Register.WhatsRegisterV2.GenerateIdentity("524376363", "147589"); 
             this.WindowState = FormWindowState.Maximized;
+            
+            if (WhatsappProperties.FullScreen)
+            {
+                this.FormBorderStyle = FormBorderStyle.None;
+            }
             System.Windows.Forms.Timer MarqueeTimer = new System.Windows.Forms.Timer();
             MarqueeTimer.Enabled = true;
             MarqueeTimer.Interval = WhatsappProperties.RuningTextSpeed;
@@ -519,6 +524,14 @@ namespace WindowsFormsApplication2
         {
             WhatsappProperties.initProperties();
             this.label1.Text = WhatsappProperties.RunnigText;
+            if (WhatsappProperties.FullScreen)
+            {
+                this.FormBorderStyle = FormBorderStyle.None;
+            }
+            else
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+            }
         }
 
         void WhatsappShower_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)

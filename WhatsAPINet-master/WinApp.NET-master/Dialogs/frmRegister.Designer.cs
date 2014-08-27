@@ -100,7 +100,7 @@ namespace WinAppNET.Dialogs
             this.Controls.Add(this.btnRequest);
             this.Controls.Add(this.txtNumber);
             this.Controls.Add(this.Label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("mensage")));
             this.Name = "frmRegister";
             this.Text = "Register: Step 1";
             this.ResumeLayout(false);
