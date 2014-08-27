@@ -7,7 +7,7 @@ whatsappShow.imageMaxHeight = 400
 whatsappShow.runingTextSpeed = 50
 whatsappShow.startRunnigLocation = 0
 whatsappShow.runingTextjumpingLocation = 10
-whatsappShow.runnigText = "השנשניני"
+whatsappShow.runnigText = "שלחו הודעת וואטסאפ למספר 0524376363"
      
 whatsappShow.textFontSize = 18
 whatsappShow.phoneFontSize = 12

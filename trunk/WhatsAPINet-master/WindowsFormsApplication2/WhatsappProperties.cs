@@ -174,7 +174,7 @@ namespace WindowsFormsApplication2
         }
 
         public static bool initProperties(){
-            
+            props.Clear();
             foreach (var row in File.ReadAllLines("whatsappShow.property"))
                 if (!String.IsNullOrEmpty(row))
                 {
@@ -188,6 +188,34 @@ namespace WindowsFormsApplication2
                 }
             updateFiledFromPropsDictionary();
             return true;
+        }
+        static Font runnigTextFont = new System.Drawing.Font("Choco", WhatsappProperties.RunnigTextSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+
+        public static Font RunnigTextFont
+        {
+            get { return new System.Drawing.Font("Choco", WhatsappProperties.RunnigTextSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177))); }
+            set { runnigTextFont = value; }
+        }
+        static Font phonerFont = new System.Drawing.Font("Arial", WhatsappProperties.PhoneFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+
+        public static Font PhonerFont
+        {
+            get { return new System.Drawing.Font("Arial", WhatsappProperties.PhoneFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177))); }
+            set { phonerFont = value; }
+        }
+        static Font houerFont = new System.Drawing.Font("Choco", WhatsappProperties.HouerFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+
+        public static Font HouerFont
+        {
+            get { return new System.Drawing.Font("Choco", WhatsappProperties.HouerFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177))); }
+            set { houerFont = value; }
+        }
+        static Font font = new System.Drawing.Font("Choco", WhatsappProperties.TextFontSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+
+        public static Font Font
+        {
+            get { return new System.Drawing.Font("Choco", WhatsappProperties.TextFontSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));}
+            set { font = value; }
         }
 
         private static void updateFiledFromPropsDictionary()

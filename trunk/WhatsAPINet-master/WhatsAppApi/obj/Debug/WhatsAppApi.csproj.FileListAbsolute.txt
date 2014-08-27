@@ -6,7 +6,6 @@ C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WhatsAppApi\obj
 C:\Users\Idan\Desktop\WhatsAPINet-masterAsSln\WhatsAPINet-master\WhatsAppApi\obj\Debug\WhatsAppApi.pdb
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppApi\bin\Debug\WhatsAppApi.dll
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppApi\bin\Debug\WhatsAppApi.pdb
-C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppApi\obj\Debug\WhatsAppApi.csprojResolveAssemblyReference.cache
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppApi\obj\Debug\WhatsAppApi.Properties.Resources.resources
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppApi\obj\Debug\WhatsAppApi.csproj.GenerateResource.Cache
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WhatsAppApi\obj\Debug\WhatsAppApi.dll
