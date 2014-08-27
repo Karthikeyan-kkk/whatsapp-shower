@@ -173,6 +173,15 @@ namespace WindowsFormsApplication2
             set { props = value; }
         }
 
+        static bool fullScreen = false;
+
+        public static bool FullScreen
+        {
+            get { return WhatsappProperties.fullScreen; }
+            set { WhatsappProperties.fullScreen = value; }
+        }
+
+
         public static bool initProperties(){
             props.Clear();
             foreach (var row in File.ReadAllLines("whatsappShow.property"))
@@ -298,8 +307,21 @@ namespace WindowsFormsApplication2
                 {
                     RunnigTextColor = parseToColor(Props[key], Color.Blue);
                 }
+                if (key.Equals(prfixCode + "fullScreen"))
+                {
+                    FullScreen = parseBoolean(Props[key], false);
+                }
             }
 
+        }
+
+        private static bool parseBoolean(string val, bool valToReturn)
+        {
+            if (!string.IsNullOrEmpty(val) && ("true".Equals(val) || "TRUE".Equals(val)))
+            {
+                return true;
+            }
+            return false;
         }
 
         private static Color parseToColor(string colorName, Color color)

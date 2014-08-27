@@ -99,7 +99,7 @@ namespace WinAppNET.Dialogs
             this.Controls.Add(this.txtPhonenumber);
             this.Controls.Add(this.Label2);
             this.Controls.Add(this.Label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("mensage")));
             this.Name = "WappCredentials";
             this.Text = "Login";
             this.ResumeLayout(false);

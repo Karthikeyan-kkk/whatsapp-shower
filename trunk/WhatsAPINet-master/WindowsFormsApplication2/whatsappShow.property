@@ -20,4 +20,6 @@ whatsappShow.shadowColor = 100,0,0,0
 whatsappShow.textColor = 150,000,000,000
 whatsappShow.houerColor = 255,128,128,128
 whatsappShow.runnigTextColor = 255,000,000,255
+
+whatsappShow.fullScreen = true
         

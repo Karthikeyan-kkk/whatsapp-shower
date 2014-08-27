@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("mensage")));
             // 
             // panel1
             // 
