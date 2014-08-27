@@ -28,12 +28,12 @@ namespace WhatsAppPort
            // WhatsappProperties.savePhonenumber(this.textBoxPhone.Text);
             //WhatsappProperties.saveNickName(this.textBoxNick.Text);
 
-            //if (!this.CheckLogin(this.textBoxPhone.Text, this.textBoxPass.Text))
-            //{
-            //    WhatsappProperties.savePassword("");
-            //    MessageBox.Show(this, "Login failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (!this.CheckLogin(this.textBoxPhone.Text, this.textBoxPass.Text))
+            {
+                //WhatsappProperties.savePassword("");
+                MessageBox.Show(this, "Login failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
            WhatsappProperties.initProperties();
            using (var frm = new WhatsappShower(this.textBoxPhone.Text, this.textBoxPass.Text, this.textBoxNick.Text))
             {

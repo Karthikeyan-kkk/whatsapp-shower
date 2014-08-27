@@ -45,6 +45,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WhatsAppApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WinApp.NET-master\Libraries\WhatsAppApi.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WhatsappProperties.cs" />
@@ -86,10 +90,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WhatsAppApi\WhatsAppApi.csproj">
-      <Project>{3FC9096A-C4D2-40C7-BE7B-D98ACAB3BD2B}</Project>
-      <Name>WhatsAppApi</Name>
-    </ProjectReference>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

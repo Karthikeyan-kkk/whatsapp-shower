@@ -31,6 +31,8 @@ namespace WinAppNET.Dialogs
                 WhatsappShower whatsappShower = new WhatsappShower(username, password, "sdas");
                 WhatsappProperties.initProperties();
                 whatsappShower.ShowDialog();
+                this.Visible = false;
+                this.Close();
             }
         }
 

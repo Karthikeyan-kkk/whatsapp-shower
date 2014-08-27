@@ -27,10 +27,7 @@ namespace WindowsFormsApplication2
         public static readonly Random random = new Random();
        
         Dictionary<string, Color> dictionary = new Dictionary<string, Color>();
-        Font runnigTextFont = new System.Drawing.Font("Choco", WhatsappProperties.RunnigTextSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-        Font phonerFont = new System.Drawing.Font("Arial", WhatsappProperties.PhoneFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-        Font houerFont = new System.Drawing.Font("Choco", WhatsappProperties.HouerFontSize, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-        Font font = new System.Drawing.Font("Choco", WhatsappProperties.TextFontSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+        
         
         string nickname = "test12";
         string sender = "972524376363"; // Mobile number with country code (but without + or 00)
@@ -53,7 +50,8 @@ namespace WindowsFormsApplication2
         public void startWhatsappShower()
         {
             InitializeComponent();
-            
+
+           // String s = WhatsAppApi.Register.WhatsRegisterV2.GenerateIdentity("524376363", "147589"); 
             this.WindowState = FormWindowState.Maximized;
             System.Windows.Forms.Timer MarqueeTimer = new System.Windows.Forms.Timer();
             MarqueeTimer.Enabled = true;
@@ -81,7 +79,7 @@ namespace WindowsFormsApplication2
         void MarqueeUpdate(object sender, EventArgs e)
         {
             this.label1.Text = WhatsappProperties.RunnigText;
-            this.label1.Font = runnigTextFont;
+            this.label1.Font = WhatsappProperties.RunnigTextFont;
             this.label1.ForeColor = WhatsappProperties.RunnigTextColor;
             WhatsappProperties.StartRunnigLocation = WhatsappProperties.StartRunnigLocation + WhatsappProperties.RuningTextjumpingLocation;
             Size tableSize = this.tableLayoutPanel1.Size;
@@ -116,9 +114,10 @@ namespace WindowsFormsApplication2
             wa.OnGetMessage += wa_OnGetMessage;
             //wa.OnGetPhoto += wa_OnGetPhoto;
             wa.OnGetMessageImage += wa_OnGetMessageImage;
+            wa.OnConnectFailed += new WhatsEventBase.ExceptionDelegate(Instance_OnConnectFailed);
             WhatsAppApi.Helper.DebugAdapter.Instance.OnPrintDebug += Instance_OnPrintDebug;
             wa.Connect();
-
+            
            
 
        
@@ -135,10 +134,34 @@ namespace WindowsFormsApplication2
                 catch (Exception) { };
             }
 
-            wa.Login(nextChallenge);
+            //wa.Login(nextChallenge);
+            try
+            {
+                wa.Login();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(this, "Login failed resone: " + e, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                return;
+               
+            }
+
+
+
+            if (wa.ConnectionStatus != WhatsAppApi.WhatsApp.CONNECTION_STATUS.LOGGEDIN)
+            {
+                MessageBox.Show(this, "Login failed resone: " + wa.ConnectionStatus, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
 
             ProcessChat(wa, target);
            
+        }
+        void Instance_OnConnectFailed(Exception ex)
+        {
+           MessageBox.Show(this, "Login failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
          void wa_OnGetMessage(ProtocolTreeNode node, string from, string id, string name, string message, bool receipt_sent)
         {
@@ -199,9 +222,17 @@ namespace WindowsFormsApplication2
                 {
                     while (wa != null)
                     {
-                        wa.PollMessages();
-                        Thread.Sleep(100);
-                        continue;
+                        try
+                        {
+                            wa.PollMessages();
+                            Thread.Sleep(100);
+                            continue;
+                        }
+                        catch (Exception)
+                        {
+                            
+                            
+                        }
                     }
 
                 }
@@ -269,8 +300,8 @@ namespace WindowsFormsApplication2
             {
                 text = modifayTextNewLine(text, WhatsappProperties.CharPerRow, textRowNumber);
             }
-
-            Image image = DrawText(text, font, phoneNumber, phonerFont, houerFont, Color.Gray, WhatsappProperties.TextColor, WhatsappProperties.TextBackGroundColor);
+            Font fontss = WhatsappProperties.Font;
+            Image image = DrawText(text, WhatsappProperties.Font, phoneNumber, WhatsappProperties.PhonerFont, WhatsappProperties.HouerFont, Color.Gray, WhatsappProperties.TextColor, WhatsappProperties.TextBackGroundColor);
 
             PictureBox pictureBox = new PictureBox();
             pictureBox.Image = image;
@@ -362,10 +393,10 @@ namespace WindowsFormsApplication2
             i2 = ScaleImage(i2, WhatsappProperties.ImageMaxWidth, WhatsappProperties.ImageMaxHeight);
             Graphics drawing = Graphics.FromImage(i2);
             Brush phoneBrush = new SolidBrush(Color.White);
-            drawing.DrawString(from, phonerFont, phoneBrush, 10, 10);
+            drawing.DrawString(from, WhatsappProperties.PhonerFont, phoneBrush, 10, 10);
             String currentHouer = DateTime.Now.ToString("HH:mm");
-            SizeF textSize = drawing.MeasureString(currentHouer, font);
-            drawing.DrawString(currentHouer, houerFont, phoneBrush, i2.Width - textSize.Width, i2.Height - textSize.Height);
+            SizeF textSize = drawing.MeasureString(currentHouer, WhatsappProperties.Font);
+            drawing.DrawString(currentHouer, WhatsappProperties.HouerFont, phoneBrush, i2.Width - textSize.Width, i2.Height - textSize.Height);
             PictureBox pictureBox = new PictureBox();
             pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
             pictureBox.Image = i2;
@@ -484,7 +515,16 @@ namespace WindowsFormsApplication2
             }
         }
 
+        private void panel1_DoubleClick(object sender, EventArgs e)
+        {
+            WhatsappProperties.initProperties();
+            this.label1.Text = WhatsappProperties.RunnigText;
+        }
 
+        void WhatsappShower_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
 
 
 

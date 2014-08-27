@@ -51,6 +51,7 @@
             this.panel1.TabIndex = 0;
             this.panel1.WrapContents = false;
             this.panel1.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.panel1_ControlAdded);
+            this.panel1.DoubleClick += new System.EventHandler(this.panel1_DoubleClick);
             // 
             // tableLayoutPanel1
             // 
@@ -89,8 +90,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(WhatsappShower_FormClosed);
 
         }
+
+       
 
         #endregion
 
