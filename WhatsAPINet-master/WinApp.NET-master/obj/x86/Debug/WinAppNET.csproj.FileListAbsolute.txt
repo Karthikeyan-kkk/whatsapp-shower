@@ -50,6 +50,7 @@ C:\Users\Idan\Desktop\whatsapp .net\Apis\WinApp.NET-master\WinApp.NET-master\bin
 C:\Users\Idan\Desktop\whatsapp .net\Apis\WinApp.NET-master\WinApp.NET-master\bin\Debug\WindowsFormsApplication2.exe
 C:\Users\Idan\Desktop\whatsapp .net\Apis\WinApp.NET-master\WinApp.NET-master\bin\Debug\WindowsFormsApplication2.pdb
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\whatsappShow.property
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\Resources\CHOCRG_.TTF
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\notify.wav
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\WinAppNET.exe.config
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\WinAppNET.exe

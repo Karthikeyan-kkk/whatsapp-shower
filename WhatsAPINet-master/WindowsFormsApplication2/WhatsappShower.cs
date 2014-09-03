@@ -34,6 +34,7 @@ namespace WindowsFormsApplication2
         string password = "TicJAMworhafW+84w3vuA4yMS5o=";//v2 password
         string target = "972504219841";// Mobile number to send the message to
         bool showExample = false;
+        System.Windows.Forms.Timer MarqueeTimer = new System.Windows.Forms.Timer();
 
 
         public WhatsappShower(string num, string pass, string nick)
@@ -58,7 +59,7 @@ namespace WindowsFormsApplication2
             {
                 this.FormBorderStyle = FormBorderStyle.None;
             }
-            System.Windows.Forms.Timer MarqueeTimer = new System.Windows.Forms.Timer();
+           
             MarqueeTimer.Enabled = true;
             MarqueeTimer.Interval = WhatsappProperties.RuningTextSpeed;
             MarqueeTimer.Tick += new EventHandler(MarqueeUpdate);
@@ -71,18 +72,22 @@ namespace WindowsFormsApplication2
             else
             {
                 //WhatsappProperties.saveNickName("test");
-                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "0524376362");
-               // addPicture("AmQcOXsWg7cQgVLk1VlHkmk52jZGSM2Cjix-_D2AzUIw.jpg", "524376363");
-                //addPicture("AqnoddKDiXvuaYsynkBJSQH_L1rPH1eQ-i82OsU5UjKP.jpg", "524376363");
-                addText(" עוד טקסט לבדיקה", "0524376362");
-                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "0524376362");
-                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "0524376362");
+                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "05243763");
+               
+                addText(" עוד טקסט לבדיקה", "05243763");
+                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "05243763");
+                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה ולכן אני ממש בודק גם את האורך שלו האם זה אורך תקין והאם הוא באמת מקבל נכון את השורות החדשות או סתם עושה מה שבא לו", "05243763");
+                addText(" עכשיו אני עושה בדיקה בנונית לראות איך זה מסתדר עם טקסט בגול בנוני לא ארוך ולא קצר מעניין איך זה יראה ", "05243763");
+                addText(" זהעודטקסטבלירווחבכללאנירוצהלראותאיךהמערכתמסתדרעםהטקסטהזהבאמתזהמענייןאיךהיאתסתדרבלירווחבכלל", "05243763");
+                addText(" זהעודטקסטבלירווחבכללאנירוצהלראותאיךהמערכתמסתדר עםרווחאחדועםהטקסטהזהבאמתזהמענייןאיךהיאתסתדרבלירווחבכלל", "05243763");
+                
 
 
             }
         }
         void MarqueeUpdate(object sender, EventArgs e)
         {
+           
             this.label1.Text = WhatsappProperties.RunnigText;
             this.label1.Font = WhatsappProperties.RunnigTextFont;
             this.label1.ForeColor = WhatsappProperties.RunnigTextColor;
@@ -179,6 +184,56 @@ namespace WindowsFormsApplication2
             char[] splitChar = {'@'};
             return from.Split(splitChar)[0];
             
+        }
+        bool isCanShowMsgMet(string from)
+        {
+            var reader = getCvsReader();
+            if (reader == null)
+            {
+                return true;
+            }
+            
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+                if (values != null )
+                {
+                    if (values.Length > 0)
+                    {
+                        string phoneNumber = values[0];
+                        if (!string.IsNullOrEmpty(from) && from.Equals(phoneNumber))
+                        {
+                            if (values.Length > 1)
+                            {
+                                if (values[1].Equals("false", StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+               // listB.Add(values[1]);
+            }
+            return true;
+        }
+
+        private static StreamReader getCvsReader()
+        {
+          
+            try
+            {
+                var reader = new StreamReader(File.OpenRead(@"C:\Users\Idan\Google Drive\whatsAppShower\whatsAppShowePermissions.csv"));
+                return reader;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+           
         }
 
           void wa_OnGetPhoto(string from, string id, byte[] data)
@@ -295,11 +350,15 @@ namespace WindowsFormsApplication2
 
         public void addText(String text, String phoneNumber)
         {
-
+            bool isCanShowMsg = isCanShowMsgMet(phoneNumber);
+            if (!isCanShowMsg)
+            {
+                return;
+            }
             text = text.Trim();
             int textSize = text.Length;
             double num3 = (double)textSize / (double)WhatsappProperties.CharPerRow;
-            int textRowNumber = (int)Math.Ceiling(num3);
+            int textRowNumber = (int)Math.Round(num3);
 
             if (textRowNumber > 1)
             {
@@ -369,7 +428,7 @@ namespace WindowsFormsApplication2
 
             //create a brush for the text
 
-
+          
             drawing.DrawString(phoneNumber, phoneFont, phoneBrush, 10, 10);
             drawing.DrawString(text, font, textBrush, 10, 30);
 
@@ -381,7 +440,7 @@ namespace WindowsFormsApplication2
 
             drawing = Graphics.FromImage(img);
             SizeF sizeF = drawing.MeasureString(phoneNumber, phoneFont);
-            drawing.DrawString(currentHouer, houerFont, houerBrush, img.Width - sizeF.Width+60, img.Height - sizeF.Height + 6);
+            drawing.DrawString(currentHouer, houerFont, houerBrush, img.Width - sizeF.Width+40, img.Height - sizeF.Height + 6);
             drawing.Dispose();
             return img;
 
@@ -424,27 +483,43 @@ namespace WindowsFormsApplication2
         }
         public String modifayTextNewLine(string text, int charNumber, int rowNumber)
         {
-            String textToReturn = "";
-            int startRunFrom = charNumber;
-            int endRunTo = 0;
-            for (int i = 0; i < rowNumber; i++)
+            try
             {
-                bool foundSpace = false;
-                for (int j = startRunFrom; j > endRunTo; j--)
+                String textToReturn = "";
+                int startRunFrom = charNumber;
+                int endRunTo = 0;
+                for (int i = 0; i < rowNumber; i++)
                 {
-                    if (text[j].Equals(' '))
+                    bool foundSpace = false;
+                    for (int j = startRunFrom; j > endRunTo; j--)
                     {
-                        foundSpace = true;
-                        if (textToReturn.Length > 0)
+                        if (text[j].Equals(' '))
                         {
-                            int temp = text.Length;
-                            //textToReturn = textToReturn + "\n" + text.Substring(endRunTo, startRunFrom);
-                            text = text.Insert(j, "\n");
-                        }
-                        else
-                        {
-                            text = text.Insert(j, "\n");
-                        }
+                            foundSpace = true;
+                            if (textToReturn.Length > 0)
+                            {
+                                int temp = text.Length;
+                                //textToReturn = textToReturn + "\n" + text.Substring(endRunTo, startRunFrom);
+                                text = text.Insert(j, "\n");
+                            }
+                            else
+                            {
+                                text = text.Insert(j, "\n");
+                            }
+                            endRunTo = startRunFrom;
+
+                            startRunFrom = startRunFrom + charNumber;
+                            if (startRunFrom > text.Length)
+                            {
+                                startRunFrom = text.Length - 1;
+                            }
+                            break;
+
+                        };
+                    }
+                    if (!foundSpace)
+                    {
+                        text = text.Insert(startRunFrom, "\n");
                         endRunTo = startRunFrom;
 
                         startRunFrom = startRunFrom + charNumber;
@@ -452,21 +527,13 @@ namespace WindowsFormsApplication2
                         {
                             startRunFrom = text.Length - 1;
                         }
-                        break;
-
-                    };
-                }
-                if (!foundSpace)
-                {
-                    text = text.Insert(startRunFrom, "\n");
-                    endRunTo = startRunFrom;
-
-                    startRunFrom = startRunFrom + charNumber;
-                    if (startRunFrom > text.Length)
-                    {
-                        startRunFrom = text.Length - 1;
                     }
                 }
+            }
+            catch (Exception)
+            {
+                
+                
             }
             return text;
         }
@@ -524,6 +591,7 @@ namespace WindowsFormsApplication2
         {
             WhatsappProperties.initProperties();
             this.label1.Text = WhatsappProperties.RunnigText;
+            MarqueeTimer.Interval = WhatsappProperties.RuningTextSpeed;
             if (WhatsappProperties.FullScreen)
             {
                 this.FormBorderStyle = FormBorderStyle.None;
