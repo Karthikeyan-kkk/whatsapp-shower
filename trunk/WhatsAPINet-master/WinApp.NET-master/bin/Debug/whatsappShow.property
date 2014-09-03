@@ -4,7 +4,7 @@ whatsappShow.charPerRow = 50
 whatsappShow.imageMaxWidth = 80000000
 whatsappShow.imageMaxHeight = 400
 
-whatsappShow.runingTextSpeed = 50
+whatsappShow.runingTextSpeed = 700
 whatsappShow.startRunnigLocation = 0
 whatsappShow.runingTextjumpingLocation = 10
 whatsappShow.runnigText = "שלחו הודעת וואטסאפ למספר 0524376363"
@@ -21,5 +21,5 @@ whatsappShow.textColor = 150,000,000,000
 whatsappShow.houerColor = 255,128,128,128
 whatsappShow.runnigTextColor = 255,000,000,255
 
-whatsappShow.fullScreen = true
+whatsappShow.fullScreen = false
         
