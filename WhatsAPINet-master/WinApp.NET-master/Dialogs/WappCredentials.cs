@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using WinAppNET.AppCode;
 using WindowsFormsApplication2;
 
+
 namespace WinAppNET.Dialogs
 {
     public partial class WappCredentials : Form

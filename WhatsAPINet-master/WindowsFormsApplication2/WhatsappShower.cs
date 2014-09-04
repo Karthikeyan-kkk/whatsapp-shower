@@ -19,13 +19,14 @@ using System.Collections.Generic;
 using System.Drawing;
 
 using System.Configuration;
+using log4net;
 
 namespace WindowsFormsApplication2
 {
     public partial class WhatsappShower : Form
     {
         public static readonly Random random = new Random();
-       
+        private static readonly ILog log = log4net.LogManager.GetLogger(typeof(WhatsappShower));
         Dictionary<string, Color> dictionary = new Dictionary<string, Color>();
         
         
@@ -80,7 +81,7 @@ namespace WindowsFormsApplication2
                 addText(" עכשיו אני עושה בדיקה בנונית לראות איך זה מסתדר עם טקסט בגול בנוני לא ארוך ולא קצר מעניין איך זה יראה ", "05243763");
                 addText(" זהעודטקסטבלירווחבכללאנירוצהלראותאיךהמערכתמסתדרעםהטקסטהזהבאמתזהמענייןאיךהיאתסתדרבלירווחבכלל", "05243763");
                 addText(" זהעודטקסטבלירווחבכללאנירוצהלראותאיךהמערכתמסתדר עםרווחאחדועםהטקסטהזהבאמתזהמענייןאיךהיאתסתדרבלירווחבכלל", "05243763");
-                
+                log.Info("aa");
 
 
             }

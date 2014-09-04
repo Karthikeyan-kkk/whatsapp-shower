@@ -61,8 +61,9 @@ C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\De
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\PhoneNumbers.dll
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\System.Data.SQLite.dll
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\WhatsAppApi.dll
-C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\WindowsFormsApplication2.exe
-C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\WindowsFormsApplication2.pdb
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\WhatsappShowe.exe
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\log4net.dll
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\WhatsappShowe.pdb
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\obj\x86\Debug\WinAppNET.csprojResolveAssemblyReference.cache
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\obj\x86\Debug\WinAppNET.ChatWindow.resources
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\obj\x86\Debug\WinAppNET.ContactsList.resources
@@ -77,3 +78,4 @@ C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\obj\x8
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\obj\x86\Debug\WinAppNET.csproj.GenerateResource.Cache
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\obj\x86\Debug\WinAppNET.exe
 C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\obj\x86\Debug\WinAppNET.pdb
+C:\Users\Idan\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\bin\Debug\logconf.xml
