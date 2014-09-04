@@ -61,15 +61,6 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.Client">
-      <HintPath>Libraries\Google.GData.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.GData.Contacts">
-      <HintPath>Libraries\Google.GData.Contacts.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.GData.Extensions">
-      <HintPath>Libraries\Google.GData.Extensions.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PhoneNumbers">
@@ -78,9 +69,6 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>Libraries\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -97,41 +85,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\Contact.cs" />
-    <Compile Include="AppCode\ContactStore.cs" />
     <Compile Include="AppCode\Helper.cs" />
     <Compile Include="AppCode\Message.cs" />
-    <Compile Include="AppCode\MessageStore.cs" />
     <Compile Include="AppCode\WappSocket.cs" />
-    <Compile Include="ChatWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChatWindow.Designer.cs">
-      <DependentUpon>ChatWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ContactsList.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ContactsList.Designer.cs">
-      <DependentUpon>ContactsList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ContactsSelector.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ContactsSelector.Designer.cs">
-      <DependentUpon>ContactsSelector.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListChat.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ListChat.Designer.cs">
-      <DependentUpon>ListChat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListContact.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ListContact.Designer.cs">
-      <DependentUpon>ListContact.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\frmGoogleSync.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -158,21 +114,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ChatWindow.resx">
-      <DependentUpon>ChatWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ContactsList.resx">
-      <DependentUpon>ContactsList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ContactsSelector.resx">
-      <DependentUpon>ContactsSelector.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ListChat.resx">
-      <DependentUpon>ListChat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ListContact.resx">
-      <DependentUpon>ListContact.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\frmGoogleSync.resx">
       <DependentUpon>frmGoogleSync.cs</DependentUpon>
     </EmbeddedResource>
@@ -213,9 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mensage.ico" />
-    <Content Include="notify.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\Icon1.ico" />
     <Content Include="winapp.ico" />
   </ItemGroup>
@@ -237,7 +175,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WindowsFormsApplication2\WhatsappShow.csproj">
+    <ProjectReference Include="..\WhatsappShower\WhatsappShow.csproj">
       <Project>{C48FAD83-290E-4080-988F-F7DA544511E4}</Project>
       <Name>WhatsappShow</Name>
     </ProjectReference>

@@ -1,6 +1,4 @@
-﻿using Google.GData.Client;
-using Google.GData.Contacts;
-using Google.GData.Extensions;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -110,69 +108,8 @@ namespace WinAppNET.Dialogs
         }
 
         protected void ExecuteImport()
-        {
-            //start sync
-            ContactsService GContactService = new ContactsService("Contact Infomation");
-            GContactService.setUserCredentials(email, password);
-
-            ContactsQuery query = new ContactsQuery(ContactsQuery.
-            CreateContactsUri("default"));
-            ContactsFeed feed = null;
-
-            try
-            {
-                feed = GContactService.Query(query);
-            }
-            catch (Exception)
-            {
-                this.setLabelText("Invalid email or password", Color.Red);
-                return;
-            }
-
-            //start
-            this.showProgressBar(feed.TotalResults);
-            this.setLabelText("Importing...", Color.Black);
-
-            int progress = 0;
-            int startIndex = 0;
-            while (feed.Entries.Count > 0)
-            {
-                startIndex += feed.ItemsPerPage;
-                query.StartIndex = startIndex;
-                PhoneNumbers.PhoneNumberUtil util = PhoneNumbers.PhoneNumberUtil.GetInstance();
-                foreach (ContactEntry entry in feed.Entries)
-                {
-                    this.setProgress(progress);
-                    progress++;
-
-                    if (entry.Phonenumbers.Count > 0)
-                    {
-                        foreach (PhoneNumber number in entry.Phonenumbers)
-                        {
-                            string numb = string.Empty;
-                            try
-                            {
-                                PhoneNumbers.PhoneNumber num = util.Parse(number.Value, "NL");
-                                numb = num.CountryCode.ToString() + num.NationalNumber.ToString();
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine("Exception was thrown: " + ex.Message);
-                                continue;
-                            }
-                            if (!ContactStore.numberExists(numb + "@s.whatsapp.net"))
-                            {
-                                Contact contact = new Contact(0, numb + "@s.whatsapp.net", "", "", entry.Name.GivenName, entry.Name.FamilyName);
-                                ContactStore.AddContact(contact);
-                            }
-                        }
-                    }
-                }
-                feed = GContactService.Query(query);
-            }
-
-            //done!
-            this.doExit();
+        { 
+        
         }
     }
 }
