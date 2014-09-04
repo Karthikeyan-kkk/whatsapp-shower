@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsappShow", "WindowsFormsApplication2\WhatsappShow.csproj", "{C48FAD83-290E-4080-988F-F7DA544511E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsappShow", "WhatsappShower\WhatsappShow.csproj", "{C48FAD83-290E-4080-988F-F7DA544511E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinAppNET", "WinApp.NET-master\WinAppNET.csproj", "{7800E61B-795C-4614-9EA6-7CA0DA99E0EC}"
 EndProject

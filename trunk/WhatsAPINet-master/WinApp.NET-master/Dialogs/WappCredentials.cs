@@ -10,6 +10,7 @@ using WinAppNET.AppCode;
 using WindowsFormsApplication2;
 
 
+
 namespace WinAppNET.Dialogs
 {
     public partial class WappCredentials : Form
@@ -29,6 +30,7 @@ namespace WinAppNET.Dialogs
                 System.Configuration.ConfigurationManager.AppSettings.Set("Password", password);
                 //this.DialogResult = System.Windows.Forms.DialogResult.OK;
                // this.Dispose();
+                
                 WhatsappShower whatsappShower = new WhatsappShower(username, password, "sdas");
                 WhatsappProperties.initProperties();
                 whatsappShower.ShowDialog();
