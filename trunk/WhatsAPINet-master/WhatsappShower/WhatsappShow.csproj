@@ -136,6 +136,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="mensage.ico" />
+    <None Include="Resources\panel1b.BackgroundImage.png" />
+    <None Include="Resources\panel1.BackgroundImage2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
