@@ -429,7 +429,7 @@ namespace WindowsFormsApplication2
 
             //create a brush for the text
 
-          
+            StringFormatFlags stringFormatFlags = StringFormatFlags.DirectionRightToLeft;
             drawing.DrawString(phoneNumber, phoneFont, phoneBrush, 10, 10);
             drawing.DrawString(text, font, textBrush, 10, 30);
 
@@ -437,7 +437,7 @@ namespace WindowsFormsApplication2
             drawing.Save();
 
             textBrush.Dispose();
-            drawing.Dispose();
+            drawing.Dispose(); 
 
             drawing = Graphics.FromImage(img);
             SizeF sizeF = drawing.MeasureString(phoneNumber, phoneFont);
