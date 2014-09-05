@@ -72,8 +72,8 @@ namespace WindowsFormsApplication2
             }
             else
             {
-                //WhatsappProperties.saveNickName("test");
-                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "05243763");
+                
+                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "05243763","עידן מור");
                
                 addText(" עוד טקסט לבדיקה", "05243763");
                 addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "05243763");
@@ -180,11 +180,31 @@ namespace WindowsFormsApplication2
         }
          void wa_OnGetMessage(ProtocolTreeNode node, string from, string id, string name, string message, bool receipt_sent)
         {
+
+            string nickName = getNikeName(node);
             Console.WriteLine("Message from {0} {1}: {2}", name, from, message);
             from = filterFormNumber(from);
-            addText(message, from);
+            addText(message, from, nickName);
 
         }
+
+         private string getNikeName(ProtocolTreeNode node)
+         {
+             string nickName = "";
+             try
+             {
+                 List<KeyValue> attributeHashList = node.attributeHash.ToList();
+                 for (int i = 0; i < attributeHashList.Count; i++)
+                 {
+                     if (attributeHashList[i] != null && attributeHashList[i].Key.Equals("notify"))
+                     {
+                         return attributeHashList[i].Value;
+                     }
+                 }
+             }
+             catch (Exception){}
+             return nickName;
+         }
         String filterFormNumber(String from){
             char[] splitChar = {'@'};
             return from.Split(splitChar)[0];
@@ -256,23 +276,14 @@ namespace WindowsFormsApplication2
            
         }
 
-          void wa_OnGetPhoto(string from, string id, byte[] data)
-         {
-             from = filterFormNumber(from);
-             Console.WriteLine("Got full photo for {0}", from);
-             File.WriteAllBytes(string.Format("{0}.jpg", from), data);
-             MemoryStream ms = new MemoryStream(data);
-             Image returnImage = Image.FromStream(ms);
-           
-            
-         }
+        
           void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
           {
               from = filterFormNumber(from);
               Console.WriteLine("Got image from {0}", from, fileName);
               OnGetMedia(fileName, url, preview);
               if (isCanShowMsgMet(from, "IMG"))
-              {
+              {   
                   addPicture(fileName, from);
               }
               addTextInfoToLog("IMG", fileName, from, isCanShowMsgMet(from, "IMG"));
@@ -371,8 +382,10 @@ namespace WindowsFormsApplication2
         {
 
         }
-
         public void addText(String text, String phoneNumber)
+        { addText(text, phoneNumber, ""); }
+
+        public void addText(String text, String phoneNumber,string nickName)
         {
             bool isCanShowMsg = isCanShowMsgMet(phoneNumber,"TEXT");
             if (!isCanShowMsg)
@@ -390,7 +403,12 @@ namespace WindowsFormsApplication2
                 text = modifayTextNewLine(text, WhatsappProperties.CharPerRow, textRowNumber);
             }
             Font fontss = WhatsappProperties.Font;
-            Image image = DrawText(text, WhatsappProperties.Font, phoneNumber, WhatsappProperties.PhonerFont, WhatsappProperties.HouerFont, Color.Gray, WhatsappProperties.TextColor, WhatsappProperties.TextBackGroundColor);
+            string phoneName = phoneNumber;
+            if (!string.IsNullOrEmpty(nickName))
+            {
+                phoneName = phoneNumber + " - " + nickName;
+            }
+            Image image = DrawText(text, WhatsappProperties.Font, phoneName, WhatsappProperties.PhonerFont, WhatsappProperties.HouerFont, Color.Gray, WhatsappProperties.TextColor, WhatsappProperties.TextBackGroundColor);
 
             PictureBox pictureBox = new PictureBox();
             pictureBox.Image = image;
@@ -412,7 +430,7 @@ namespace WindowsFormsApplication2
 
         private void addTextInfoToLog(string type,string text, string phoneNumber, bool isShowen)
         {
-            log.Info(isShowen +" "+type+" from:" + phoneNumber + ": " + text);
+            log.Info(isShowen +" "+type+" From: " + phoneNumber + ": " + text);
         }
         private Image DrawText(String text, Font font, String phoneNumber, Font phoneFont, Font houerFont, Color houerColor, Color textColor, Color backColor)
         {
@@ -451,7 +469,8 @@ namespace WindowsFormsApplication2
             StringFormatFlags stringFormatFlags = StringFormatFlags.DirectionRightToLeft;
             StringFormat stringFormat = new StringFormat(stringFormatFlags);
             drawing.DrawString(phoneNumber, phoneFont, phoneBrush, 10, 10);
-            drawing.DrawString(text, font, textBrush, (int)textSize.Width - sizeF.Width + 80, 30, stringFormat);
+          //drawing.DrawString(text, font, textBrush, (int)textSize.Width - sizeF.Width + 80, 30, stringFormat);
+            drawing.DrawString(text, font, textBrush, img.Width-20, 30, stringFormat);
 
 
             drawing.Save();
@@ -460,8 +479,8 @@ namespace WindowsFormsApplication2
             drawing.Dispose(); 
 
             drawing = Graphics.FromImage(img);
-           
-            drawing.DrawString(currentHouer, houerFont, houerBrush, img.Width - sizeF.Width+40, img.Height - sizeF.Height + 6);
+
+            drawing.DrawString(currentHouer, houerFont, houerBrush, img.Width - 10, img.Height - sizeF.Height + 8, stringFormat);
             drawing.Dispose();
             return img;
 
