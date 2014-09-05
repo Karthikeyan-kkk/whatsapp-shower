@@ -305,7 +305,7 @@ namespace WindowsFormsApplication2
                 }
                 if (key.Equals(prfixCode + "runnigTextColor"))
                 {
-                    RunnigTextColor = parseToColor(Props[key], Color.Blue);
+                    RunnigTextColor = parseToColor(Props[key], Color.White);
                 }
                 if (key.Equals(prfixCode + "fullScreen"))
                 {

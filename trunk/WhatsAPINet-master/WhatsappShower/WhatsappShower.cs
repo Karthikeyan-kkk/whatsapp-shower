@@ -81,7 +81,9 @@ namespace WindowsFormsApplication2
                 addText(" עכשיו אני עושה בדיקה בנונית לראות איך זה מסתדר עם טקסט בגול בנוני לא ארוך ולא קצר מעניין איך זה יראה ", "05243763");
                 addText(" זהעודטקסטבלירווחבכללאנירוצהלראותאיךהמערכתמסתדרעםהטקסטהזהבאמתזהמענייןאיךהיאתסתדרבלירווחבכלל", "05243763");
                 addText(" זהעודטקסטבלירווחבכללאנירוצהלראותאיךהמערכתמסתדר עםרווחאחדועםהטקסטהזהבאמתזהמענייןאיךהיאתסתדרבלירווחבכלל", "05243763");
-                log.Info("aa");
+                addText(" סתם טסקטס לבדיקה...", "05243763");
+                addText(" ...סתם קטסט לבדיקה ", "05243763");
+                addText("מגניב", "05243763");
 
 
             }
@@ -104,7 +106,9 @@ namespace WindowsFormsApplication2
             {
                 WhatsappProperties.RuningTextjumpingLocation = WhatsappProperties.RuningTextjumpingLocation * -1;
             }
+           
             this.label1.Margin = new System.Windows.Forms.Padding(WhatsappProperties.StartRunnigLocation, WhatsappProperties.PaddingTop, 0, 0);
+           
             Invalidate();
 
         }
@@ -186,7 +190,7 @@ namespace WindowsFormsApplication2
             return from.Split(splitChar)[0];
             
         }
-        bool isCanShowMsgMet(string from)
+        bool isCanShowMsgMet(string from,string type)
         {
             var reader = getCvsReader();
             if (reader == null)
@@ -205,13 +209,28 @@ namespace WindowsFormsApplication2
                         string phoneNumber = values[0];
                         if (!string.IsNullOrEmpty(from) && from.Equals(phoneNumber))
                         {
-                            if (values.Length > 1)
+                            if ("TEXT".Equals(type, StringComparison.InvariantCultureIgnoreCase))
                             {
-                                if (values[1].Equals("false", StringComparison.InvariantCultureIgnoreCase))
+                                if (values.Length > 1)
                                 {
-                                    return false;
+                                    if (values[1].Equals("false", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        return false;
+                                    }
                                 }
                             }
+                            if ("IMG".Equals(type, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                if (values.Length > 4)
+                                {
+                                    if (values[4].Equals("false", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        return false;
+                                    }
+                                }
+
+                            }
+
                         }
                     }
                 }
@@ -244,7 +263,7 @@ namespace WindowsFormsApplication2
              File.WriteAllBytes(string.Format("{0}.jpg", from), data);
              MemoryStream ms = new MemoryStream(data);
              Image returnImage = Image.FromStream(ms);
-             addPicture(returnImage, from);
+           
             
          }
           void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
@@ -252,7 +271,11 @@ namespace WindowsFormsApplication2
               from = filterFormNumber(from);
               Console.WriteLine("Got image from {0}", from, fileName);
               OnGetMedia(fileName, url, preview);
-              addPicture(fileName, from);
+              if (isCanShowMsgMet(from, "IMG"))
+              {
+                  addPicture(fileName, from);
+              }
+              addTextInfoToLog("IMG", fileName, from, isCanShowMsgMet(from, "IMG"));
           }
          
            static void OnGetMedia(string file, string url, byte[] data)
@@ -351,11 +374,12 @@ namespace WindowsFormsApplication2
 
         public void addText(String text, String phoneNumber)
         {
-            bool isCanShowMsg = isCanShowMsgMet(phoneNumber);
+            bool isCanShowMsg = isCanShowMsgMet(phoneNumber,"TEXT");
             if (!isCanShowMsg)
             {
                 return;
             }
+            addTextInfoToLog("Text",text, phoneNumber, isCanShowMsgMet(phoneNumber,"TEXT"));
             text = text.Trim();
             int textSize = text.Length;
             double num3 = (double)textSize / (double)WhatsappProperties.CharPerRow;
@@ -384,16 +408,11 @@ namespace WindowsFormsApplication2
             {
                 this.panel1.Controls.Add(pictureBox);
             }
-          
+         }
 
-
-
-
-
-
-
-
-
+        private void addTextInfoToLog(string type,string text, string phoneNumber, bool isShowen)
+        {
+            log.Info(isShowen +" "+type+" from:" + phoneNumber + ": " + text);
         }
         private Image DrawText(String text, Font font, String phoneNumber, Font phoneFont, Font houerFont, Color houerColor, Color textColor, Color backColor)
         {
@@ -420,7 +439,7 @@ namespace WindowsFormsApplication2
             drawing.Dispose();
 
             //create a new image of the right size
-            img = new Bitmap((int)textSize.Width + 15, (int)textSize.Height + 10);
+            img = new Bitmap((int)textSize.Width + 15+20, (int)textSize.Height + 10);
 
             drawing = Graphics.FromImage(img);
 
@@ -428,10 +447,11 @@ namespace WindowsFormsApplication2
             drawing.Clear(backColor);
 
             //create a brush for the text
-
+            SizeF sizeF = drawing.MeasureString(phoneNumber, phoneFont);
             StringFormatFlags stringFormatFlags = StringFormatFlags.DirectionRightToLeft;
+            StringFormat stringFormat = new StringFormat(stringFormatFlags);
             drawing.DrawString(phoneNumber, phoneFont, phoneBrush, 10, 10);
-            drawing.DrawString(text, font, textBrush, 10, 30);
+            drawing.DrawString(text, font, textBrush, (int)textSize.Width - sizeF.Width + 80, 30, stringFormat);
 
 
             drawing.Save();
@@ -440,7 +460,7 @@ namespace WindowsFormsApplication2
             drawing.Dispose(); 
 
             drawing = Graphics.FromImage(img);
-            SizeF sizeF = drawing.MeasureString(phoneNumber, phoneFont);
+           
             drawing.DrawString(currentHouer, houerFont, houerBrush, img.Width - sizeF.Width+40, img.Height - sizeF.Height + 6);
             drawing.Dispose();
             return img;
