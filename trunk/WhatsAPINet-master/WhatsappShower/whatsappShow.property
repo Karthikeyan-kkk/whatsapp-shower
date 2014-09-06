@@ -22,4 +22,7 @@ whatsappShow.houerColor = 255,128,128,128
 whatsappShow.runnigTextColor = 255,000,000,255
 
 whatsappShow.fullScreen = false
+
+whatsappShow.commandsOpOnlyFrom = 524376363
+whatsappShow.commandsOpPassword = aa
         
