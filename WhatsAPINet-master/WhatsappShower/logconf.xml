@@ -15,6 +15,34 @@
       <conversionPattern value="%date [%thread] %-5level %C (%M):%L - %message%newline" />
     </layout>
   </appender>
+  
+  <appender name="msgsLogFileAppender" type="log4net.Appender.RollingFileAppender">
+    <file value="msgsLog.log" />
+    <appendToFile value="true" />
+    <threshold value="debug"/>
+    <rollingStyle value="Size" />
+    <datePattern value=".yyyyMMdd-HHmm" />
+    <maxSizeRollBackups value="3" />
+    <maximumFileSize value="2MB" />
+    <countDirection value="1"/>
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date [%thread] %-5level %C (%M):%L - %message%newline" />
+    </layout>
+  </appender>
+  
+  <appender name="systemsLogFileAppender" type="log4net.Appender.RollingFileAppender">
+    <file value="systemsLog.log" />
+    <appendToFile value="true" />
+    <threshold value="debug"/>
+    <rollingStyle value="Size" />
+    <datePattern value=".yyyyMMdd-HHmm" />
+    <maxSizeRollBackups value="3" />
+    <maximumFileSize value="2MB" />
+    <countDirection value="1"/>
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date [%thread] %-5level %C (%M):%L - %message%newline" />
+    </layout>
+  </appender>
 
   <appender name="ColoredConsoleAppender" type="log4net.Appender.ColoredConsoleAppender">
     <threshold value="info"/>
@@ -55,6 +83,14 @@
     <appender-ref ref="ColoredConsoleAppender" />
 
   </root>
+  <logger name="msgsLog" additivity="False">
+    <level value="DEBUG" />
+    <appender-ref ref="msgsLogFileAppender" />
+  </logger>
+  <logger name="systemsLog" additivity="False">
+    <level value="DEBUG" />
+    <appender-ref ref="systemsLogFileAppender" />
+  </logger>
  
 
 </log4net>

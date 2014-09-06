@@ -136,7 +136,7 @@ namespace WindowsFormsApplication2
             get { return houerColor; }
             set { houerColor = value; }
         }
-        static Color runnigTextColor = Color.Blue;
+        static Color runnigTextColor = Color.White;
 
         public static Color RunnigTextColor
         {
@@ -181,6 +181,21 @@ namespace WindowsFormsApplication2
             set { WhatsappProperties.fullScreen = value; }
         }
 
+        static string commandsOpOnlyFrom = "";
+
+        public static string CommandsOpOnlyFrom
+        {
+            get { return WhatsappProperties.commandsOpOnlyFrom; }
+            set { WhatsappProperties.commandsOpOnlyFrom = value; }
+        }
+
+        static string commandsOpPassword = "";
+
+        public static string CommandsOpPassword
+        {
+            get { return WhatsappProperties.commandsOpPassword; }
+            set { WhatsappProperties.commandsOpPassword = value; }
+        }
 
         public static bool initProperties(){
             props.Clear();
@@ -310,6 +325,14 @@ namespace WindowsFormsApplication2
                 if (key.Equals(prfixCode + "fullScreen"))
                 {
                     FullScreen = parseBoolean(Props[key], false);
+                }
+                if (key.Equals(prfixCode + "commandsOpOnlyFrom"))
+                {
+                    commandsOpOnlyFrom = parsString(Props[key], "");
+                }
+                if (key.Equals(prfixCode + "commandsOpPassword"))
+                {
+                    commandsOpPassword = parsString(Props[key], "");
                 }
             }
 

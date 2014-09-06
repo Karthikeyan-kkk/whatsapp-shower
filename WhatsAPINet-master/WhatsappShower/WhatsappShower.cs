@@ -20,13 +20,15 @@ using System.Drawing;
 
 using System.Configuration;
 using log4net;
+using System.Drawing.Imaging;
 
 namespace WindowsFormsApplication2
 {
     public partial class WhatsappShower : Form
     {
         public static readonly Random random = new Random();
-        private static readonly ILog log = log4net.LogManager.GetLogger(typeof(WhatsappShower));
+        private static readonly ILog msgsLog = log4net.LogManager.GetLogger("msgsLog");
+        private static readonly ILog systemLog = log4net.LogManager.GetLogger("systemsLog");
         Dictionary<string, Color> dictionary = new Dictionary<string, Color>();
         
         
@@ -180,13 +182,122 @@ namespace WindowsFormsApplication2
         }
          void wa_OnGetMessage(ProtocolTreeNode node, string from, string id, string name, string message, bool receipt_sent)
         {
-
+           
             string nickName = getNikeName(node);
             Console.WriteLine("Message from {0} {1}: {2}", name, from, message);
-            from = filterFormNumber(from);
+            from = filterFromNumber(from);
+            if (isCommandOpMsg(from, message))
+            {
+                handleCommandOpMag(from, message);
+                return;
+            }
             addText(message, from, nickName);
 
         }
+
+         private void handleCommandOpMag(string from, string message)
+         {
+             if(string.IsNullOrEmpty(message)){
+                 return;
+             }
+             string[] messageProp = message.Split(',');
+             if (messageProp != null && messageProp.Length >= 3)
+             {
+                 string msgOp = messageProp[2];
+                 if ("clns".Equals(msgOp))
+                 {
+                     if (messageProp.Length >= 4)
+                     {
+                         int i = 0;
+                         bool result = int.TryParse(messageProp[3], out i);
+                         if (result)
+                         {
+                             handelCleanScreenOpMsg(i);
+                         }
+                     }
+                     else
+                     {
+                         handelCleanScreenOpMsg();
+                     }
+                 }
+             }
+            
+         }
+
+         private void handelCleanScreenOpMsg()
+         {
+             handelCleanScreenOpMsg(-1);
+         }
+
+         private void handelCleanScreenOpMsg(int controlToRemoveCount)
+         {
+             if (controlToRemoveCount == -1)
+             {
+                 this.panel1.Invoke(new MethodInvoker(delegate { this.panel1.Controls.Clear(); }));
+             }
+             else
+             {
+                 int controlCount = this.panel1.Controls.Count;
+                 int controlToremove =  controlCount-1;
+                 while (controlCount > 0 && controlToremove >= 0 && controlToRemoveCount>0)
+                 {
+                     this.panel1.Invoke(new MethodInvoker(delegate { this.panel1.Controls.RemoveAt(controlToremove); }));
+                     controlCount = this.panel1.Controls.Count;
+                     controlToremove = controlToremove -1;
+                     controlToRemoveCount = controlToRemoveCount - 1;
+                 }
+             }
+         }
+
+         private bool isCommandOpMsg(string from, string message)
+         {
+             bool isCommandOpMsg = false;
+             if (string.IsNullOrEmpty(message) || !message.StartsWith("op"))
+             {
+                 return isCommandOpMsg;
+             }
+            
+             bool isCanGetCommandsFromThisNumber = false;
+             string commandsOpOnlyFrom = WhatsappProperties.CommandsOpOnlyFrom;
+             if (!string.IsNullOrEmpty(commandsOpOnlyFrom))
+             {
+                 string[] commandsOpOnlyFromNumbers = commandsOpOnlyFrom.Split(',');
+                 if (commandsOpOnlyFromNumbers != null && commandsOpOnlyFromNumbers.Length > 0)
+                 {
+                     foreach (string number in commandsOpOnlyFromNumbers)
+                     {
+                         if (from.Contains(number))
+                         {
+                             isCanGetCommandsFromThisNumber = true;
+                             break;
+                         }
+                     }
+                 }
+             }
+             else
+             {
+                 isCanGetCommandsFromThisNumber = true;
+             }
+
+             if (isCanGetCommandsFromThisNumber)
+             {
+                 string commandsOpPassword = WhatsappProperties.CommandsOpPassword;
+                 if (!string.IsNullOrEmpty(commandsOpPassword))
+                 {
+                     string [] opMsgProp = message.Split(',');
+                     if (opMsgProp.Length >= 3)
+                     {
+                         string pass = opMsgProp[1];
+                         if (commandsOpPassword.Equals(pass))
+                         {
+                             return true;
+                         }
+                     }
+
+                 }
+             }
+             return isCommandOpMsg;
+         }
 
          private string getNikeName(ProtocolTreeNode node)
          {
@@ -205,7 +316,7 @@ namespace WindowsFormsApplication2
              catch (Exception){}
              return nickName;
          }
-        String filterFormNumber(String from){
+        String filterFromNumber(String from){
             char[] splitChar = {'@'};
             return from.Split(splitChar)[0];
             
@@ -279,7 +390,8 @@ namespace WindowsFormsApplication2
         
           void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
           {
-              from = filterFormNumber(from);
+              
+              from = filterFromNumber(from);
               Console.WriteLine("Got image from {0}", from, fileName);
               OnGetMedia(fileName, url, preview);
               if (isCanShowMsgMet(from, "IMG"))
@@ -424,13 +536,35 @@ namespace WindowsFormsApplication2
             }
             else
             {
+                
                 this.panel1.Controls.Add(pictureBox);
             }
+            saveToMsgHistory(pictureBox.Image);
+            
+            
          }
+
+        private void saveToMsgHistory(Image image)
+        {
+            try
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    image.Save(ms, ImageFormat.Jpeg);
+                    byte[] imageBytes = ms.ToArray();
+                    string imgAsBase64 = Convert.ToBase64String(imageBytes);
+
+                }
+            }
+            catch (Exception e)
+            {
+                systemLog.Error("err saveToMsgHistory "+e);
+            }
+        }
 
         private void addTextInfoToLog(string type,string text, string phoneNumber, bool isShowen)
         {
-            log.Info(isShowen +" "+type+" From: " + phoneNumber + ": " + text);
+            msgsLog.Info(isShowen + " " + type + " From: " + phoneNumber + ": " + text);
         }
         private Image DrawText(String text, Font font, String phoneNumber, Font phoneFont, Font houerFont, Color houerColor, Color textColor, Color backColor)
         {
