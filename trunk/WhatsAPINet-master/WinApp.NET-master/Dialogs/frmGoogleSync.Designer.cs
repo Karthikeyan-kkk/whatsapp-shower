@@ -38,6 +38,7 @@ namespace WinAppNET.Dialogs
             this.btnSync = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
+
             // 
             // label1
             // 
