@@ -21,6 +21,7 @@ using System.Drawing;
 using System.Configuration;
 using log4net;
 using System.Drawing.Imaging;
+using WhatsappShow;
 
 namespace WindowsFormsApplication2
 {
@@ -38,6 +39,7 @@ namespace WindowsFormsApplication2
         string target = "972504219841";// Mobile number to send the message to
         bool showExample = false;
         System.Windows.Forms.Timer MarqueeTimer = new System.Windows.Forms.Timer();
+        
 
 
         public WhatsappShower(string num, string pass, string nick)
@@ -74,9 +76,14 @@ namespace WindowsFormsApplication2
             }
             else
             {
-                
+                string testToPars = " 😾  sd sds s שדכ שד";
+                addText(testToPars, "05243763", "עידן מור");
+
+
+              
+            
                 addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "05243763","עידן מור");
-               
+                addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "0524376362", "עידן מור");
                 addText(" עוד טקסט לבדיקה", "05243763");
                 addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה", "05243763");
                 addText(" בדיקה לטקסט הארוך הזה שאני רוצה לבדוק איך הוא נראה ולכן אני ממש בודק גם את האורך שלו האם זה אורך תקין והאם הוא באמת מקבל נכון את השורות החדשות או סתם עושה מה שבא לו", "05243763");
@@ -323,69 +330,10 @@ namespace WindowsFormsApplication2
         }
         bool isCanShowMsgMet(string from,string type)
         {
-            var reader = getCvsReader();
-            if (reader == null)
-            {
-                return true;
-            }
-            
-            while (!reader.EndOfStream)
-            {
-                var line = reader.ReadLine();
-                var values = line.Split(',');
-                if (values != null )
-                {
-                    if (values.Length > 0)
-                    {
-                        string phoneNumber = values[0];
-                        if (!string.IsNullOrEmpty(from) && from.Equals(phoneNumber))
-                        {
-                            if ("TEXT".Equals(type, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                if (values.Length > 1)
-                                {
-                                    if (values[1].Equals("false", StringComparison.InvariantCultureIgnoreCase))
-                                    {
-                                        return false;
-                                    }
-                                }
-                            }
-                            if ("IMG".Equals(type, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                if (values.Length > 4)
-                                {
-                                    if (values[4].Equals("false", StringComparison.InvariantCultureIgnoreCase))
-                                    {
-                                        return false;
-                                    }
-                                }
-
-                            }
-
-                        }
-                    }
-                }
-
-               // listB.Add(values[1]);
-            }
-            return true;
+            return NumberPropList.Instance.isCanShowMsg(from, type);
         }
 
-        private static StreamReader getCvsReader()
-        {
-          
-            try
-            {
-                var reader = new StreamReader(File.OpenRead(@"C:\Users\Idan\Google Drive\whatsAppShower\whatsAppShowePermissions.csv"));
-                return reader;
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
-           
-        }
+        
 
         
           void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
@@ -490,9 +438,11 @@ namespace WindowsFormsApplication2
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private string cleanEmoji(string stringToClean)
         {
-
+            string replacement = " ";
+            Regex rgx = new Regex(@"\uD83D[\uDE00-\uDEFF]|[\u2600-\u26FF]|[\u1F60-\u1F64]|[\u2702-\u27B0]|[\u1F68-\u1F6C]|[\u1F30-\u1F70]{\u2600-\u26ff]/g");
+            return rgx.Replace(stringToClean, replacement);
         }
         public void addText(String text, String phoneNumber)
         { addText(text, phoneNumber, ""); }
@@ -504,7 +454,13 @@ namespace WindowsFormsApplication2
             {
                 return;
             }
-            addTextInfoToLog("Text",text, phoneNumber, isCanShowMsgMet(phoneNumber,"TEXT"));
+            addTextInfoToLog("Text", text, phoneNumber, isCanShowMsgMet(phoneNumber, "TEXT"));
+            text = cleanEmoji(text);
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(text.Trim()))
+            {
+                return;
+            }
+            
             text = text.Trim();
             int textSize = text.Length;
             double num3 = (double)textSize / (double)WhatsappProperties.CharPerRow;
