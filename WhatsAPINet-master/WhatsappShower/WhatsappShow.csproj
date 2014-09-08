@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NumberPropList.cs" />
     <Compile Include="WhatsappProperties.cs" />
     <Compile Include="WhatsappShower.cs">
       <SubType>Form</SubType>
@@ -112,6 +113,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="whatsappShow.property">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="whatsAppShowePermissions.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
