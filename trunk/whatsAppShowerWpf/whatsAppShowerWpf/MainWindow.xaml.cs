@@ -82,8 +82,8 @@ namespace whatsAppShowerWpf
             else
             {
                 addTexts();
-                addImages();
-                addImageSide();
+                //addImages();
+                //addImageSide();
             }
           if (WhatsappProperties.Instance.ShowSideImages)
           {
@@ -106,8 +106,16 @@ namespace whatsAppShowerWpf
         private void startSideMethod(object sender, EventArgs e2)
         {
             
+            
+            Image image = this.sideImage;
+            TimeSpan fadeOutTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
+            TimeSpan fadeInTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
+           
+
+            var fadeInAnimation = new DoubleAnimation(1d, fadeInTime);
+            var fadeOutAnimation = new DoubleAnimation(0d, fadeOutTime);
             if(queue.Count==0){
-                sideImage.Source = null;
+                image.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
                 return;
             }
             string imgUrl = queue.Dequeue();
@@ -115,17 +123,11 @@ namespace whatsAppShowerWpf
             logo.BeginInit();
             logo.UriSource = new Uri(imgUrl);
             logo.EndInit();
-
-            Image image = this.sideImage;
-            TimeSpan fadeOutTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
-            TimeSpan fadeInTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
             ImageSource source = logo;
-
-            var fadeInAnimation = new DoubleAnimation(1d, fadeInTime);
-
+            
             if (image.Source != null)
             {
-                var fadeOutAnimation = new DoubleAnimation(0d, fadeOutTime);
+                
 
                 fadeOutAnimation.Completed += (o, e) =>
                 {
@@ -143,11 +145,7 @@ namespace whatsAppShowerWpf
             }
         }
 
-        void fadeOutAnimation_Completed(object sender, EventArgs e)
-        {
-            sideImage.Source = null;
-            sideImage.BeginAnimation(Image.OpacityProperty, new DoubleAnimation(1d, TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec)));
-        }
+       
 
         private void initWhatsAppConnect()
         {
@@ -196,8 +194,8 @@ namespace whatsAppShowerWpf
             this.stackPanel1.Children.Add(textView2);
             for (int i = 0; i < 30; i++)
             {
-                //this.stackPanel1.Children.Add(new TextView("0524376464"+i, "מזל טוב ומבורך וובדיקה לטקסט ארוך מאוד", "10:10"));
-                //this.stackPanelScroller.ScrollToBottom();
+                this.stackPanel1.Children.Add(new TextView("0524376464"+i, "מזל טוב ומבורך וובדיקה לטקסט ארוך מאוד מאוד מאוד לבדיקה שהוא טקסט ארוך מאוד מאוד מאוד מאוד נראה איך הוא יהיה", "10:10"));
+                this.stackPanelScroller.ScrollToBottom();
             }
             this.stackPanelScroller.ScrollToBottom();
        }
@@ -257,6 +255,7 @@ namespace whatsAppShowerWpf
                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { imgView = new ImgView(phoneNumber, (ImageSource)new ImageSourceConverter().ConvertFromString(imgFileName), hour); }));
                 this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanel1.Children.Add(imgView); }));
                 this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanelScroller.ScrollToBottom(); }));
+                queue.Enqueue(Environment.CurrentDirectory+@"\"+imgFileName);
             }
             addTextInfoToLog("IMG", imgFileName, phoneNumber, isCanShowMsgMet(phoneNumber, "IMG"));
         }
@@ -401,6 +400,7 @@ namespace whatsAppShowerWpf
             tbmarquee.Text = WhatsappProperties.Instance.RunnigText;
             tbmarquee.Foreground = WhatsappProperties.Instance.RunnigTextColor;
             tbmarquee.FontSize = WhatsappProperties.Instance.RunnigTextSize;
+            
             double textGraphicalHeight = new FormattedText(tbmarquee.Text, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(tbmarquee.FontFamily.Source), tbmarquee.FontSize, tbmarquee.Foreground).Height;
             if (!WhatsappProperties.Instance.RunnigTextShow)
             {
