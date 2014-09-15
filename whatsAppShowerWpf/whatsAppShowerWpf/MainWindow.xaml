@@ -1,0 +1,29 @@
+﻿<Window x:Class="whatsAppShowerWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="294" Width="442">
+    <Grid Name="mainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Height="222" HorizontalAlignment="Left" Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="396" ></Grid>
+        <TextBlock  Name="tbmarquee" Grid.Row="0"></TextBlock>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"    Grid.Row="1" Name="stackPanelScroller">
+            <StackPanel Height="auto" HorizontalAlignment="Left"  Name="stackPanel1" VerticalAlignment="Top"   Background="{x:Null}">
+                
+
+            </StackPanel>
+            </ScrollViewer>
+        <Image Grid.Column="1" Grid.RowSpan="2" Name="sideImage" Stretch="None"></Image>
+        <Grid.Background>
+            <ImageBrush ImageSource="/whatsAppShowerWpf;component/Images/panel1.BackgroundImage2.png" />
+        </Grid.Background>
+        
+        
+    </Grid>
+</Window>
