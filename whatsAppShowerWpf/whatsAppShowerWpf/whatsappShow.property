@@ -1,7 +1,7 @@
 ﻿whatsappShow.paddingTop = 10
 whatsappShow.paddingLeft = 20
 whatsappShow.charPerRow = 50
-whatsappShow.imageMaxWidth = 400
+whatsappShow.imageMaxWidth = 600
 whatsappShow.imageMaxHeight = 400
 
 whatsappShow.runingTextSpeed = 50
@@ -23,7 +23,7 @@ whatsappShow.houerColor = 255,128,128,128
 whatsappShow.runnigTextColor = 255,000,000,255
 
 whatsappShow.fullScreen = false
-whatsappShow.maxTextWidth = 400
+whatsappShow.maxTextWidth = 600
 whatsappShow.sideImagefadingSpeedInSec = 4
 whatsappShow.sideImageRunEveryInSec = 4
 whatsappShow.showSideImages = true

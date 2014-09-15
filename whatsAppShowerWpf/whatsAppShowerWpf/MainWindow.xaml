@@ -12,14 +12,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Height="222" HorizontalAlignment="Left" Margin="12,12,0,0" Name="grid1" VerticalAlignment="Top" Width="396" ></Grid>
-        <TextBlock  Name="tbmarquee" Grid.Row="0"></TextBlock>
+        <TextBlock  Name="tbmarquee" Grid.Row="0" Grid.ColumnSpan="2" FontFamily="Choco" ></TextBlock>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden"    Grid.Row="1" Name="stackPanelScroller">
             <StackPanel Height="auto" HorizontalAlignment="Left"  Name="stackPanel1" VerticalAlignment="Top"   Background="{x:Null}">
                 
 
             </StackPanel>
             </ScrollViewer>
-        <Image Grid.Column="1" Grid.RowSpan="2" Name="sideImage" Stretch="None"></Image>
+        <Image Grid.Column="1" Grid.RowSpan="2" Name="sideImage" Stretch="None" Margin="5,0,20,0"></Image>
         <Grid.Background>
             <ImageBrush ImageSource="/whatsAppShowerWpf;component/Images/panel1.BackgroundImage2.png" />
         </Grid.Background>
