@@ -1,0 +1,1014 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3866F840-56A3-47AA-A8CA-2DB44B83C5D8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>whatsAppShowerWpf</RootNamespace>
+    <AssemblyName>whatsAppShowerWpf</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\Desktop\whatsappShower\WhatsAPINet-master\WhatsappShower\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WhatsAppApi">
+      <HintPath>..\..\..\..\..\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\Libraries\WhatsAppApi.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="frmLogin.xaml.cs">
+      <DependentUpon>frmLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ImgView.xaml.cs">
+      <DependentUpon>ImgView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NumberPropList.cs" />
+    <Compile Include="sideImageWorker.cs" />
+    <Compile Include="TextView.xaml.cs">
+      <DependentUpon>TextView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WhatsApp.cs" />
+    <Compile Include="WhatsappProperties.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Page Include="frmLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ImgView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="TextView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="whatsappShow.property">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="whatsAppShowePermissions.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\panel1.BackgroundImage2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logconf.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Key.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="emoji2\1F0CF.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="emoji2\1F191.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="emoji2\1F193.png" />
+    <Resource Include="emoji2\1F196.png" />
+    <Resource Include="emoji2\1F198.png" />
+    <Resource Include="emoji2\1F232.png" />
+    <Resource Include="emoji2\1F234.png" />
+    <Resource Include="emoji2\1F251.png" />
+    <Resource Include="emoji2\1F301.png" />
+    <Resource Include="emoji2\1F309.png" />
+    <Resource Include="emoji2\1F30B.png" />
+    <Resource Include="emoji2\1F30C.png" />
+    <Resource Include="emoji2\1F30D.png" />
+    <Resource Include="emoji2\1F30E.png" />
+    <Resource Include="emoji2\1F30F.png" />
+    <Resource Include="emoji2\1F310.png" />
+    <Resource Include="emoji2\1F311.png" />
+    <Resource Include="emoji2\1F312.png" />
+    <Resource Include="emoji2\1F313.png" />
+    <Resource Include="emoji2\1F314.png" />
+    <Resource Include="emoji2\1F315.png" />
+    <Resource Include="emoji2\1F316.png" />
+    <Resource Include="emoji2\1F317.png" />
+    <Resource Include="emoji2\1F318.png" />
+    <Resource Include="emoji2\1F31A.png" />
+    <Resource Include="emoji2\1F31B.png" />
+    <Resource Include="emoji2\1F31C.png" />
+    <Resource Include="emoji2\1F31D.png" />
+    <Resource Include="emoji2\1F31E.png" />
+    <Resource Include="emoji2\1F320.png" />
+    <Resource Include="emoji2\1F330.png" />
+    <Resource Include="emoji2\1F331.png" />
+    <Resource Include="emoji2\1F332.png" />
+    <Resource Include="emoji2\1F333.png" />
+    <Resource Include="emoji2\1F33C.png" />
+    <Resource Include="emoji2\1F33D.png" />
+    <Resource Include="emoji2\1F33F.png" />
+    <Resource Include="emoji2\1F344.png" />
+    <Resource Include="emoji2\1F347.png" />
+    <Resource Include="emoji2\1F348.png" />
+    <Resource Include="emoji2\1F34B.png" />
+    <Resource Include="emoji2\1F34C.png" />
+    <Resource Include="emoji2\1F34D.png" />
+    <Resource Include="emoji2\1F34F.png" />
+    <Resource Include="emoji2\1F350.png" />
+    <Resource Include="emoji2\1F351.png" />
+    <Resource Include="emoji2\1F352.png" />
+    <Resource Include="emoji2\1F355.png" />
+    <Resource Include="emoji2\1F356.png" />
+    <Resource Include="emoji2\1F357.png" />
+    <Resource Include="emoji2\1F360.png" />
+    <Resource Include="emoji2\1F364.png" />
+    <Resource Include="emoji2\1F365.png" />
+    <Resource Include="emoji2\1F368.png" />
+    <Resource Include="emoji2\1F369.png" />
+    <Resource Include="emoji2\1F36A.png" />
+    <Resource Include="emoji2\1F36B.png" />
+    <Resource Include="emoji2\1F36C.png" />
+    <Resource Include="emoji2\1F36D.png" />
+    <Resource Include="emoji2\1F36E.png" />
+    <Resource Include="emoji2\1F36F.png" />
+    <Resource Include="emoji2\1F377.png" />
+    <Resource Include="emoji2\1F379.png" />
+    <Resource Include="emoji2\1F37C.png" />
+    <Resource Include="emoji2\1F38A.png" />
+    <Resource Include="emoji2\1F38B.png" />
+    <Resource Include="emoji2\1F3A0.png" />
+    <Resource Include="emoji2\1F3A3.png" />
+    <Resource Include="emoji2\1F3AA.png" />
+    <Resource Include="emoji2\1F3AD.png" />
+    <Resource Include="emoji2\1F3AE.png" />
+    <Resource Include="emoji2\1F3B2.png" />
+    <Resource Include="emoji2\1F3B3.png" />
+    <Resource Include="emoji2\1F3B4.png" />
+    <Resource Include="emoji2\1F3B9.png" />
+    <Resource Include="emoji2\1F3BB.png" />
+    <Resource Include="emoji2\1F3BC.png" />
+    <Resource Include="emoji2\1F3BD.png" />
+    <Resource Include="emoji2\1F3C2.png" />
+    <Resource Include="emoji2\1F3C7.png" />
+    <Resource Include="emoji2\1F3C9.png" />
+    <Resource Include="emoji2\1F3E1.png" />
+    <Resource Include="emoji2\1F3E4.png" />
+    <Resource Include="emoji2\1F3EE.png" />
+    <Resource Include="emoji2\1F400.png" />
+    <Resource Include="emoji2\1F401.png" />
+    <Resource Include="emoji2\1F402.png" />
+    <Resource Include="emoji2\1F403.png" />
+    <Resource Include="emoji2\1F404.png" />
+    <Resource Include="emoji2\1F405.png" />
+    <Resource Include="emoji2\1F406.png" />
+    <Resource Include="emoji2\1F407.png" />
+    <Resource Include="emoji2\1F408.png" />
+    <Resource Include="emoji2\1F409.png" />
+    <Resource Include="emoji2\1F40A.png" />
+    <Resource Include="emoji2\1F40B.png" />
+    <Resource Include="emoji2\1F40C.png" />
+    <Resource Include="emoji2\1F40F.png" />
+    <Resource Include="emoji2\1F410.png" />
+    <Resource Include="emoji2\1F413.png" />
+    <Resource Include="emoji2\1F415.png" />
+    <Resource Include="emoji2\1F416.png" />
+    <Resource Include="emoji2\1F41C.png" />
+    <Resource Include="emoji2\1F41D.png" />
+    <Resource Include="emoji2\1F41E.png" />
+    <Resource Include="emoji2\1F421.png" />
+    <Resource Include="emoji2\1F422.png" />
+    <Resource Include="emoji2\1F423.png" />
+    <Resource Include="emoji2\1F425.png" />
+    <Resource Include="emoji2\1F429.png" />
+    <Resource Include="emoji2\1F42A.png" />
+    <Resource Include="emoji2\1F432.png" />
+    <Resource Include="emoji2\1F43C.png" />
+    <Resource Include="emoji2\1F43D.png" />
+    <Resource Include="emoji2\1F43E.png" />
+    <Resource Include="emoji2\1F445.png" />
+    <Resource Include="emoji2\1F453.png" />
+    <Resource Include="emoji2\1F456.png" />
+    <Resource Include="emoji2\1F45A.png" />
+    <Resource Include="emoji2\1F45B.png" />
+    <Resource Include="emoji2\1F45D.png" />
+    <Resource Include="emoji2\1F45E.png" />
+    <Resource Include="emoji2\1F464.png" />
+    <Resource Include="emoji2\1F465.png" />
+    <Resource Include="emoji2\1F46A.png" />
+    <Resource Include="emoji2\1F46C.png" />
+    <Resource Include="emoji2\1F46D.png" />
+    <Resource Include="emoji2\1F470.png" />
+    <Resource Include="emoji2\1F479.png" />
+    <Resource Include="emoji2\1F47A.png" />
+    <Resource Include="emoji2\1F48C.png" />
+    <Resource Include="emoji2\1F495.png" />
+    <Resource Include="emoji2\1F496.png" />
+    <Resource Include="emoji2\1F49E.png" />
+    <Resource Include="emoji2\1F4A0.png" />
+    <Resource Include="emoji2\1F4A5.png" />
+    <Resource Include="emoji2\1F4A7.png" />
+    <Resource Include="emoji2\1F4AB.png" />
+    <Resource Include="emoji2\1F4AC.png" />
+    <Resource Include="emoji2\1F4AD.png" />
+    <Resource Include="emoji2\1F4AE.png" />
+    <Resource Include="emoji2\1F4AF.png" />
+    <Resource Include="emoji2\1F4B2.png" />
+    <Resource Include="emoji2\1F4B3.png" />
+    <Resource Include="emoji2\1F4B4.png" />
+    <Resource Include="emoji2\1F4B5.png" />
+    <Resource Include="emoji2\1F4B6.png" />
+    <Resource Include="emoji2\1F4B7.png" />
+    <Resource Include="emoji2\1F4B8.png" />
+    <Resource Include="emoji2\1F4BE.png" />
+    <Resource Include="emoji2\1F4C1.png" />
+    <Resource Include="emoji2\1F4C2.png" />
+    <Resource Include="emoji2\1F4C3.png" />
+    <Resource Include="emoji2\1F4C4.png" />
+    <Resource Include="emoji2\1F4C5.png" />
+    <Resource Include="emoji2\1F4C6.png" />
+    <Resource Include="emoji2\1F4C7.png" />
+    <Resource Include="emoji2\1F4C8.png" />
+    <Resource Include="emoji2\1F4C9.png" />
+    <Resource Include="emoji2\1F4CA.png" />
+    <Resource Include="emoji2\1F4CB.png" />
+    <Resource Include="emoji2\1F4CC.png" />
+    <Resource Include="emoji2\1F4CD.png" />
+    <Resource Include="emoji2\1F4CE.png" />
+    <Resource Include="emoji2\1F4CF.png" />
+    <Resource Include="emoji2\1F4D0.png" />
+    <Resource Include="emoji2\1F4D1.png" />
+    <Resource Include="emoji2\1F4D2.png" />
+    <Resource Include="emoji2\1F4D3.png" />
+    <Resource Include="emoji2\1F4D4.png" />
+    <Resource Include="emoji2\1F4D5.png" />
+    <Resource Include="emoji2\1F4D7.png" />
+    <Resource Include="emoji2\1F4D8.png" />
+    <Resource Include="emoji2\1F4D9.png" />
+    <Resource Include="emoji2\1F4DA.png" />
+    <Resource Include="emoji2\1F4DB.png" />
+    <Resource Include="emoji2\1F4DC.png" />
+    <Resource Include="emoji2\1F4DE.png" />
+    <Resource Include="emoji2\1F4DF.png" />
+    <Resource Include="emoji2\1F4E4.png" />
+    <Resource Include="emoji2\1F4E5.png" />
+    <Resource Include="emoji2\1F4E6.png" />
+    <Resource Include="emoji2\1F4E7.png" />
+    <Resource Include="emoji2\1F4E8.png" />
+    <Resource Include="emoji2\1F4EA.png" />
+    <Resource Include="emoji2\1F4EC.png" />
+    <Resource Include="emoji2\1F4ED.png" />
+    <Resource Include="emoji2\1F4EF.png" />
+    <Resource Include="emoji2\1F4F0.png" />
+    <Resource Include="emoji2\1F4F5.png" />
+    <Resource Include="emoji2\1F4F9.png" />
+    <Resource Include="emoji2\1F500.png" />
+    <Resource Include="emoji2\1F501.png" />
+    <Resource Include="emoji2\1F502.png" />
+    <Resource Include="emoji2\1F503.png" />
+    <Resource Include="emoji2\1F504.png" />
+    <Resource Include="emoji2\1F505.png" />
+    <Resource Include="emoji2\1F506.png" />
+    <Resource Include="emoji2\1F507.png" />
+    <Resource Include="emoji2\1F508.png" />
+    <Resource Include="emoji2\1F509.png" />
+    <Resource Include="emoji2\1F50B.png" />
+    <Resource Include="emoji2\1F50C.png" />
+    <Resource Include="emoji2\1F50E.png" />
+    <Resource Include="emoji2\1F50F.png" />
+    <Resource Include="emoji2\1F510.png" />
+    <Resource Include="emoji2\1F515.png" />
+    <Resource Include="emoji2\1F516.png" />
+    <Resource Include="emoji2\1F517.png" />
+    <Resource Include="emoji2\1F518.png" />
+    <Resource Include="emoji2\1F519.png" />
+    <Resource Include="emoji2\1F51A.png" />
+    <Resource Include="emoji2\1F51B.png" />
+    <Resource Include="emoji2\1F51C.png" />
+    <Resource Include="emoji2\1F51F.png" />
+    <Resource Include="emoji2\1F520.png" />
+    <Resource Include="emoji2\1F521.png" />
+    <Resource Include="emoji2\1F522.png" />
+    <Resource Include="emoji2\1F523.png" />
+    <Resource Include="emoji2\1F524.png" />
+    <Resource Include="emoji2\1F526.png" />
+    <Resource Include="emoji2\1F527.png" />
+    <Resource Include="emoji2\1F529.png" />
+    <Resource Include="emoji2\1F52A.png" />
+    <Resource Include="emoji2\1F52C.png" />
+    <Resource Include="emoji2\1F52D.png" />
+    <Resource Include="emoji2\1F52E.png" />
+    <Resource Include="emoji2\1F535.png" />
+    <Resource Include="emoji2\1F536.png" />
+    <Resource Include="emoji2\1F537.png" />
+    <Resource Include="emoji2\1F538.png" />
+    <Resource Include="emoji2\1F539.png" />
+    <Resource Include="emoji2\1F53A.png" />
+    <Resource Include="emoji2\1F53B.png" />
+    <Resource Include="emoji2\1F53C.png" />
+    <Resource Include="emoji2\1F53D.png" />
+    <Resource Include="emoji2\1F55C.png" />
+    <Resource Include="emoji2\1F55D.png" />
+    <Resource Include="emoji2\1F55E.png" />
+    <Resource Include="emoji2\1F55F.png" />
+    <Resource Include="emoji2\1F560.png" />
+    <Resource Include="emoji2\1F561.png" />
+    <Resource Include="emoji2\1F562.png" />
+    <Resource Include="emoji2\1F563.png" />
+    <Resource Include="emoji2\1F564.png" />
+    <Resource Include="emoji2\1F565.png" />
+    <Resource Include="emoji2\1F566.png" />
+    <Resource Include="emoji2\1F567.png" />
+    <Resource Include="emoji2\1F5FE.png" />
+    <Resource Include="emoji2\1F5FF.png" />
+    <Resource Include="emoji2\1F600.png" />
+    <Resource Include="emoji2\1F605.png" />
+    <Resource Include="emoji2\1F606.png" />
+    <Resource Include="emoji2\1F607.png" />
+    <Resource Include="emoji2\1F608.png" />
+    <Resource Include="emoji2\1F60B.png" />
+    <Resource Include="emoji2\1F60E.png" />
+    <Resource Include="emoji2\1F610.png" />
+    <Resource Include="emoji2\1F611.png" />
+    <Resource Include="emoji2\1F615.png" />
+    <Resource Include="emoji2\1F617.png" />
+    <Resource Include="emoji2\1F619.png" />
+    <Resource Include="emoji2\1F61B.png" />
+    <Resource Include="emoji2\1F61F.png" />
+    <Resource Include="emoji2\1F624.png" />
+    <Resource Include="emoji2\1F626.png" />
+    <Resource Include="emoji2\1F627.png" />
+    <Resource Include="emoji2\1F629.png" />
+    <Resource Include="emoji2\1F62B.png" />
+    <Resource Include="emoji2\1F62C.png" />
+    <Resource Include="emoji2\1F62E.png" />
+    <Resource Include="emoji2\1F62F.png" />
+    <Resource Include="emoji2\1F634.png" />
+    <Resource Include="emoji2\1F635.png" />
+    <Resource Include="emoji2\1F636.png" />
+    <Resource Include="emoji2\1F638.png" />
+    <Resource Include="emoji2\1F639.png" />
+    <Resource Include="emoji2\1F63A.png" />
+    <Resource Include="emoji2\1F63B.png" />
+    <Resource Include="emoji2\1F63C.png" />
+    <Resource Include="emoji2\1F63D.png" />
+    <Resource Include="emoji2\1F63E.png" />
+    <Resource Include="emoji2\1F63F.png" />
+    <Resource Include="emoji2\1F640.png" />
+    <Resource Include="emoji2\1F648.png" />
+    <Resource Include="emoji2\1F649.png" />
+    <Resource Include="emoji2\1F64A.png" />
+    <Resource Include="emoji2\1F64B.png" />
+    <Resource Include="emoji2\1F64D.png" />
+    <Resource Include="emoji2\1F64E.png" />
+    <Resource Include="emoji2\1F681.png" />
+    <Resource Include="emoji2\1F682.png" />
+    <Resource Include="emoji2\1F686.png" />
+    <Resource Include="emoji2\1F688.png" />
+    <Resource Include="emoji2\1F68A.png" />
+    <Resource Include="emoji2\1F68B.png" />
+    <Resource Include="emoji2\1F68D.png" />
+    <Resource Include="emoji2\1F68E.png" />
+    <Resource Include="emoji2\1F690.png" />
+    <Resource Include="emoji2\1F694.png" />
+    <Resource Include="emoji2\1F696.png" />
+    <Resource Include="emoji2\1F698.png" />
+    <Resource Include="emoji2\1F69B.png" />
+    <Resource Include="emoji2\1F69C.png" />
+    <Resource Include="emoji2\1F69D.png" />
+    <Resource Include="emoji2\1F69E.png" />
+    <Resource Include="emoji2\1F69F.png" />
+    <Resource Include="emoji2\1F6A0.png" />
+    <Resource Include="emoji2\1F6A1.png" />
+    <Resource Include="emoji2\1F6A3.png" />
+    <Resource Include="emoji2\1F6A6.png" />
+    <Resource Include="emoji2\1F6A8.png" />
+    <Resource Include="emoji2\1F6A9.png" />
+    <Resource Include="emoji2\1F6AA.png" />
+    <Resource Include="emoji2\1F6AB.png" />
+    <Resource Include="emoji2\1F6AE.png" />
+    <Resource Include="emoji2\1F6AF.png" />
+    <Resource Include="emoji2\1F6B0.png" />
+    <Resource Include="emoji2\1F6B1.png" />
+    <Resource Include="emoji2\1F6B3.png" />
+    <Resource Include="emoji2\1F6B4.png" />
+    <Resource Include="emoji2\1F6B5.png" />
+    <Resource Include="emoji2\1F6B7.png" />
+    <Resource Include="emoji2\1F6B8.png" />
+    <Resource Include="emoji2\1F6BF.png" />
+    <Resource Include="emoji2\1F6C1.png" />
+    <Resource Include="emoji2\1F6C2.png" />
+    <Resource Include="emoji2\1F6C3.png" />
+    <Resource Include="emoji2\1F6C4.png" />
+    <Resource Include="emoji2\1F6C5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="emoji2\203C.png" />
+    <Resource Include="emoji2\2049.png" />
+    <Resource Include="emoji2\2139.png" />
+    <Resource Include="emoji2\2194.png" />
+    <Resource Include="emoji2\2195.png" />
+    <Resource Include="emoji2\21A9.png" />
+    <Resource Include="emoji2\21AA.png" />
+    <Resource Include="emoji2\231A.png" />
+    <Resource Include="emoji2\231B.png" />
+    <Resource Include="emoji2\23EB.png" />
+    <Resource Include="emoji2\23EC.png" />
+    <Resource Include="emoji2\23F0.png" />
+    <Resource Include="emoji2\23F3.png" />
+    <Resource Include="emoji2\24C2.png" />
+    <Resource Include="emoji2\25AA.png" />
+    <Resource Include="emoji2\25AB.png" />
+    <Resource Include="emoji2\25FB.png" />
+    <Resource Include="emoji2\25FC.png" />
+    <Resource Include="emoji2\25FD.png" />
+    <Resource Include="emoji2\25FE.png" />
+    <Resource Include="emoji2\2611.png" />
+    <Resource Include="emoji2\267B.png" />
+    <Resource Include="emoji2\2693.png" />
+    <Resource Include="emoji2\26AA.png" />
+    <Resource Include="emoji2\26AB.png" />
+    <Resource Include="emoji2\26C5.png" />
+    <Resource Include="emoji2\26D4.png" />
+    <Resource Include="emoji2\2705.png" />
+    <Resource Include="emoji2\2709.png" />
+    <Resource Include="emoji2\270F.png" />
+    <Resource Include="emoji2\2712.png" />
+    <Resource Include="emoji2\2714.png" />
+    <Resource Include="emoji2\2716.png" />
+    <Resource Include="emoji2\2744.png" />
+    <Resource Include="emoji2\2747.png" />
+    <Resource Include="emoji2\274E.png" />
+    <Resource Include="emoji2\2795.png" />
+    <Resource Include="emoji2\2796.png" />
+    <Resource Include="emoji2\2797.png" />
+    <Resource Include="emoji2\27B0.png" />
+    <Resource Include="emoji2\2934.png" />
+    <Resource Include="emoji2\2935.png" />
+    <Resource Include="emoji2\2B1B.png" />
+    <Resource Include="emoji2\2B1C.png" />
+    <Resource Include="emoji2\3030.png" />
+    <Resource Include="emoji2\E001.png" />
+    <Resource Include="emoji2\E002.png" />
+    <Resource Include="emoji2\E003.png" />
+    <Resource Include="emoji2\E004.png" />
+    <Resource Include="emoji2\E005.png" />
+    <Resource Include="emoji2\E006.png" />
+    <Resource Include="emoji2\E007.png" />
+    <Resource Include="emoji2\E008.png" />
+    <Resource Include="emoji2\E009.png" />
+    <Resource Include="emoji2\E00A.png" />
+    <Resource Include="emoji2\E00B.png" />
+    <Resource Include="emoji2\E00C.png" />
+    <Resource Include="emoji2\E00D.png" />
+    <Resource Include="emoji2\E00E.png" />
+    <Resource Include="emoji2\E00F.png" />
+    <Resource Include="emoji2\E010.png" />
+    <Resource Include="emoji2\E011.png" />
+    <Resource Include="emoji2\E012.png" />
+    <Resource Include="emoji2\E013.png" />
+    <Resource Include="emoji2\E014.png" />
+    <Resource Include="emoji2\E015.png" />
+    <Resource Include="emoji2\E016.png" />
+    <Resource Include="emoji2\E017.png" />
+    <Resource Include="emoji2\E018.png" />
+    <Resource Include="emoji2\E019.png" />
+    <Resource Include="emoji2\E01A.png" />
+    <Resource Include="emoji2\E01B.png" />
+    <Resource Include="emoji2\E01C.png" />
+    <Resource Include="emoji2\E01D.png" />
+    <Resource Include="emoji2\E01E.png" />
+    <Resource Include="emoji2\E01F.png" />
+    <Resource Include="emoji2\E020.png" />
+    <Resource Include="emoji2\E021.png" />
+    <Resource Include="emoji2\E022.png" />
+    <Resource Include="emoji2\E023.png" />
+    <Resource Include="emoji2\E024.png" />
+    <Resource Include="emoji2\E025.png" />
+    <Resource Include="emoji2\E026.png" />
+    <Resource Include="emoji2\E027.png" />
+    <Resource Include="emoji2\E028.png" />
+    <Resource Include="emoji2\E029.png" />
+    <Resource Include="emoji2\E02A.png" />
+    <Resource Include="emoji2\E02B.png" />
+    <Resource Include="emoji2\E02C.png" />
+    <Resource Include="emoji2\E02D.png" />
+    <Resource Include="emoji2\E02E.png" />
+    <Resource Include="emoji2\E02F.png" />
+    <Resource Include="emoji2\E030.png" />
+    <Resource Include="emoji2\E031.png" />
+    <Resource Include="emoji2\E032.png" />
+    <Resource Include="emoji2\E033.png" />
+    <Resource Include="emoji2\E034.png" />
+    <Resource Include="emoji2\E035.png" />
+    <Resource Include="emoji2\E036.png" />
+    <Resource Include="emoji2\E037.png" />
+    <Resource Include="emoji2\E038.png" />
+    <Resource Include="emoji2\E039.png" />
+    <Resource Include="emoji2\E03A.png" />
+    <Resource Include="emoji2\E03B.png" />
+    <Resource Include="emoji2\E03C.png" />
+    <Resource Include="emoji2\E03D.png" />
+    <Resource Include="emoji2\E03E.png" />
+    <Resource Include="emoji2\E03F.png" />
+    <Resource Include="emoji2\E040.png" />
+    <Resource Include="emoji2\E041.png" />
+    <Resource Include="emoji2\E042.png" />
+    <Resource Include="emoji2\E043.png" />
+    <Resource Include="emoji2\E044.png" />
+    <Resource Include="emoji2\E045.png" />
+    <Resource Include="emoji2\E046.png" />
+    <Resource Include="emoji2\E047.png" />
+    <Resource Include="emoji2\E048.png" />
+    <Resource Include="emoji2\E049.png" />
+    <Resource Include="emoji2\E04A.png" />
+    <Resource Include="emoji2\E04B.png" />
+    <Resource Include="emoji2\E04C.png" />
+    <Resource Include="emoji2\E04D.png" />
+    <Resource Include="emoji2\E04E.png" />
+    <Resource Include="emoji2\E04F.png" />
+    <Resource Include="emoji2\E050.png" />
+    <Resource Include="emoji2\E051.png" />
+    <Resource Include="emoji2\E052.png" />
+    <Resource Include="emoji2\E053.png" />
+    <Resource Include="emoji2\E054.png" />
+    <Resource Include="emoji2\E055.png" />
+    <Resource Include="emoji2\E056.png" />
+    <Resource Include="emoji2\E057.png" />
+    <Resource Include="emoji2\E058.png" />
+    <Resource Include="emoji2\E059.png" />
+    <Resource Include="emoji2\E05A.png" />
+    <Resource Include="emoji2\E101.png" />
+    <Resource Include="emoji2\E102.png" />
+    <Resource Include="emoji2\E103.png" />
+    <Resource Include="emoji2\E104.png" />
+    <Resource Include="emoji2\E105.png" />
+    <Resource Include="emoji2\E106.png" />
+    <Resource Include="emoji2\E107.png" />
+    <Resource Include="emoji2\E108.png" />
+    <Resource Include="emoji2\E109.png" />
+    <Resource Include="emoji2\E10A.png" />
+    <Resource Include="emoji2\E10B.png" />
+    <Resource Include="emoji2\E10C.png" />
+    <Resource Include="emoji2\E10D.png" />
+    <Resource Include="emoji2\E10E.png" />
+    <Resource Include="emoji2\E10F.png" />
+    <Resource Include="emoji2\E110.png" />
+    <Resource Include="emoji2\E111.png" />
+    <Resource Include="emoji2\E112.png" />
+    <Resource Include="emoji2\E113.png" />
+    <Resource Include="emoji2\E114.png" />
+    <Resource Include="emoji2\E115.png" />
+    <Resource Include="emoji2\E116.png" />
+    <Resource Include="emoji2\E117.png" />
+    <Resource Include="emoji2\E118.png" />
+    <Resource Include="emoji2\E119.png" />
+    <Resource Include="emoji2\E11A.png" />
+    <Resource Include="emoji2\E11B.png" />
+    <Resource Include="emoji2\E11C.png" />
+    <Resource Include="emoji2\E11D.png" />
+    <Resource Include="emoji2\E11E.png" />
+    <Resource Include="emoji2\E11F.png" />
+    <Resource Include="emoji2\E120.png" />
+    <Resource Include="emoji2\E121.png" />
+    <Resource Include="emoji2\E122.png" />
+    <Resource Include="emoji2\E123.png" />
+    <Resource Include="emoji2\E124.png" />
+    <Resource Include="emoji2\E125.png" />
+    <Resource Include="emoji2\E126.png" />
+    <Resource Include="emoji2\E127.png" />
+    <Resource Include="emoji2\E128.png" />
+    <Resource Include="emoji2\E129.png" />
+    <Resource Include="emoji2\E12A.png" />
+    <Resource Include="emoji2\E12B.png" />
+    <Resource Include="emoji2\E12C.png" />
+    <Resource Include="emoji2\E12D.png" />
+    <Resource Include="emoji2\E12E.png" />
+    <Resource Include="emoji2\E12F.png" />
+    <Resource Include="emoji2\E130.png" />
+    <Resource Include="emoji2\E131.png" />
+    <Resource Include="emoji2\E132.png" />
+    <Resource Include="emoji2\E133.png" />
+    <Resource Include="emoji2\E134.png" />
+    <Resource Include="emoji2\E135.png" />
+    <Resource Include="emoji2\E136.png" />
+    <Resource Include="emoji2\E137.png" />
+    <Resource Include="emoji2\E138.png" />
+    <Resource Include="emoji2\E139.png" />
+    <Resource Include="emoji2\E13A.png" />
+    <Resource Include="emoji2\E13B.png" />
+    <Resource Include="emoji2\E13C.png" />
+    <Resource Include="emoji2\E13D.png" />
+    <Resource Include="emoji2\E13E.png" />
+    <Resource Include="emoji2\E13F.png" />
+    <Resource Include="emoji2\E140.png" />
+    <Resource Include="emoji2\E141.png" />
+    <Resource Include="emoji2\E142.png" />
+    <Resource Include="emoji2\E143.png" />
+    <Resource Include="emoji2\E144.png" />
+    <Resource Include="emoji2\E145.png" />
+    <Resource Include="emoji2\E146.png" />
+    <Resource Include="emoji2\E147.png" />
+    <Resource Include="emoji2\E148.png" />
+    <Resource Include="emoji2\E149.png" />
+    <Resource Include="emoji2\E14A.png" />
+    <Resource Include="emoji2\E14B.png" />
+    <Resource Include="emoji2\E14C.png" />
+    <Resource Include="emoji2\E14D.png" />
+    <Resource Include="emoji2\E14E.png" />
+    <Resource Include="emoji2\E14F.png" />
+    <Resource Include="emoji2\E150.png" />
+    <Resource Include="emoji2\E151.png" />
+    <Resource Include="emoji2\E152.png" />
+    <Resource Include="emoji2\E153.png" />
+    <Resource Include="emoji2\E154.png" />
+    <Resource Include="emoji2\E155.png" />
+    <Resource Include="emoji2\E156.png" />
+    <Resource Include="emoji2\E157.png" />
+    <Resource Include="emoji2\E158.png" />
+    <Resource Include="emoji2\E159.png" />
+    <Resource Include="emoji2\E15A.png" />
+    <Resource Include="emoji2\E201.png" />
+    <Resource Include="emoji2\E202.png" />
+    <Resource Include="emoji2\E203.png" />
+    <Resource Include="emoji2\E204.png" />
+    <Resource Include="emoji2\E205.png" />
+    <Resource Include="emoji2\E206.png" />
+    <Resource Include="emoji2\E207.png" />
+    <Resource Include="emoji2\E208.png" />
+    <Resource Include="emoji2\E209.png" />
+    <Resource Include="emoji2\E20A.png" />
+    <Resource Include="emoji2\E20B.png" />
+    <Resource Include="emoji2\E20C.png" />
+    <Resource Include="emoji2\E20D.png" />
+    <Resource Include="emoji2\E20E.png" />
+    <Resource Include="emoji2\E20F.png" />
+    <Resource Include="emoji2\E210.png" />
+    <Resource Include="emoji2\E211.png" />
+    <Resource Include="emoji2\E212.png" />
+    <Resource Include="emoji2\E213.png" />
+    <Resource Include="emoji2\E214.png" />
+    <Resource Include="emoji2\E215.png" />
+    <Resource Include="emoji2\E216.png" />
+    <Resource Include="emoji2\E217.png" />
+    <Resource Include="emoji2\E218.png" />
+    <Resource Include="emoji2\E219.png" />
+    <Resource Include="emoji2\E21A.png" />
+    <Resource Include="emoji2\E21B.png" />
+    <Resource Include="emoji2\E21C.png" />
+    <Resource Include="emoji2\E21D.png" />
+    <Resource Include="emoji2\E21E.png" />
+    <Resource Include="emoji2\E21F.png" />
+    <Resource Include="emoji2\E220.png" />
+    <Resource Include="emoji2\E221.png" />
+    <Resource Include="emoji2\E222.png" />
+    <Resource Include="emoji2\E223.png" />
+    <Resource Include="emoji2\E224.png" />
+    <Resource Include="emoji2\E225.png" />
+    <Resource Include="emoji2\E226.png" />
+    <Resource Include="emoji2\E227.png" />
+    <Resource Include="emoji2\E228.png" />
+    <Resource Include="emoji2\E229.png" />
+    <Resource Include="emoji2\E22A.png" />
+    <Resource Include="emoji2\E22B.png" />
+    <Resource Include="emoji2\E22C.png" />
+    <Resource Include="emoji2\E22D.png" />
+    <Resource Include="emoji2\E22E.png" />
+    <Resource Include="emoji2\E22F.png" />
+    <Resource Include="emoji2\E230.png" />
+    <Resource Include="emoji2\E231.png" />
+    <Resource Include="emoji2\E232.png" />
+    <Resource Include="emoji2\E233.png" />
+    <Resource Include="emoji2\E234.png" />
+    <Resource Include="emoji2\E235.png" />
+    <Resource Include="emoji2\E236.png" />
+    <Resource Include="emoji2\E237.png" />
+    <Resource Include="emoji2\E238.png" />
+    <Resource Include="emoji2\E239.png" />
+    <Resource Include="emoji2\E23A.png" />
+    <Resource Include="emoji2\E23B.png" />
+    <Resource Include="emoji2\E23C.png" />
+    <Resource Include="emoji2\E23D.png" />
+    <Resource Include="emoji2\E23E.png" />
+    <Resource Include="emoji2\E23F.png" />
+    <Resource Include="emoji2\E240.png" />
+    <Resource Include="emoji2\E241.png" />
+    <Resource Include="emoji2\E242.png" />
+    <Resource Include="emoji2\E243.png" />
+    <Resource Include="emoji2\E244.png" />
+    <Resource Include="emoji2\E245.png" />
+    <Resource Include="emoji2\E246.png" />
+    <Resource Include="emoji2\E247.png" />
+    <Resource Include="emoji2\E248.png" />
+    <Resource Include="emoji2\E249.png" />
+    <Resource Include="emoji2\E24A.png" />
+    <Resource Include="emoji2\E24B.png" />
+    <Resource Include="emoji2\E24C.png" />
+    <Resource Include="emoji2\E24D.png" />
+    <Resource Include="emoji2\E24E.png" />
+    <Resource Include="emoji2\E24F.png" />
+    <Resource Include="emoji2\E250.png" />
+    <Resource Include="emoji2\E251.png" />
+    <Resource Include="emoji2\E252.png" />
+    <Resource Include="emoji2\E253.png" />
+    <Resource Include="emoji2\E301.png" />
+    <Resource Include="emoji2\E302.png" />
+    <Resource Include="emoji2\E303.png" />
+    <Resource Include="emoji2\E304.png" />
+    <Resource Include="emoji2\E305.png" />
+    <Resource Include="emoji2\E306.png" />
+    <Resource Include="emoji2\E307.png" />
+    <Resource Include="emoji2\E308.png" />
+    <Resource Include="emoji2\E309.png" />
+    <Resource Include="emoji2\E30A.png" />
+    <Resource Include="emoji2\E30B.png" />
+    <Resource Include="emoji2\E30C.png" />
+    <Resource Include="emoji2\E30D.png" />
+    <Resource Include="emoji2\E30E.png" />
+    <Resource Include="emoji2\E30F.png" />
+    <Resource Include="emoji2\E310.png" />
+    <Resource Include="emoji2\E311.png" />
+    <Resource Include="emoji2\E312.png" />
+    <Resource Include="emoji2\E313.png" />
+    <Resource Include="emoji2\E314.png" />
+    <Resource Include="emoji2\E315.png" />
+    <Resource Include="emoji2\E316.png" />
+    <Resource Include="emoji2\E317.png" />
+    <Resource Include="emoji2\E318.png" />
+    <Resource Include="emoji2\E319.png" />
+    <Resource Include="emoji2\E31A.png" />
+    <Resource Include="emoji2\E31B.png" />
+    <Resource Include="emoji2\E31C.png" />
+    <Resource Include="emoji2\E31D.png" />
+    <Resource Include="emoji2\E31E.png" />
+    <Resource Include="emoji2\E31F.png" />
+    <Resource Include="emoji2\E320.png" />
+    <Resource Include="emoji2\E321.png" />
+    <Resource Include="emoji2\E322.png" />
+    <Resource Include="emoji2\E323.png" />
+    <Resource Include="emoji2\E324.png" />
+    <Resource Include="emoji2\E325.png" />
+    <Resource Include="emoji2\E326.png" />
+    <Resource Include="emoji2\E327.png" />
+    <Resource Include="emoji2\E328.png" />
+    <Resource Include="emoji2\E329.png" />
+    <Resource Include="emoji2\E32A.png" />
+    <Resource Include="emoji2\E32B.png" />
+    <Resource Include="emoji2\E32C.png" />
+    <Resource Include="emoji2\E32D.png" />
+    <Resource Include="emoji2\E32E.png" />
+    <Resource Include="emoji2\E32F.png" />
+    <Resource Include="emoji2\E330.png" />
+    <Resource Include="emoji2\E331.png" />
+    <Resource Include="emoji2\E332.png" />
+    <Resource Include="emoji2\E333.png" />
+    <Resource Include="emoji2\E334.png" />
+    <Resource Include="emoji2\E335.png" />
+    <Resource Include="emoji2\E336.png" />
+    <Resource Include="emoji2\E337.png" />
+    <Resource Include="emoji2\E338.png" />
+    <Resource Include="emoji2\E339.png" />
+    <Resource Include="emoji2\E33A.png" />
+    <Resource Include="emoji2\E33B.png" />
+    <Resource Include="emoji2\E33C.png" />
+    <Resource Include="emoji2\E33D.png" />
+    <Resource Include="emoji2\E33E.png" />
+    <Resource Include="emoji2\E33F.png" />
+    <Resource Include="emoji2\E340.png" />
+    <Resource Include="emoji2\E341.png" />
+    <Resource Include="emoji2\E342.png" />
+    <Resource Include="emoji2\E343.png" />
+    <Resource Include="emoji2\E344.png" />
+    <Resource Include="emoji2\E345.png" />
+    <Resource Include="emoji2\E346.png" />
+    <Resource Include="emoji2\E347.png" />
+    <Resource Include="emoji2\E348.png" />
+    <Resource Include="emoji2\E349.png" />
+    <Resource Include="emoji2\E34A.png" />
+    <Resource Include="emoji2\E34B.png" />
+    <Resource Include="emoji2\E34C.png" />
+    <Resource Include="emoji2\E34D.png" />
+    <Resource Include="emoji2\E401.png" />
+    <Resource Include="emoji2\E402.png" />
+    <Resource Include="emoji2\E403.png" />
+    <Resource Include="emoji2\E404.png" />
+    <Resource Include="emoji2\E405.png" />
+    <Resource Include="emoji2\E406.png" />
+    <Resource Include="emoji2\E407.png" />
+    <Resource Include="emoji2\E408.png" />
+    <Resource Include="emoji2\E409.png" />
+    <Resource Include="emoji2\E40A.png" />
+    <Resource Include="emoji2\E40B.png" />
+    <Resource Include="emoji2\E40C.png" />
+    <Resource Include="emoji2\E40D.png" />
+    <Resource Include="emoji2\E40E.png" />
+    <Resource Include="emoji2\E40F.png" />
+    <Resource Include="emoji2\E410.png" />
+    <Resource Include="emoji2\E411.png" />
+    <Resource Include="emoji2\E412.png" />
+    <Resource Include="emoji2\E413.png" />
+    <Resource Include="emoji2\E414.png" />
+    <Resource Include="emoji2\E415.png" />
+    <Resource Include="emoji2\E416.png" />
+    <Resource Include="emoji2\E417.png" />
+    <Resource Include="emoji2\E418.png" />
+    <Resource Include="emoji2\E419.png" />
+    <Resource Include="emoji2\E41A.png" />
+    <Resource Include="emoji2\E41B.png" />
+    <Resource Include="emoji2\E41C.png" />
+    <Resource Include="emoji2\E41D.png" />
+    <Resource Include="emoji2\E41E.png" />
+    <Resource Include="emoji2\E41F.png" />
+    <Resource Include="emoji2\E420.png" />
+    <Resource Include="emoji2\E421.png" />
+    <Resource Include="emoji2\E422.png" />
+    <Resource Include="emoji2\E423.png" />
+    <Resource Include="emoji2\E424.png" />
+    <Resource Include="emoji2\E425.png" />
+    <Resource Include="emoji2\E426.png" />
+    <Resource Include="emoji2\E427.png" />
+    <Resource Include="emoji2\E428.png" />
+    <Resource Include="emoji2\E429.png" />
+    <Resource Include="emoji2\E42A.png" />
+    <Resource Include="emoji2\E42B.png" />
+    <Resource Include="emoji2\E42C.png" />
+    <Resource Include="emoji2\E42D.png" />
+    <Resource Include="emoji2\E42E.png" />
+    <Resource Include="emoji2\E42F.png" />
+    <Resource Include="emoji2\E430.png" />
+    <Resource Include="emoji2\E431.png" />
+    <Resource Include="emoji2\E432.png" />
+    <Resource Include="emoji2\E433.png" />
+    <Resource Include="emoji2\E434.png" />
+    <Resource Include="emoji2\E435.png" />
+    <Resource Include="emoji2\E436.png" />
+    <Resource Include="emoji2\E437.png" />
+    <Resource Include="emoji2\E438.png" />
+    <Resource Include="emoji2\E439.png" />
+    <Resource Include="emoji2\E43A.png" />
+    <Resource Include="emoji2\E43B.png" />
+    <Resource Include="emoji2\E43C.png" />
+    <Resource Include="emoji2\E43D.png" />
+    <Resource Include="emoji2\E43E.png" />
+    <Resource Include="emoji2\E43F.png" />
+    <Resource Include="emoji2\E440.png" />
+    <Resource Include="emoji2\E441.png" />
+    <Resource Include="emoji2\E442.png" />
+    <Resource Include="emoji2\E443.png" />
+    <Resource Include="emoji2\E444.png" />
+    <Resource Include="emoji2\E445.png" />
+    <Resource Include="emoji2\E446.png" />
+    <Resource Include="emoji2\E447.png" />
+    <Resource Include="emoji2\E448.png" />
+    <Resource Include="emoji2\E449.png" />
+    <Resource Include="emoji2\E44A.png" />
+    <Resource Include="emoji2\E44B.png" />
+    <Resource Include="emoji2\E44C.png" />
+    <Resource Include="emoji2\E501.png" />
+    <Resource Include="emoji2\E502.png" />
+    <Resource Include="emoji2\E503.png" />
+    <Resource Include="emoji2\E504.png" />
+    <Resource Include="emoji2\E505.png" />
+    <Resource Include="emoji2\E506.png" />
+    <Resource Include="emoji2\E507.png" />
+    <Resource Include="emoji2\E508.png" />
+    <Resource Include="emoji2\E509.png" />
+    <Resource Include="emoji2\E50A.png" />
+    <Resource Include="emoji2\E50B.png" />
+    <Resource Include="emoji2\E50C.png" />
+    <Resource Include="emoji2\E50D.png" />
+    <Resource Include="emoji2\E50E.png" />
+    <Resource Include="emoji2\E50F.png" />
+    <Resource Include="emoji2\E510.png" />
+    <Resource Include="emoji2\E511.png" />
+    <Resource Include="emoji2\E512.png" />
+    <Resource Include="emoji2\E513.png" />
+    <Resource Include="emoji2\E514.png" />
+    <Resource Include="emoji2\E515.png" />
+    <Resource Include="emoji2\E516.png" />
+    <Resource Include="emoji2\E517.png" />
+    <Resource Include="emoji2\E518.png" />
+    <Resource Include="emoji2\E519.png" />
+    <Resource Include="emoji2\E51A.png" />
+    <Resource Include="emoji2\E51B.png" />
+    <Resource Include="emoji2\E51C.png" />
+    <Resource Include="emoji2\E51D.png" />
+    <Resource Include="emoji2\E51E.png" />
+    <Resource Include="emoji2\E51F.png" />
+    <Resource Include="emoji2\E520.png" />
+    <Resource Include="emoji2\E521.png" />
+    <Resource Include="emoji2\E522.png" />
+    <Resource Include="emoji2\E523.png" />
+    <Resource Include="emoji2\E524.png" />
+    <Resource Include="emoji2\E525.png" />
+    <Resource Include="emoji2\E526.png" />
+    <Resource Include="emoji2\E527.png" />
+    <Resource Include="emoji2\E528.png" />
+    <Resource Include="emoji2\E529.png" />
+    <Resource Include="emoji2\E52A.png" />
+    <Resource Include="emoji2\E52B.png" />
+    <Resource Include="emoji2\E52C.png" />
+    <Resource Include="emoji2\E52D.png" />
+    <Resource Include="emoji2\E52E.png" />
+    <Resource Include="emoji2\E52F.png" />
+    <Resource Include="emoji2\E530.png" />
+    <Resource Include="emoji2\E531.png" />
+    <Resource Include="emoji2\E532.png" />
+    <Resource Include="emoji2\E533.png" />
+    <Resource Include="emoji2\E534.png" />
+    <Resource Include="emoji2\E535.png" />
+    <Resource Include="emoji2\E536.png" />
+    <Resource Include="emoji2\E537.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
