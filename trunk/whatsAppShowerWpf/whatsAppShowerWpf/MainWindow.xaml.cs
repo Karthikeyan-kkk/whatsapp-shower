@@ -82,8 +82,8 @@ namespace whatsAppShowerWpf
             else
             {
                 addTexts();
-                //addImages();
-                //addImageSide();
+                addImages();
+                addImageSide();
             }
           if (WhatsappProperties.Instance.ShowSideImages)
           {
@@ -91,18 +91,24 @@ namespace whatsAppShowerWpf
               sideImageTimer.Interval = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImageRunEveryInSec);
               sideImageTimer.Start();
           }
-            
+            initVisualProp();
             this.WindowState =  WindowState.Maximized;
             startRunningText();
         }
 
-        private void addImageSide()
+        private void initVisualProp()
         {
-            queue.Enqueue(@"C:\whatsappPicTest\1.jpg");
-            queue.Enqueue(@"C:\whatsappPicTest\2.jpg");
-            queue.Enqueue(@"C:\whatsappPicTest\3.jpg");
-            queue.Enqueue(@"C:\whatsappPicTest\4.jpg");
-         }
+            if (WhatsappProperties.Instance.FullScreen)
+            {
+                this.WindowStyle = WindowStyle.None;
+            }
+            else
+            {
+                this.WindowStyle = WindowStyle.ThreeDBorderWindow;
+            }
+        }
+
+        
         private void startSideMethod(object sender, EventArgs e2)
         {
             
@@ -145,7 +151,254 @@ namespace whatsAppShowerWpf
             }
         }
 
+        
+        private void addText(string phoneNumber,string nikeName ,string msgText, string hour)
+        {
+            phoneNumber = Helpers.filterFromNumber(phoneNumber);
+             bool isCanShowMsg = isCanShowMsgMet(phoneNumber, "TEXT");
+             if (isCanShowMsg)
+             {
+                 TextView textView2 = null;
+                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { 
+                     textView2 = new TextView(phoneNumber + " - " + nikeName, msgText, hour);
+                     this.stackPanel1.Children.Add(textView2);
+                     this.stackPanelScroller.ScrollToBottom();
+                 }));
+                 
+             }
+             addTextInfoToLog("Text", msgText, phoneNumber, isCanShowMsgMet(phoneNumber, "TEXT"));
+         }
+        
+        private void addImg(string phoneNumber, string imgFileName, string hour)
+        {
+            phoneNumber = Helpers.filterFromNumber(phoneNumber);
+            if (isCanShowMsgMet(phoneNumber, "IMG"))
+            {
+                ImgView imgView = null;
+                this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { imgView = new ImgView(phoneNumber, (ImageSource)new ImageSourceConverter().ConvertFromString(imgFileName), hour); }));
+                this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanel1.Children.Add(imgView); }));
+                this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanelScroller.ScrollToBottom(); }));
+                queue.Enqueue(Environment.CurrentDirectory+@"\"+imgFileName);
+            }
+            addTextInfoToLog("IMG", imgFileName, phoneNumber, isCanShowMsgMet(phoneNumber, "IMG"));
+        }
+
+        bool isCanShowMsgMet(string from, string type)
+        {
+            return NumberPropList.Instance.isCanShowMsg(from, type);
+        }
+        private void addTextInfoToLog(string type, string text, string phoneNumber, bool isShowen)
+        {
+            msgsLog.Info(isShowen + " " + type + " From: " + phoneNumber + ": " + text);
+        }
        
+        private void startRunningText()
+        {
+            tbmarquee.Text = WhatsappProperties.Instance.RunnigText;
+            tbmarquee.Foreground = WhatsappProperties.Instance.RunnigTextColor;
+            tbmarquee.FontSize = WhatsappProperties.Instance.RunnigTextSize;
+            
+            double textGraphicalHeight = new FormattedText(tbmarquee.Text, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(tbmarquee.FontFamily.Source), tbmarquee.FontSize, tbmarquee.Foreground).Height;
+            if (!WhatsappProperties.Instance.RunnigTextShow)
+            {
+                mainGrid.RowDefinitions[0].Height = new GridLength(0);
+                tbmarquee.Text = "";
+                return;
+            }
+            this.stackPanel1.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, textGraphicalHeight, 0, 0);
+            ThicknessAnimation ThickAnimation = new ThicknessAnimation();
+            ThickAnimation.From = new Thickness(0, 0, 0, 0);
+            ThickAnimation.To = new Thickness(System.Windows.SystemParameters.PrimaryScreenWidth, 0, 0, 0);
+            ThickAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            ThickAnimation.Duration = new Duration(TimeSpan.FromSeconds(WhatsappProperties.Instance.RuningTextSpeed));
+            mainGrid.RowDefinitions[0].Height = new GridLength(textGraphicalHeight);
+            tbmarquee.BeginAnimation(TextBlock.PaddingProperty, ThickAnimation);
+        }
+
+
+        private void stackPanel1MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                WhatsappProperties.Instance.initProperties();
+                initVisualProp();
+                
+            }
+        }
+
+
+
+
+
+
+
+
+
+        //Start tests items
+
+        private void addImageSide()
+        {
+            queue.Enqueue(@"C:\whatsappPicTest\5.jpg");
+            queue.Enqueue(@"C:\whatsappPicTest\1.jpg");
+            queue.Enqueue(@"C:\whatsappPicTest\2.jpg");
+            queue.Enqueue(@"C:\whatsappPicTest\3.jpg");
+            queue.Enqueue(@"C:\whatsappPicTest\4.jpg");
+
+        }
+
+        private void addImages()
+        {
+
+            ImgView imgView = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\1.jpg"), "10:10");
+            this.stackPanel1.Children.Add(imgView);
+            ImgView imgView2 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\2.jpg"), "10:10");
+            this.stackPanel1.Children.Add(imgView2);
+            ImgView imgView3 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\3.jpg"), "10:10");
+            this.stackPanel1.Children.Add(imgView3);
+            ImgView imgView4 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\4.jpg"), "10:10");
+            this.stackPanel1.Children.Add(imgView4);
+            this.stackPanelScroller.ScrollToBottom();
+        }
+
+        private void addTexts()
+        {
+            TextView textView2 = new TextView("0524376464", "", "10:10");
+            this.stackPanel1.Children.Add(textView2);
+            for (int i = 0; i < 5; i++)
+            {
+                this.stackPanel1.Children.Add(new TextView("0524376464" + i, "מזל טוב ומבורך וובדיקה לטקסט ארוך מאוד מאוד מאוד לבדיקה שהוא טקסט ארוך מאוד מאוד מאוד מאוד נראה איך הוא יהיה", "10:10"));
+                this.stackPanelScroller.ScrollToBottom();
+            }
+            this.stackPanelScroller.ScrollToBottom();
+        }
+
+        //End test items
+
+
+
+
+        //Start whatsApp events
+
+        void wa_OnGetMessage(ProtocolTreeNode node, string from, string id, string name, string message, bool receipt_sent)
+        {
+            if (isCommandOpMsg(from, message))
+            {
+                handleCommandOpMag(from, message);
+                return;
+            }
+            addText(from, Helpers.getNikeName(node), message, DateTime.Now.ToString("HH:mm"));
+        }
+
+        void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
+        {
+            OnGetMedia(fileName, url, preview);
+            addImg(from, fileName, DateTime.Now.ToString("HH:mm"));
+        }
+
+        static void OnGetMedia(string file, string url, byte[] data)
+        {
+            //save preview
+            File.WriteAllBytes(string.Format("preview_{0}.jpg", file), data);
+            //download
+            using (WebClient wc = new WebClient())
+            {
+
+                if (!File.Exists(file))
+                {
+                    wc.DownloadFile(new Uri(url), file);
+                }
+            }
+        }
+
+        //End whatsApp events
+
+
+
+
+
+
+
+        // Start whatsApp Connection
+        void Instance_OnConnectFailed(Exception ex)
+        {
+            MessageBox.Show(this, "Login failed", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        static void Instance_OnPrintDebug(object value)
+        {
+            Console.WriteLine(value);
+        }
+        
+
+
+        private static void ProcessChat(WhatsApp wa, string dst)
+        {
+            var thRecv = new Thread(t =>
+            {
+                try
+                {
+                    while (wa != null)
+                    {
+                        try
+                        {
+                            wa.PollMessages();
+                            Thread.Sleep(100);
+                            continue;
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+                    }
+
+                }
+                catch (ThreadAbortException)
+                {
+                }
+            }) { IsBackground = true };
+            thRecv.Start();
+
+            WhatsUserManager usrMan = new WhatsUserManager();
+            var tmpUser = usrMan.CreateUser(dst, "User");
+
+            while (false)
+            {
+                string line = Console.ReadLine();
+                if (line == null && line.Length == 0)
+                    continue;
+
+                string command = line.Trim();
+                switch (command)
+                {
+                    case "/query":
+                        //var dst = dst//trim(strstr($line, ' ', FALSE));
+                        Console.WriteLine("[] Interactive conversation with {0}:", tmpUser);
+                        break;
+                    case "/accountinfo":
+                        Console.WriteLine("[] Account Info: {0}", wa.GetAccountInfo().ToString());
+                        break;
+                    case "/lastseen":
+                        Console.WriteLine("[] Request last seen {0}", tmpUser);
+                        wa.SendQueryLastOnline(tmpUser.GetFullJid());
+                        break;
+                    case "/exit":
+                        wa = null;
+                        thRecv.Abort();
+                        return;
+                    case "/start":
+                        wa.SendComposing(tmpUser.GetFullJid());
+                        break;
+                    case "/pause":
+                        wa.SendPaused(tmpUser.GetFullJid());
+                        break;
+                    default:
+                        Console.WriteLine("[] Send message to {0}: {1}", tmpUser, line);
+                        wa.SendMessage(tmpUser.GetFullJid(), line);
+                        break;
+                }
+            }
+        }
+
 
         private void initWhatsAppConnect()
         {
@@ -156,7 +409,7 @@ namespace whatsAppShowerWpf
             wa.OnConnectFailed += new WhatsEventBase.ExceptionDelegate(Instance_OnConnectFailed);
             WhatsAppApi.Helper.DebugAdapter.Instance.OnPrintDebug += Instance_OnPrintDebug;
             wa.Connect();
-            
+
             try
             {
                 wa.Login();
@@ -173,124 +426,18 @@ namespace whatsAppShowerWpf
             }
             ProcessChat(wa, target);
         }
-
-        private void addImages()
-        {
-           
-            ImgView imgView = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\1.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView);
-            ImgView imgView2 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\2.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView2);
-            ImgView imgView3 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\3.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView3);
-            ImgView imgView4 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\4.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView4);
-            this.stackPanelScroller.ScrollToBottom();
-        }
-
-        private void addTexts()
-        {
-            TextView textView2 = new TextView("0524376464", "", "10:10");
-            this.stackPanel1.Children.Add(textView2);
-            for (int i = 0; i < 30; i++)
-            {
-                this.stackPanel1.Children.Add(new TextView("0524376464"+i, "מזל טוב ומבורך וובדיקה לטקסט ארוך מאוד מאוד מאוד לבדיקה שהוא טקסט ארוך מאוד מאוד מאוד מאוד נראה איך הוא יהיה", "10:10"));
-                this.stackPanelScroller.ScrollToBottom();
-            }
-            this.stackPanelScroller.ScrollToBottom();
-       }
-       
-        void wa_OnGetMessage(ProtocolTreeNode node, string from, string id, string name, string message, bool receipt_sent)
-        {
-            if (isCommandOpMsg(from, message))
-            {
-                handleCommandOpMag(from, message);
-                return;
-            }
-            addText(from, getNikeName(node), message, DateTime.Now.ToString("HH:mm"));
-        }
-       
-        private void addText(string phoneNumber,string nikeName ,string msgText, string hour)
-        {
-            phoneNumber = filterFromNumber(phoneNumber);
-             bool isCanShowMsg = isCanShowMsgMet(phoneNumber, "TEXT");
-             if (isCanShowMsg)
-             {
-                 TextView textView2 = null;
-                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { textView2 = new TextView(phoneNumber + " - " + nikeName, msgText, hour); }));
-                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { this.stackPanel1.Children.Add(textView2); }));
-                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { this.stackPanelScroller.ScrollToBottom(); }));
-             }
-             addTextInfoToLog("Text", msgText, phoneNumber, isCanShowMsgMet(phoneNumber, "TEXT"));
-            
-            
-        }
-        
-        void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
-        {
-            OnGetMedia(fileName, url, preview);
-            addImg(from, fileName, DateTime.Now.ToString("HH:mm"));
-        }
-       
-        static void OnGetMedia(string file, string url, byte[] data)
-        {
-            //save preview
-            File.WriteAllBytes(string.Format("preview_{0}.jpg", file), data);
-            //download
-            using (WebClient wc = new WebClient())
-            {
-                
-                if (!File.Exists(file)) { 
-                    wc.DownloadFile(new Uri(url), file);
-                }
-            }
-        }
-        
-        private void addImg(string phoneNumber, string imgFileName, string hour)
-        {
-            phoneNumber = filterFromNumber(phoneNumber) ;
-            if (isCanShowMsgMet(phoneNumber, "IMG"))
-            {
-                ImgView imgView = null;
-                this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { imgView = new ImgView(phoneNumber, (ImageSource)new ImageSourceConverter().ConvertFromString(imgFileName), hour); }));
-                this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanel1.Children.Add(imgView); }));
-                this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanelScroller.ScrollToBottom(); }));
-                queue.Enqueue(Environment.CurrentDirectory+@"\"+imgFileName);
-            }
-            addTextInfoToLog("IMG", imgFileName, phoneNumber, isCanShowMsgMet(phoneNumber, "IMG"));
-        }
+        // End whatsApp Connection
 
 
-        String filterFromNumber(String from)
-        {
-            char[] splitChar = { '@' };
-            return from.Split(splitChar)[0];
-        }
-        private string getNikeName(ProtocolTreeNode node)
-        {
-            string nickName = "";
-            try
-            {
-                List<KeyValue> attributeHashList = node.attributeHash.ToList();
-                for (int i = 0; i < attributeHashList.Count; i++)
-                {
-                    if (attributeHashList[i] != null && attributeHashList[i].Key.Equals("notify"))
-                    {
-                        return attributeHashList[i].Value;
-                    }
-                }
-            }
-            catch (Exception) { }
-            return nickName;
-        }
-        bool isCanShowMsgMet(string from, string type)
-        {
-            return NumberPropList.Instance.isCanShowMsg(from, type);
-        }
-        private void addTextInfoToLog(string type, string text, string phoneNumber, bool isShowen)
-        {
-            msgsLog.Info(isShowen + " " + type + " From: " + phoneNumber + ": " + text);
-        }
+
+
+
+
+
+
+
+        //Start op msgs
+
         private bool isCommandOpMsg(string from, string message)
         {
             bool isCommandOpMsg = false;
@@ -395,113 +542,8 @@ namespace whatsAppShowerWpf
                 }
             }
         }
-        private void startRunningText()
-        {
-            tbmarquee.Text = WhatsappProperties.Instance.RunnigText;
-            tbmarquee.Foreground = WhatsappProperties.Instance.RunnigTextColor;
-            tbmarquee.FontSize = WhatsappProperties.Instance.RunnigTextSize;
-            
-            double textGraphicalHeight = new FormattedText(tbmarquee.Text, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(tbmarquee.FontFamily.Source), tbmarquee.FontSize, tbmarquee.Foreground).Height;
-            if (!WhatsappProperties.Instance.RunnigTextShow)
-            {
-                mainGrid.RowDefinitions[0].Height = new GridLength(0);
-                tbmarquee.Text = "";
-                return;
-            }
-            this.stackPanel1.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, textGraphicalHeight, 0, 0);
-            ThicknessAnimation ThickAnimation = new ThicknessAnimation();
-            ThickAnimation.From = new Thickness(0, 0, 0, 0);
-            ThickAnimation.To = new Thickness(System.Windows.SystemParameters.PrimaryScreenWidth, 0, 0, 0);
-            ThickAnimation.RepeatBehavior = RepeatBehavior.Forever;
-            ThickAnimation.Duration = new Duration(TimeSpan.FromSeconds(WhatsappProperties.Instance.RuningTextSpeed));
-            mainGrid.RowDefinitions[0].Height = new GridLength(textGraphicalHeight);
-            tbmarquee.BeginAnimation(TextBlock.PaddingProperty, ThickAnimation);
-        }
 
-
-
-
-
-
-        void Instance_OnConnectFailed(Exception ex)
-        {
-            MessageBox.Show(this, "Login failed", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        static void Instance_OnPrintDebug(object value)
-        {
-            Console.WriteLine(value);
-        }
-        
-        private static void ProcessChat(WhatsApp wa, string dst)
-        {
-            var thRecv = new Thread(t =>
-            {
-                try
-                {
-                    while (wa != null)
-                    {
-                        try
-                        {
-                            wa.PollMessages();
-                            Thread.Sleep(100);
-                            continue;
-                        }
-                        catch (Exception)
-                        {
-
-
-                        }
-                    }
-
-                }
-                catch (ThreadAbortException)
-                {
-                }
-            }) { IsBackground = true };
-            //thRecv.SetApartmentState(ApartmentState.STA);
-            thRecv.Start();
-
-            WhatsUserManager usrMan = new WhatsUserManager();
-            var tmpUser = usrMan.CreateUser(dst, "User");
-
-            while (false)
-            {
-                string line = Console.ReadLine();
-                if (line == null && line.Length == 0)
-                    continue;
-
-                string command = line.Trim();
-                switch (command)
-                {
-                    case "/query":
-                        //var dst = dst//trim(strstr($line, ' ', FALSE));
-                        Console.WriteLine("[] Interactive conversation with {0}:", tmpUser);
-                        break;
-                    case "/accountinfo":
-                        Console.WriteLine("[] Account Info: {0}", wa.GetAccountInfo().ToString());
-                        break;
-                    case "/lastseen":
-                        Console.WriteLine("[] Request last seen {0}", tmpUser);
-                        wa.SendQueryLastOnline(tmpUser.GetFullJid());
-                        break;
-                    case "/exit":
-                        wa = null;
-                        thRecv.Abort();
-                        return;
-                    case "/start":
-                        wa.SendComposing(tmpUser.GetFullJid());
-                        break;
-                    case "/pause":
-                        wa.SendPaused(tmpUser.GetFullJid());
-                        break;
-                    default:
-                        Console.WriteLine("[] Send message to {0}: {1}", tmpUser, line);
-                        wa.SendMessage(tmpUser.GetFullJid(), line);
-                        break;
-                }
-            }
-        }
-
+        //End op msgs
 
 
 
