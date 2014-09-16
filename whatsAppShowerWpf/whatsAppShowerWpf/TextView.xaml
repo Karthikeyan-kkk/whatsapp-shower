@@ -13,7 +13,7 @@
                     <DropShadowEffect Color="Gray" Opacity="0.5" />
                 </Border.Effect>
             </Border>
-            <RichTextBox  Margin="10,20,10,20" Name="textMsgField" FontSize="24" FontWeight="Bold" FontFamily="Choco"  MaxWidth="200" HorizontalAlignment="Right" BorderThickness="0" FlowDirection="RightToLeft" Background="Transparent">
+            <RichTextBox  Margin="10,20,10,20" Name="textMsgField" FontSize="24" FontWeight="Bold" FontFamily="Choco" Width="Auto"  MaxWidth="200" HorizontalAlignment="Right" BorderThickness="0" FlowDirection="RightToLeft" Background="Transparent">
                 <FlowDocument x:Name="fld">
 
                 </FlowDocument>

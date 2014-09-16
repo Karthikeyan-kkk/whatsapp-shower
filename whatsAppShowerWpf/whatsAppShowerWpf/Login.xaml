@@ -41,7 +41,7 @@
     <Border CornerRadius="10"
           BorderBrush="Gray"
           BorderThickness="3"
-          Background="Beige"
+          Background="Azure"
           Margin="24"
           Padding="4">
         <Border.Effect>

@@ -77,20 +77,31 @@ namespace whatsAppShowerWpf
             this.hourField.Text = hour;
             this.hourField.Foreground = Brushes.Gray;
             this.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
-
+            double sd = this.textMsgField.DesiredSize.Width;
             if (from.Length > textMsg.Length)
             {
-                this.Width = MeasureString(from).Width + 30;
+                
+               // this.Width = MeasureString(from).Width + 30;
             }
             else
             {
-                this.Width = MeasureString(textMsg).Width + 30;
-            }
+               // this.Width = MeasureString(textMsg).Width + 30;
 
+            }
+            TextRange textRange = new TextRange(
+                // TextPointer to the start of content in the RichTextBox.
+                this.textMsgField.Document.ContentStart,
+                        // TextPointer to the end of content in the RichTextBox.
+                this.textMsgField.Document.ContentEnd
+            );
+
+            // The Text property on a TextRange object returns a string 
+            // representing the plain text content of the TextRange. 
+            string s= textRange.Text;
             this.HorizontalAlignment = HorizontalAlignment.Left;
 
             this.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, WhatsappProperties.Instance.PaddingTop, 0, 0);
-         
+            this.Width = Double.NaN;
         }
 
         
