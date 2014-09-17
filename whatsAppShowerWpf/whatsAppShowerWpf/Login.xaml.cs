@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace whatsAppShowerWpf
 {
@@ -23,6 +24,7 @@ namespace whatsAppShowerWpf
         public Login()
     {
       InitializeComponent();
+     
     }
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)

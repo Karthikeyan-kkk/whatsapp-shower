@@ -4,7 +4,7 @@ whatsappShow.charPerRow = 50
 whatsappShow.imageMaxWidth = 600
 whatsappShow.imageMaxHeight = 400
 
-whatsappShow.runingTextSpeed = 50
+whatsappShow.runingTextSpeed = 5
 whatsappShow.startRunnigLocation = 0
 whatsappShow.runingTextjumpingLocation = 10
 whatsappShow.runnigText = שלחו הודעת וואטסאפ למספר 052-4376-363
@@ -12,7 +12,7 @@ whatsappShow.runnigText = שלחו הודעת וואטסאפ למספר 052-4376
 whatsappShow.textFontSize = 24
 whatsappShow.phoneFontSize = 18
 whatsappShow.houerFontSize = 12
-whatsappShow.runnigTextSize = 30
+whatsappShow.runnigTextSize = 50
 whatsappShow.runnigTextShow = true
 
      

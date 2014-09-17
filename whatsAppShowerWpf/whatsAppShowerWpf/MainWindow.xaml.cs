@@ -21,6 +21,7 @@ using WhatsAppApi.Helper;
 using WhatsAppApi.Account;
 using System.Windows.Threading;
 using log4net;
+using System.Globalization;
 
 namespace whatsAppShowerWpf
 {
@@ -38,12 +39,23 @@ namespace whatsAppShowerWpf
         private static readonly ILog systemLog = log4net.LogManager.GetLogger("systemsLog");
         private static readonly ILog msgHistoryLog = log4net.LogManager.GetLogger("msgHistory");
         private DispatcherTimer sideImageTimer = new DispatcherTimer();
+        private Duration runingTextSpeedDuration = new Duration(TimeSpan.FromSeconds(20));
+
+        public Duration RuningTextSpeedDuration
+        {
+            get { return new Duration(TimeSpan.FromSeconds(WhatsappProperties.Instance.RuningTextSpeed)); }
+            set { runingTextSpeedDuration = value; }
+        }
         Queue<string> queue = new Queue<string>();
 
         public string Nickname
         {
             get { return nickname; }
-            set { nickname = value; }
+            set { nickname = value;Storyboard sd=(Storyboard) Application.Current.Resources["runningTextDoubleAnimation"];
+           
+            Storyboard storyboard = new Storyboard();
+            storyboard.SetSpeedRatio(1);
+            canvas.BeginStoryboard(storyboard); }
         }
         public string Sender
         {
@@ -85,6 +97,11 @@ namespace whatsAppShowerWpf
                 addImages();
                 addImageSide();
             }
+
+            
+               
+
+
           if (WhatsappProperties.Instance.ShowSideImages)
           {
               sideImageTimer.Tick += new EventHandler(startSideMethod); 
@@ -106,13 +123,15 @@ namespace whatsAppShowerWpf
             {
                 this.WindowStyle = WindowStyle.ThreeDBorderWindow;
             }
+            startRunningText();
         }
 
         
         private void startSideMethod(object sender, EventArgs e2)
         {
-            
-            
+            ThicknessAnimation ThickAnimation = new ThicknessAnimation();
+            ThickAnimation.Duration = new Duration(TimeSpan.FromSeconds(80));
+            stack.BeginAnimation(Canvas.MarginProperty, null);
             Image image = this.sideImage;
             TimeSpan fadeOutTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
             TimeSpan fadeInTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
@@ -191,33 +210,31 @@ namespace whatsAppShowerWpf
         {
             msgsLog.Info(isShowen + " " + type + " From: " + phoneNumber + ": " + text);
         }
-       
         private void startRunningText()
         {
-            tbmarquee.Text = WhatsappProperties.Instance.RunnigText;
-            tbmarquee.Foreground = WhatsappProperties.Instance.RunnigTextColor;
-            tbmarquee.FontSize = WhatsappProperties.Instance.RunnigTextSize;
             
-            double textGraphicalHeight = new FormattedText(tbmarquee.Text, System.Globalization.CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, new Typeface(tbmarquee.FontFamily.Source), tbmarquee.FontSize, tbmarquee.Foreground).Height;
-            if (!WhatsappProperties.Instance.RunnigTextShow)
-            {
-                mainGrid.RowDefinitions[0].Height = new GridLength(0);
-                tbmarquee.Text = "";
-                return;
-            }
-            this.stackPanel1.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, textGraphicalHeight, 0, 0);
-            ThicknessAnimation ThickAnimation = new ThicknessAnimation();
-            ThickAnimation.From = new Thickness(0, 0, 0, 0);
-            ThickAnimation.To = new Thickness(System.Windows.SystemParameters.PrimaryScreenWidth, 0, 0, 0);
-            ThickAnimation.RepeatBehavior = RepeatBehavior.Forever;
-            ThickAnimation.Duration = new Duration(TimeSpan.FromSeconds(WhatsappProperties.Instance.RuningTextSpeed));
-            mainGrid.RowDefinitions[0].Height = new GridLength(textGraphicalHeight);
-            tbmarquee.BeginAnimation(TextBlock.PaddingProperty, ThickAnimation);
+            txtKron.Text = WhatsappProperties.Instance.RunnigText;
+            txtKron.Foreground = WhatsappProperties.Instance.RunnigTextColor;
+            txtKron.FontSize = WhatsappProperties.Instance.RunnigTextSize;
+            txtKron2.Foreground = WhatsappProperties.Instance.RunnigTextColor;
+            txtKron2.FontSize = WhatsappProperties.Instance.RunnigTextSize;
+
+            var formattedText = new FormattedText(
+                txtKron.Text,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(this.txtKron.FontFamily, this.txtKron.FontStyle, this.txtKron.FontWeight, this.txtKron.FontStretch),
+                this.txtKron.FontSize,
+                Brushes.Black);
+            this.firstRow.Height = new GridLength(formattedText.Height);
+
+
+            
         }
-
-
+       
         private void stackPanel1MouseDown(object sender, MouseButtonEventArgs e)
         {
+            
             if (e.ClickCount == 2)
             {
                 WhatsappProperties.Instance.initProperties();
@@ -530,6 +547,7 @@ namespace whatsAppShowerWpf
             }
             else
             {
+                
                 int controlCount = 0;
                 this.stackPanel1.Dispatcher.Invoke((Action)(() => { controlCount = this.stackPanel1.Children.Count; }));
                 int controlToremove = controlCount - 1;
@@ -547,16 +565,9 @@ namespace whatsAppShowerWpf
 
 
 
-
-
-
-
-
-
-
-
-
-
-       
+        
     }
+    
+    
 }
+
