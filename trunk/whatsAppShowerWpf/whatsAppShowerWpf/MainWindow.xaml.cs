@@ -129,6 +129,7 @@ namespace whatsAppShowerWpf
         
         private void startSideMethod(object sender, EventArgs e2)
         {
+            (sender as DispatcherTimer).Stop();
             startSideImageShow();
         }
 
