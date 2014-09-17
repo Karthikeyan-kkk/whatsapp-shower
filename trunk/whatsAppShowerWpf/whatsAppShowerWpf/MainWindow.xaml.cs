@@ -129,17 +129,21 @@ namespace whatsAppShowerWpf
         
         private void startSideMethod(object sender, EventArgs e2)
         {
-            ThicknessAnimation ThickAnimation = new ThicknessAnimation();
-            ThickAnimation.Duration = new Duration(TimeSpan.FromSeconds(80));
-            stack.BeginAnimation(Canvas.MarginProperty, null);
+            startSideImageShow();
+        }
+
+        private void startSideImageShow()
+        {
+            
             Image image = this.sideImage;
             TimeSpan fadeOutTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
             TimeSpan fadeInTime = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec);
-           
+
 
             var fadeInAnimation = new DoubleAnimation(1d, fadeInTime);
             var fadeOutAnimation = new DoubleAnimation(0d, fadeOutTime);
-            if(queue.Count==0){
+            if (queue.Count == 0)
+            {
                 image.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
                 return;
             }
@@ -149,10 +153,10 @@ namespace whatsAppShowerWpf
             logo.UriSource = new Uri(imgUrl);
             logo.EndInit();
             ImageSource source = logo;
-            
+
             if (image.Source != null)
             {
-                
+
 
                 fadeOutAnimation.Completed += (o, e) =>
                 {
