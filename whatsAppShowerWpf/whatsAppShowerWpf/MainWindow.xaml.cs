@@ -104,8 +104,8 @@ namespace whatsAppShowerWpf
 
           if (WhatsappProperties.Instance.ShowSideImages)
           {
-              sideImageTimer.Tick += new EventHandler(startSideMethod); 
-              sideImageTimer.Interval = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImageRunEveryInSec);
+              sideImageTimer.Tick += new EventHandler(startSideMethod);
+              sideImageTimer.Interval = TimeSpan.FromSeconds(WhatsappProperties.Instance.SideImagefadingSpeedInSec + WhatsappProperties.Instance.SideImagefadingSpeedInSec);
               sideImageTimer.Start();
           }
             initVisualProp();
@@ -129,7 +129,7 @@ namespace whatsAppShowerWpf
         
         private void startSideMethod(object sender, EventArgs e2)
         {
-            (sender as DispatcherTimer).Stop();
+            //(sender as DispatcherTimer).Stop();
             startSideImageShow();
         }
 
