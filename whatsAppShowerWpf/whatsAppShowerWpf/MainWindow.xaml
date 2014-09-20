@@ -49,7 +49,13 @@
             </StackPanel>
             </ScrollViewer>
         <Grid Grid.Column="1" Grid.RowSpan="2">
-            <Image  Name="sideImage" Stretch="Uniform" Margin="5,0,20,0"></Image>
+            <Image  Name="sideImage" Stretch="Uniform" Margin="5,0,20,0">
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="5"
+                              Opacity=".5"
+                              ShadowDepth="3" />
+                </Image.Effect>
+            </Image>
         </Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/whatsAppShowerWpf;component/Images/panel1.BackgroundImage2.png" />

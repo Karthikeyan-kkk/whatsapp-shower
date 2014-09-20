@@ -115,6 +115,28 @@ namespace whatsAppShowerWpf
 
         private void initVisualProp()
         {
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.Backgroundimage))
+            {
+                try
+                {
+                    BitmapImage bi =new BitmapImage();
+                    bi.BeginInit();
+                    Uri uri = new Uri(WhatsappProperties.Instance.Backgroundimage.Trim(), UriKind.RelativeOrAbsolute);
+                    if (File.Exists(uri.ToString()))
+                    {
+                        bi.UriSource = uri;
+                        bi.EndInit();
+                        this.mainGrid.Background.SetValue(ImageBrush.ImageSourceProperty, bi);
+                    }
+                    
+                }
+                catch (Exception e)
+                {
+                    systemLog.Error("no background img " + WhatsappProperties.Instance.Backgroundimage + " " + e);
+                    
+                }
+                
+            }
             if (WhatsappProperties.Instance.FullScreen)
             {
                 this.WindowStyle = WindowStyle.None;
