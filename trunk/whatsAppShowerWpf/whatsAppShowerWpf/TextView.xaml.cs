@@ -66,19 +66,21 @@ namespace whatsAppShowerWpf
         {
             
             InitializeComponent();
-            parseEmjoi(textMsg);
+            parseEmjoi(textMsg,this.fld);
             //this.textMsgField.Text = textMsg;
             this.textMsgField.FontSize = WhatsappProperties.Instance.TextFontSize;
             this.textMsgField.MaxWidth = WhatsappProperties.Instance.MaxTextWidth;
 
-            this.fromField.Text = from;
+            parseEmjoi(from, this.fromfd);
+            //this.fromField.Text = from;
+            this.fromField.Width = MeasureString(from).Width;
             this.fromField.Foreground = NumberPropList.Instance.getPhoneColor(from);
             this.fromField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
 
             this.hourField.Text = hour;
             this.hourField.Foreground = Brushes.Gray;
             this.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
-            double sd = this.textMsgField.DesiredSize.Width;
+            //double sd = this.textMsgField.DesiredSize.Width;
             if (from.Length > textMsg.Length)
             {
                 
@@ -122,7 +124,7 @@ namespace whatsAppShowerWpf
 
 
 
-        private void parseEmjoi(string textMsg)
+        private void parseEmjoi(string textMsg, FlowDocument flowDocument)
         {
             Paragraph para = new Paragraph();
 
@@ -163,6 +165,10 @@ namespace whatsAppShowerWpf
                     Image image = new Image();
                     image.Source = bitmap;
                     image.Height = WhatsappProperties.Instance.TextFontSize;
+                    if ("fromfd".Equals(flowDocument.Name))
+                    {
+                        image.Height = WhatsappProperties.Instance.PhoneFontSize;
+                    }
                     para.Inlines.Add(image);
                 }
 
@@ -176,7 +182,7 @@ namespace whatsAppShowerWpf
             {
                 para.Inlines.Add(textMsg);
             }
-            this.fld.Blocks.Add(para);
+            flowDocument.Blocks.Add(para);
         }
 
         public static string GetEmojiCompletePattern()

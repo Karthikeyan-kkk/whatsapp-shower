@@ -94,8 +94,8 @@ namespace whatsAppShowerWpf
             else
             {
                 addTexts();
-                addImages();
-                addImageSide();
+                //addImages();
+                //addImageSide();
             }
 
             
@@ -205,8 +205,16 @@ namespace whatsAppShowerWpf
              if (isCanShowMsg)
              {
                  TextView textView2 = null;
-                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { 
-                     textView2 = new TextView(phoneNumber + " - " + nikeName, msgText, hour);
+                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => {
+                     if (string.IsNullOrEmpty(nikeName))
+                     {
+                         textView2 = new TextView(phoneNumber, msgText, hour);
+                     }
+                     else
+                     {
+                         textView2 = new TextView(phoneNumber + " - " + nikeName, msgText, hour);
+                     }
+                    
                      this.stackPanel1.Children.Add(textView2);
                      this.stackPanelScroller.ScrollToBottom();
                  }));
