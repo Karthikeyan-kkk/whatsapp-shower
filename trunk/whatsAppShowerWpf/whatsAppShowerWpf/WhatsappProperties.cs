@@ -62,6 +62,17 @@ namespace whatsAppShowerWpf
             get { return imageMaxWidth; }
             set { imageMaxWidth = value; }
         }
+
+        string imageMaxWidthType = "per";
+
+        public string ImageMaxWidthType
+        {
+            get { return imageMaxWidthType; }
+            set { imageMaxWidthType = value; }
+        }
+
+
+
          int imageMaxHeight = 400;
 
         public  int ImageMaxHeight
@@ -185,6 +196,8 @@ namespace whatsAppShowerWpf
             get { return nickName; }
             set { nickName = value; }
         }
+
+
         static Dictionary<string, string> props = new Dictionary<string, string>();
 
         static public Dictionary<string, string> Props
@@ -209,9 +222,7 @@ namespace whatsAppShowerWpf
             set { runnigTextShow = value; }
         }
 
-       
-
-         string commandsOpOnlyFrom = "";
+       string commandsOpOnlyFrom = "";
 
         public  string CommandsOpOnlyFrom
         {
@@ -260,6 +271,13 @@ namespace whatsAppShowerWpf
             set { showSideImages = value; }
         }
 
+        string backgroundimage = "";
+
+        public string Backgroundimage
+        {
+            get { return backgroundimage; }
+            set { backgroundimage = value; }
+        }
 
         public  bool initProperties()
         {
@@ -303,6 +321,10 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "imageMaxWidth"))
                 {
                     ImageMaxWidth = parseToInt(Props[key], 80000000);
+                }
+                if (key.Equals(prfixCode + "imageMaxWidthType"))
+                {
+                    ImageMaxWidthType = parsString(Props[key], "per");
                 }
                 if (key.Equals(prfixCode + "imageMaxHeight"))
                 {
@@ -377,6 +399,10 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "showSideImages"))
                 {
                     ShowSideImages = parseBoolean(Props[key], true);
+                }
+                if (key.Equals(prfixCode + "backgroundimage"))
+                {
+                    Backgroundimage = parsString(Props[key], "");
                 }
             }
 

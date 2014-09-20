@@ -1,10 +1,11 @@
 ﻿whatsappShow.paddingTop = 10
 whatsappShow.paddingLeft = 20
 whatsappShow.charPerRow = 50
-whatsappShow.imageMaxWidth = 600
+whatsappShow.imageMaxWidth = 20
+whatsappShow.imageMaxWidthType = per
 whatsappShow.imageMaxHeight = 400
 
-whatsappShow.runingTextSpeed = 5
+whatsappShow.runingTextSpeed = 100
 whatsappShow.startRunnigLocation = 0
 whatsappShow.runingTextjumpingLocation = 10
 whatsappShow.runnigText = שלחו הודעת וואטסאפ למספר 052-4376-363
@@ -30,4 +31,6 @@ whatsappShow.showSideImages = true
 
 whatsappShow.commandsOpOnlyFrom = 524376363
 whatsappShow.commandsOpPassword = aa
+
+whatsappShow.backgroundimage =1.jpg
         
