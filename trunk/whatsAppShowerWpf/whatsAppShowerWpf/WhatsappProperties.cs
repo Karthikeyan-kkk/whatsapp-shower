@@ -197,6 +197,14 @@ namespace whatsAppShowerWpf
             set { nickName = value; }
         }
 
+        string appToken= "";
+
+        public string AppToken
+        {
+            get { return appToken; }
+            set { appToken = value; }
+        }
+
 
         static Dictionary<string, string> props = new Dictionary<string, string>();
 
@@ -403,6 +411,10 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "backgroundimage"))
                 {
                     Backgroundimage = parsString(Props[key], "");
+                }
+                if (key.Equals(prfixCode + "appToken"))
+                {
+                    AppToken = parsString(Props[key], "");
                 }
             }
 

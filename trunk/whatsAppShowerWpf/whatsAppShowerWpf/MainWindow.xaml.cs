@@ -22,6 +22,9 @@ using WhatsAppApi.Account;
 using System.Windows.Threading;
 using log4net;
 using System.Globalization;
+using Google.GData.Client;
+using Google.GData.Extensions;
+using Google.GData.Spreadsheets;
 
 namespace whatsAppShowerWpf
 {
@@ -40,6 +43,7 @@ namespace whatsAppShowerWpf
         private static readonly ILog msgHistoryLog = log4net.LogManager.GetLogger("msgHistory");
         private DispatcherTimer sideImageTimer = new DispatcherTimer();
         private Duration runingTextSpeedDuration = new Duration(TimeSpan.FromSeconds(20));
+       
 
         public Duration RuningTextSpeedDuration
         {
@@ -77,10 +81,17 @@ namespace whatsAppShowerWpf
             get { return showExample; }
             set { showExample = value; }
         }
+       
 
         public MainWindow()
         {
            
+          bool isCanLogin = isCanLoginIn();
+          if (!isCanLogin)
+          {
+              systemLog.Error("error token");
+              Application.Current.Shutdown();
+          }
           Login login = new Login();
           login.ShowDialog();
           InitializeComponent();
@@ -112,6 +123,116 @@ namespace whatsAppShowerWpf
             this.WindowState =  WindowState.Maximized;
             startRunningText();
         }
+
+        private bool isCanLoginIn()
+        {
+            try
+            {
+                SpreadsheetsService service = new SpreadsheetsService("whatsappshower");
+                service.setUserCredentials("whatsappshower@gmail.com", "e4rst6rh");
+
+                SpreadsheetQuery query = new SpreadsheetQuery();
+                SpreadsheetFeed feed = service.Query(query);
+
+                Console.WriteLine("Your spreadsheets:");
+
+                SpreadsheetEntry whatsAppShowerCerEntry = null;
+                foreach (SpreadsheetEntry entry in feed.Entries)
+                {
+                    //Console.WriteLine(entry.Title.Text);
+                    if ("whatsAppShowerCer".Equals(entry.Title.Text))
+                    {
+                        whatsAppShowerCerEntry = entry;
+                    }
+                    
+                }
+                if (whatsAppShowerCerEntry == null)
+                {
+                    return false;
+                }
+
+
+
+                AtomLink link = whatsAppShowerCerEntry.Links.FindService(GDataSpreadsheetsNameTable.WorksheetRel, null);
+
+                WorksheetQuery worksheetQueryQuery = new WorksheetQuery(link.HRef.ToString());
+                WorksheetFeed worksheetQueryFeed = service.Query(worksheetQueryQuery);
+                WorksheetEntry whatsAppShowerCerWorksheet = null;
+                foreach (WorksheetEntry worksheet in worksheetQueryFeed.Entries)
+                {
+                    if ("1".Equals(worksheet.Title.Text))
+                    {
+                        whatsAppShowerCerWorksheet = worksheet;
+                    }
+                }
+                if (whatsAppShowerCerWorksheet == null)
+                {
+                    return false;
+                }
+
+                AtomLink cellFeedLink = whatsAppShowerCerWorksheet.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
+
+                CellQuery cellQueryQuery = new CellQuery(cellFeedLink.HRef.ToString());
+                CellFeed cellQueryFeed = service.Query(cellQueryQuery);
+
+               // uint foundRow = Convert.ToUInt32(-1);
+                //string fromDateAsString = "";
+                //string toDateAsString = "";
+               
+                    foreach (CellEntry curCell in cellQueryFeed.Entries)
+                    {
+                        if (curCell.Cell.Column == 1)
+                        {
+                            if (curCell.Cell.Value.Equals(WhatsappProperties.Instance.AppToken))
+                            {
+                                return true;
+                                //foundRow = curCell.Cell.Row;
+                                //DateTime myDate = DateTime.ParseExact("2009-05-08 14:40:52,531", "yyyy-MM-dd HH:mm:ss,fff", System.Globalization.CultureInfo.InvariantCulture);
+                            }
+                        }
+                        //if (foundRow != -1 && foundRow == curCell.Cell.Row)
+                          //  {
+                               // if (curCell.Cell.Column == 2)
+                                //{
+                                //    fromDateAsString = curCell.Cell.Value;
+                                     //fromDate = DateTime.ParseExact(curCell.Cell.Value, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                               // }
+                               // if (curCell.Cell.Column == 3)
+                               // {
+                               //     toDateAsString = curCell.Cell.Value;
+                                    
+                               // }
+                               // if (!string.IsNullOrEmpty(fromDateAsString) && !string.IsNullOrEmpty(toDateAsString))
+                               // {
+                               //     DateTime fromDate = DateTime.ParseExact(fromDateAsString, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                               //     DateTime toDate = DateTime.ParseExact(toDateAsString, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                               //     if (TimeBetween(DateTime.Now, fromDate, toDate))
+                               //     {
+
+                               //     }
+                              //  }
+                            //}
+                    }
+            }
+            catch (Exception e )
+            {
+                systemLog.Error(e);
+            }
+
+            return false;
+        }
+
+        bool TimeBetween(DateTime datetime, TimeSpan start, TimeSpan end)
+        {
+            // convert datetime to a TimeSpan
+            TimeSpan now = datetime.TimeOfDay;
+            // see if start comes before end
+            if (start < end)
+                return start <= now && now <= end;
+            // start is after end, so do the inverse comparison
+            return !(end < now && now < start);
+        }
+        
 
         private void initVisualProp()
         {
