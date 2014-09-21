@@ -86,27 +86,37 @@ namespace whatsAppShowerWpf
         public MainWindow()
         {
            
-          bool isCanLogin = isCanLoginIn();
-          if (!isCanLogin)
-          {
-              systemLog.Error("error token");
-              Application.Current.Shutdown();
-          }
+          
           Login login = new Login();
           login.ShowDialog();
+          
           InitializeComponent();
-          if (login.DialogResult.HasValue && login.DialogResult.Value){
+          bool showDemo = (login.showDemo.IsChecked == true);
+          if (login.DialogResult.HasValue && login.DialogResult.Value && !showDemo)
+          {
+              string tokenFromGSheet = isCanLoginIn();
+              if (string.IsNullOrEmpty(tokenFromGSheet))
+              {
+                  systemLog.Error("error token");
+                  Application.Current.Shutdown();
+              }
               string phoneNumber = login.txtUserName.Text;
               this.Sender = phoneNumber;
-              string token = login.txtPassword.Password;
-              this.Password = token;
+              this.Password = tokenFromGSheet;
               initWhatsAppConnect();
             }
             else
             {
-                addTexts();
-                addImages();
-                addImageSide();
+                if (login.DialogResult.HasValue && login.DialogResult.Value == false)
+                {
+                    Application.Current.Shutdown();
+                }
+                else
+                {
+                    addTexts();
+                    addImages();
+                    addImageSide();
+                }
             }
 
             
@@ -124,7 +134,7 @@ namespace whatsAppShowerWpf
             startRunningText();
         }
 
-        private bool isCanLoginIn()
+        private string isCanLoginIn()
         {
             try
             {
@@ -148,7 +158,7 @@ namespace whatsAppShowerWpf
                 }
                 if (whatsAppShowerCerEntry == null)
                 {
-                    return false;
+                    return null;
                 }
 
 
@@ -167,7 +177,7 @@ namespace whatsAppShowerWpf
                 }
                 if (whatsAppShowerCerWorksheet == null)
                 {
-                    return false;
+                    return null;
                 }
 
                 AtomLink cellFeedLink = whatsAppShowerCerWorksheet.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
@@ -175,43 +185,21 @@ namespace whatsAppShowerWpf
                 CellQuery cellQueryQuery = new CellQuery(cellFeedLink.HRef.ToString());
                 CellFeed cellQueryFeed = service.Query(cellQueryQuery);
 
-               // uint foundRow = Convert.ToUInt32(-1);
-                //string fromDateAsString = "";
-                //string toDateAsString = "";
-               
+                bool foundToken = false;
                     foreach (CellEntry curCell in cellQueryFeed.Entries)
                     {
+                        if (foundToken)
+                        {
+                            return curCell.Cell.Value;
+                        }
                         if (curCell.Cell.Column == 1)
                         {
                             if (curCell.Cell.Value.Equals(WhatsappProperties.Instance.AppToken))
                             {
-                                return true;
-                                //foundRow = curCell.Cell.Row;
-                                //DateTime myDate = DateTime.ParseExact("2009-05-08 14:40:52,531", "yyyy-MM-dd HH:mm:ss,fff", System.Globalization.CultureInfo.InvariantCulture);
+                                foundToken = true;
                             }
                         }
-                        //if (foundRow != -1 && foundRow == curCell.Cell.Row)
-                          //  {
-                               // if (curCell.Cell.Column == 2)
-                                //{
-                                //    fromDateAsString = curCell.Cell.Value;
-                                     //fromDate = DateTime.ParseExact(curCell.Cell.Value, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                               // }
-                               // if (curCell.Cell.Column == 3)
-                               // {
-                               //     toDateAsString = curCell.Cell.Value;
-                                    
-                               // }
-                               // if (!string.IsNullOrEmpty(fromDateAsString) && !string.IsNullOrEmpty(toDateAsString))
-                               // {
-                               //     DateTime fromDate = DateTime.ParseExact(fromDateAsString, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                               //     DateTime toDate = DateTime.ParseExact(toDateAsString, "yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                               //     if (TimeBetween(DateTime.Now, fromDate, toDate))
-                               //     {
-
-                               //     }
-                              //  }
-                            //}
+                        
                     }
             }
             catch (Exception e )
@@ -219,7 +207,7 @@ namespace whatsAppShowerWpf
                 systemLog.Error(e);
             }
 
-            return false;
+            return null;
         }
 
         bool TimeBetween(DateTime datetime, TimeSpan start, TimeSpan end)
