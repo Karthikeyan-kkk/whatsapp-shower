@@ -1,20 +1,18 @@
 ﻿whatsappShow.paddingTop = 10
 whatsappShow.paddingLeft = 20
-whatsappShow.charPerRow = 50
 whatsappShow.imageMaxWidth = 20
 whatsappShow.imageMaxWidthType = per
 whatsappShow.imageMaxHeight = 400
 
 whatsappShow.runingTextSpeed = 100
-whatsappShow.startRunnigLocation = 0
-whatsappShow.runingTextjumpingLocation = 10
 whatsappShow.runnigText = שלחו הודעת וואטסאפ למספר 052-4376-363
-     
+whatsappShow.runnigTextSize = 50
+whatsappShow.runnigTextShow = true 
+
 whatsappShow.textFontSize = 24
 whatsappShow.phoneFontSize = 18
 whatsappShow.houerFontSize = 12
-whatsappShow.runnigTextSize = 50
-whatsappShow.runnigTextShow = true
+
 
      
 whatsappShow.textBackGroundColor = 255,252,251,246
@@ -24,7 +22,8 @@ whatsappShow.houerColor = 255,128,128,128
 whatsappShow.runnigTextColor = 255,000,000,255
 
 whatsappShow.fullScreen = false
-whatsappShow.maxTextWidth = 600
+whatsappShow.maxTextWidth = 20
+whatsappShow.textMaxWidthType = per
 whatsappShow.sideImagefadingSpeedInSec = 4
 whatsappShow.sideImageRunEveryInSec = 4
 whatsappShow.showSideImages = true
