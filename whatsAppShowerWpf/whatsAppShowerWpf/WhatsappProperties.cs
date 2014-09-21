@@ -47,15 +47,7 @@ namespace whatsAppShowerWpf
             set { paddingLeft = value; }
         }
 
-         int charPerRow = 50;
-
-        public  int CharPerRow
-        {
-            get { return charPerRow; }
-            set { charPerRow = value; }
-        }
-
-         int imageMaxWidth = 80000000;
+        int imageMaxWidth = 80000000;
 
         public  int ImageMaxWidth
         {
@@ -71,7 +63,13 @@ namespace whatsAppShowerWpf
             set { imageMaxWidthType = value; }
         }
 
+        string textMaxWidthType = "per";
 
+        public string TextMaxWidthType
+        {
+            get { return textMaxWidthType; }
+            set { textMaxWidthType = value; }
+        }
 
          int imageMaxHeight = 400;
 
@@ -88,13 +86,7 @@ namespace whatsAppShowerWpf
             get { return runingTextSpeed; }
             set { runingTextSpeed = value; }
         }
-         int startRunnigLocation = 0;
-
-        public  int StartRunnigLocation
-        {
-            get { return startRunnigLocation; }
-            set { startRunnigLocation = value; }
-        }
+         
          int runingTextjumpingLocation = 10;
 
         public  int RuningTextjumpingLocation
@@ -329,17 +321,17 @@ namespace whatsAppShowerWpf
                 {
                     PaddingLeft = parseToInt(Props[key], 20);
                 }
-                if (key.Equals(prfixCode + "charPerRow"))
-                {
-                    CharPerRow = parseToInt(Props[key], 50);
-                }
-                if (key.Equals(prfixCode + "imageMaxWidth"))
+               if (key.Equals(prfixCode + "imageMaxWidth"))
                 {
                     ImageMaxWidth = parseToInt(Props[key], 80000000);
                 }
                 if (key.Equals(prfixCode + "imageMaxWidthType"))
                 {
                     ImageMaxWidthType = parsString(Props[key], "per");
+                }
+                if (key.Equals(prfixCode + "textMaxWidthType"))
+                {
+                    TextMaxWidthType = parsString(Props[key], "per");
                 }
                 if (key.Equals(prfixCode + "imageMaxHeight"))
                 {
@@ -348,10 +340,6 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "runingTextSpeed"))
                 {
                     RuningTextSpeed = parseToInt(Props[key], 50);
-                }
-                if (key.Equals(prfixCode + "startRunnigLocation"))
-                {
-                    StartRunnigLocation = parseToInt(Props[key], 0);
                 }
                 if (key.Equals(prfixCode + "runingTextjumpingLocation"))
                 {

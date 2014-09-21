@@ -69,7 +69,13 @@ namespace whatsAppShowerWpf
             parseEmjoi(textMsg,this.fld);
             //this.textMsgField.Text = textMsg;
             this.textMsgField.FontSize = WhatsappProperties.Instance.TextFontSize;
-            this.textMsgField.MaxWidth = WhatsappProperties.Instance.MaxTextWidth;
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double textMaxWidth = (screenWidth * WhatsappProperties.Instance.ImageMaxWidth) / 100;
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.TextMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.TextMaxWidthType))
+            {
+                textMaxWidth = WhatsappProperties.Instance.ImageMaxWidth;
+            }
+            this.textMsgField.MaxWidth = textMaxWidth;
 
             parseEmjoi(from, this.fromfd);
             //this.fromField.Text = from;
