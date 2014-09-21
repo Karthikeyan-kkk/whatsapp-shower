@@ -286,6 +286,13 @@ namespace whatsAppShowerWpf
             get { return backgroundimage; }
             set { backgroundimage = value; }
         }
+        string phoneToken = "";
+
+        public string PhoneToken
+        {
+            get { return phoneToken; }
+            set { phoneToken = value; }
+        }
 
         public  bool initProperties()
         {
@@ -370,12 +377,10 @@ namespace whatsAppShowerWpf
                 {
                     RunnigTextSize = parseToInt(Props[key], 24);
                 }
-                
                 if (key.Equals(prfixCode + "shadowColor"))
                 {
                     ShadowColor = parseToColor(Props[key], Color.FromArgb(100, 0, 0, 0));
                 }
-               
                 if (key.Equals(prfixCode + "fullScreen"))
                 {
                     FullScreen = parseBoolean(Props[key], false);
@@ -415,6 +420,10 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "appToken"))
                 {
                     AppToken = parsString(Props[key], "");
+                }
+                if (key.Equals(prfixCode + "phoneToken"))
+                {
+                    phoneToken = parsString(Props[key], "");
                 }
             }
 

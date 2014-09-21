@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="googleSpreadSheetsHandler.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="ImgView.xaml.cs">
       <DependentUpon>ImgView.xaml</DependentUpon>

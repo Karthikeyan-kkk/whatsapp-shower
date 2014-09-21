@@ -22,9 +22,7 @@ using WhatsAppApi.Account;
 using System.Windows.Threading;
 using log4net;
 using System.Globalization;
-using Google.GData.Client;
-using Google.GData.Extensions;
-using Google.GData.Spreadsheets;
+
 
 namespace whatsAppShowerWpf
 {
@@ -33,7 +31,7 @@ namespace whatsAppShowerWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        string nickname = "test12";
+        string nickname = "";
         bool showExample = false;
         string sender = "972524376363"; // Mobile number with country code (but without + or 00)
         string password = "TicJAMworhafW+84w3vuA4yMS5o=";//v2 password
@@ -55,7 +53,7 @@ namespace whatsAppShowerWpf
         public string Nickname
         {
             get { return nickname; }
-            set { nickname = value;Storyboard sd=(Storyboard) Application.Current.Resources["runningTextDoubleAnimation"];
+            set { nickname = value;
            
             Storyboard storyboard = new Storyboard();
             storyboard.SetSpeedRatio(1);
@@ -94,11 +92,21 @@ namespace whatsAppShowerWpf
           bool showDemo = (login.showDemo.IsChecked == true);
           if (login.DialogResult.HasValue && login.DialogResult.Value && !showDemo)
           {
-              string tokenFromGSheet = isCanLoginIn();
+              googleSpreadSheetsHandler googleSpreadSheetsHandler = new googleSpreadSheetsHandler();
+              string tokenFromGSheet = googleSpreadSheetsHandler.isCanLoginIn();
+              
               if (string.IsNullOrEmpty(tokenFromGSheet))
               {
-                  systemLog.Error("error token");
-                  Application.Current.Shutdown();
+                  string phoneToken = WhatsappProperties.Instance.PhoneToken;
+                  if (string.IsNullOrEmpty(phoneToken))
+                  {
+                      systemLog.Error("error token");
+                      Application.Current.Shutdown();
+                  }
+                  else
+                  {
+                      tokenFromGSheet = phoneToken;
+                  }
               }
               string phoneNumber = login.txtUserName.Text;
               this.Sender = phoneNumber;
@@ -133,94 +141,6 @@ namespace whatsAppShowerWpf
             this.WindowState =  WindowState.Maximized;
             startRunningText();
         }
-
-        private string isCanLoginIn()
-        {
-            try
-            {
-                SpreadsheetsService service = new SpreadsheetsService("whatsappshower");
-                service.setUserCredentials("whatsappshower@gmail.com", "e4rst6rh");
-
-                SpreadsheetQuery query = new SpreadsheetQuery();
-                SpreadsheetFeed feed = service.Query(query);
-
-                Console.WriteLine("Your spreadsheets:");
-
-                SpreadsheetEntry whatsAppShowerCerEntry = null;
-                foreach (SpreadsheetEntry entry in feed.Entries)
-                {
-                    //Console.WriteLine(entry.Title.Text);
-                    if ("whatsAppShowerCer".Equals(entry.Title.Text))
-                    {
-                        whatsAppShowerCerEntry = entry;
-                    }
-                    
-                }
-                if (whatsAppShowerCerEntry == null)
-                {
-                    return null;
-                }
-
-
-
-                AtomLink link = whatsAppShowerCerEntry.Links.FindService(GDataSpreadsheetsNameTable.WorksheetRel, null);
-
-                WorksheetQuery worksheetQueryQuery = new WorksheetQuery(link.HRef.ToString());
-                WorksheetFeed worksheetQueryFeed = service.Query(worksheetQueryQuery);
-                WorksheetEntry whatsAppShowerCerWorksheet = null;
-                foreach (WorksheetEntry worksheet in worksheetQueryFeed.Entries)
-                {
-                    if ("1".Equals(worksheet.Title.Text))
-                    {
-                        whatsAppShowerCerWorksheet = worksheet;
-                    }
-                }
-                if (whatsAppShowerCerWorksheet == null)
-                {
-                    return null;
-                }
-
-                AtomLink cellFeedLink = whatsAppShowerCerWorksheet.Links.FindService(GDataSpreadsheetsNameTable.CellRel, null);
-
-                CellQuery cellQueryQuery = new CellQuery(cellFeedLink.HRef.ToString());
-                CellFeed cellQueryFeed = service.Query(cellQueryQuery);
-
-                bool foundToken = false;
-                    foreach (CellEntry curCell in cellQueryFeed.Entries)
-                    {
-                        if (foundToken)
-                        {
-                            return curCell.Cell.Value;
-                        }
-                        if (curCell.Cell.Column == 1)
-                        {
-                            if (curCell.Cell.Value.Equals(WhatsappProperties.Instance.AppToken))
-                            {
-                                foundToken = true;
-                            }
-                        }
-                        
-                    }
-            }
-            catch (Exception e )
-            {
-                systemLog.Error(e);
-            }
-
-            return null;
-        }
-
-        bool TimeBetween(DateTime datetime, TimeSpan start, TimeSpan end)
-        {
-            // convert datetime to a TimeSpan
-            TimeSpan now = datetime.TimeOfDay;
-            // see if start comes before end
-            if (start < end)
-                return start <= now && now <= end;
-            // start is after end, so do the inverse comparison
-            return !(end < now && now < start);
-        }
-        
 
         private void initVisualProp()
         {
