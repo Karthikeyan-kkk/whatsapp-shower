@@ -30,14 +30,33 @@ namespace whatsAppShowerWpf
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
       DialogResult = false;
-      this.Close();
+      Application.Current.Shutdown();
     }
 
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
-     
+      bool showDemo = (this.showDemo.IsChecked == true);
+      if (!showDemo && string.IsNullOrEmpty(this.txtUserName.Text))
+      {
+          System.Windows.MessageBox.Show("Phone number can't be empty");
+          return;
+      }
       DialogResult = true;
       this.Close();
+    }
+
+    private void showDemo_Checked(object sender, RoutedEventArgs e)
+    {
+        bool showDemo = (this.showDemo.IsChecked == true);
+        if (showDemo)
+        {
+            this.txtUserName.Text = "";
+            this.txtUserName.IsEnabled = false;
+        }
+        else
+        {
+            this.txtUserName.IsEnabled = true;
+        }
     }
   }
     }
