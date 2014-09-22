@@ -196,7 +196,9 @@ namespace whatsAppShowerWpf
             var fadeOutAnimation = new DoubleAnimation(0d, fadeOutTime);
             if (queue.Count == 0)
             {
+                
                 image.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
+                sideImageBorder.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
                 return;
             }
             string imgUrl = queue.Dequeue();
@@ -214,15 +216,18 @@ namespace whatsAppShowerWpf
                 {
                     image.Source = source;
                     image.BeginAnimation(Image.OpacityProperty, fadeInAnimation);
+                    sideImageBorder.BeginAnimation(Image.OpacityProperty, fadeInAnimation);
                 };
-
                 image.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
+                sideImageBorder.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
             }
             else
             {
                 image.Opacity = 0d;
                 image.Source = source;
                 image.BeginAnimation(Image.OpacityProperty, fadeInAnimation);
+                sideImageBorder.BeginAnimation(Image.OpacityProperty, fadeInAnimation);
+               
             }
         }
 
