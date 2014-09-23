@@ -239,14 +239,7 @@ namespace whatsAppShowerWpf
              if (isCanShowMsg)
              {
                  TextView textView2 = null;
-                 if (!string.IsNullOrEmpty(phoneNumber) && phoneNumber.StartsWith("972"))
-                 {
-                     phoneNumber = phoneNumber.Replace("972", "0");
-                     if (phoneNumber.Length == 10) { 
-                        phoneNumber = phoneNumber.Insert(3, "-");
-                     }
-
-                 }
+                 phoneNumber = Helpers.formatPhoneNumber(phoneNumber);
                  this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => {
                      if (string.IsNullOrEmpty(nikeName))
                      {
@@ -268,8 +261,10 @@ namespace whatsAppShowerWpf
         private void addImg(string phoneNumber, string imgFileName, string hour)
         {
             phoneNumber = Helpers.filterFromNumber(phoneNumber);
+           
             if (isCanShowMsgMet(phoneNumber, "IMG"))
             {
+                phoneNumber = Helpers.formatPhoneNumber(phoneNumber);
                 ImgView imgView = null;
                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { imgView = new ImgView(phoneNumber, (ImageSource)new ImageSourceConverter().ConvertFromString(imgFileName), hour); }));
                 this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanel1.Children.Add(imgView); }));
@@ -385,21 +380,22 @@ namespace whatsAppShowerWpf
 
         void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
         {
-            OnGetMedia(fileName, url, preview);
-            addImg(from, fileName, DateTime.Now.ToString("HH:mm"));
+            OnGetMedia(Helpers.getImgFullPath(fileName), url, preview);
+
+            addImg(from, Helpers.getImgFullPath(fileName), DateTime.Now.ToString("HH:mm"));
         }
 
         static void OnGetMedia(string file, string url, byte[] data)
         {
             //save preview
-            File.WriteAllBytes(string.Format("preview_{0}.jpg", file), data);
+            //File.WriteAllBytes(string.Format("preview_{0}.jpg", file), data);
             //download
             using (WebClient wc = new WebClient())
             {
-
-                if (!File.Exists(file))
+                string fullPath = file;
+                if (!File.Exists(fullPath))
                 {
-                    wc.DownloadFile(new Uri(url), file);
+                    wc.DownloadFile(new Uri(url), fullPath);
                 }
             }
         }

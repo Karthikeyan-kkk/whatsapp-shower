@@ -278,6 +278,16 @@ namespace whatsAppShowerWpf
             get { return backgroundimage; }
             set { backgroundimage = value; }
         }
+
+        string downloadImgTo = "";
+
+        public string DownloadImgTo
+        {
+            get { return downloadImgTo; }
+            set { downloadImgTo = value; }
+        }
+
+
         string phoneToken = "";
 
         public string PhoneToken
@@ -404,6 +414,10 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "backgroundimage"))
                 {
                     Backgroundimage = parsString(Props[key], "");
+                }
+                if (key.Equals(prfixCode + "downloadImgTo"))
+                {
+                    DownloadImgTo = parsString(Props[key], "");
                 }
                 if (key.Equals(prfixCode + "appToken"))
                 {

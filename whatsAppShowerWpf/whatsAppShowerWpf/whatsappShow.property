@@ -33,5 +33,7 @@ whatsappShow.commandsOpPassword = aa
 
 whatsappShow.backgroundimage =backgorundImg\1.jpg
 
+whatsappShow.downloadImgTo = images
+
 whatsappShow.appToken =aabbccdd44332211
         
