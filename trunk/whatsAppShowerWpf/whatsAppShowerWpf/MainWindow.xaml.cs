@@ -316,13 +316,6 @@ namespace whatsAppShowerWpf
         }
 
 
-
-
-
-
-
-
-
         //Start tests items
 
         private void addImageSide()

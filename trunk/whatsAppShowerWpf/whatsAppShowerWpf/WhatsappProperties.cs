@@ -123,7 +123,7 @@ namespace whatsAppShowerWpf
             get { return WhatsappProperties.Instance.houerFontSize; }
             set { WhatsappProperties.Instance.houerFontSize = value; }
         }
-         Single runnigTextSize = 24;
+        Single runnigTextSize = 24;
 
         public  Single RunnigTextSize
         {
@@ -131,34 +131,6 @@ namespace whatsAppShowerWpf
             set { WhatsappProperties.Instance.runnigTextSize = value; }
         }
 
-         Color textBackGroundColor = Color.FromRgb(252, 251, 246);
-
-        public  Color TextBackGroundColor
-        {
-            get { return textBackGroundColor; }
-            set { textBackGroundColor = value; }
-        }
-         Color shadowColor = Color.FromArgb(100, 0, 0, 0);
-
-        public  Color ShadowColor
-        {
-            get { return shadowColor; }
-            set { shadowColor = value; }
-        }
-         Color textColor = (Color)ColorConverter.ConvertFromString("Black");
-
-        public  Color TextColor
-        {
-            get { return textColor; }
-            set { textColor = value; }
-        }
-         Color houerColor = (Color)ColorConverter.ConvertFromString("Gray");
-
-        public  Color HouerColor
-        {
-            get { return houerColor; }
-            set { houerColor = value; }
-        }
         Brush runnigTextColor = Brushes.White;
 
         public Brush RunnigTextColor
@@ -374,10 +346,6 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "runnigTextSize"))
                 {
                     RunnigTextSize = parseToInt(Props[key], 24);
-                }
-                if (key.Equals(prfixCode + "shadowColor"))
-                {
-                    ShadowColor = parseToColor(Props[key], Color.FromArgb(100, 0, 0, 0));
                 }
                 if (key.Equals(prfixCode + "fullScreen"))
                 {
