@@ -31,7 +31,7 @@ whatsappShow.showSideImages = true
 whatsappShow.commandsOpOnlyFrom = 524376363
 whatsappShow.commandsOpPassword = aa
 
-whatsappShow.backgroundimage =1.jpg
+whatsappShow.backgroundimage =backgorundImg\1.jpg
 
 whatsappShow.appToken =aabbccdd44332211
         

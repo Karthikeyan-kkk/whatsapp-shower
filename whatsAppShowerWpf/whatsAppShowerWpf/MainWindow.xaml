@@ -59,7 +59,7 @@
             </Grid>
         </Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/whatsAppShowerWpf;component/Images/panel1.BackgroundImage2.png"  Stretch="None"/>
+            <ImageBrush ImageSource="/whatsAppShowerWpf;component/Images/panel1.BackgroundImage2.png"  Stretch="UniformToFill"/>
         </Grid.Background>
         
         
