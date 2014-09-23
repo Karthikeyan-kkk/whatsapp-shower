@@ -239,6 +239,14 @@ namespace whatsAppShowerWpf
              if (isCanShowMsg)
              {
                  TextView textView2 = null;
+                 if (!string.IsNullOrEmpty(phoneNumber) && phoneNumber.StartsWith("972"))
+                 {
+                     phoneNumber = phoneNumber.Replace("972", "0");
+                     if (phoneNumber.Length == 10) { 
+                        phoneNumber = phoneNumber.Insert(3, "-");
+                     }
+
+                 }
                  this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => {
                      if (string.IsNullOrEmpty(nikeName))
                      {

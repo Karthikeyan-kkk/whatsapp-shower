@@ -37,21 +37,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>mensage.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.GData.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
-      <HintPath>..\..\..\google sheet\Google.GData.Client.dll</HintPath>
+      <HintPath>Ref\Google.GData.Client.dll</HintPath>
     </Reference>
     <Reference Include="Google.GData.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0b4c5df2ebf20876, processorArchitecture=MSIL">
-      <HintPath>..\..\..\google sheet\Google.GData.Extensions.dll</HintPath>
+      <HintPath>Ref\Google.GData.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Google.GData.Spreadsheets, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3f77feb76ff0d9a1, processorArchitecture=MSIL">
-      <HintPath>..\..\..\google sheet\Google.GData.Spreadsheets.dll</HintPath>
+      <HintPath>Ref\Google.GData.Spreadsheets.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\Desktop\whatsappShower\WhatsAPINet-master\WhatsappShower\log4net\log4net.dll</HintPath>
+      <HintPath>Ref\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -64,7 +63,7 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="WhatsAppApi">
-      <HintPath>..\..\..\..\..\Desktop\whatsappShower\WhatsAPINet-master\WinApp.NET-master\Libraries\WhatsAppApi.dll</HintPath>
+      <HintPath>Ref\WhatsAppApi.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -1020,6 +1019,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\mensage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="mensage.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
