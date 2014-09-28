@@ -23,7 +23,7 @@ namespace whatsAppShowerWpf
                 SpreadsheetQuery query = new SpreadsheetQuery();
                 SpreadsheetFeed feed = service.Query(query);
 
-                Console.WriteLine("Your spreadsheets:");
+                
 
                 SpreadsheetEntry whatsAppShowerCerEntry = null;
                 foreach (SpreadsheetEntry entry in feed.Entries)

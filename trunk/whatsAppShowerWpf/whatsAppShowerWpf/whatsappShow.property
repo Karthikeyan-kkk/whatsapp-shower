@@ -28,4 +28,7 @@ whatsappShow.fullScreen = false
 whatsappShow.backgroundimage =backgorundImg\1.jpg
 whatsappShow.downloadImgTo = images
 
+whatsappShow.premissionsDir=C:\Users\Idan\Google Drive\whatsAppShower
+whatsappShow.premissionsFileName=whatsAppShowePermissions.xls
+
 whatsappShow.appToken =aabbccdd44332211
