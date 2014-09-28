@@ -170,6 +170,22 @@ namespace whatsAppShowerWpf
         }
 
 
+        string premissionsFileName = "whatsAppShowePermissions.csv";
+
+        public string PremissionsFileName
+        {
+            get { return premissionsFileName; }
+            set { premissionsFileName = value; }
+        }
+
+        string premissionsDir = Environment.CurrentDirectory;
+
+        public string PremissionsDir
+        {
+            get { return premissionsDir; }
+            set { premissionsDir = value; }
+        }
+
         static Dictionary<string, string> props = new Dictionary<string, string>();
 
         static public Dictionary<string, string> Props
@@ -394,6 +410,14 @@ namespace whatsAppShowerWpf
                 if (key.Equals(prfixCode + "phoneToken"))
                 {
                     phoneToken = parsString(Props[key], "");
+                }
+                if (key.Equals(prfixCode + "premissionsFileName"))
+                {
+                    PremissionsFileName = parsString(Props[key], "whatsAppShowePermissions.csv");
+                }
+                if (key.Equals(prfixCode + "premissionsDir"))
+                {
+                    PremissionsDir = parsString(Props[key], Environment.CurrentDirectory);
                 }
             }
 
