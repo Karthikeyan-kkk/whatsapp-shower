@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using System.Windows.Media;
 using log4net;
-using System;
 using System.Data.OleDb;
 
 
@@ -32,7 +31,7 @@ namespace whatsAppShowerWpf
                         instance = new NumberPropList();
                         instance.loadFileProp();
                         FileSystemWatcher watcher = new FileSystemWatcher();
-                        watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+                        watcher.NotifyFilter = NotifyFilters.LastWrite;
                         watcher.Path = WhatsappProperties.Instance.PremissionsDir;
                         watcher.Filter = WhatsappProperties.Instance.PremissionsFileName;
                         watcher.Changed += new FileSystemEventHandler(watcher_Changed);
