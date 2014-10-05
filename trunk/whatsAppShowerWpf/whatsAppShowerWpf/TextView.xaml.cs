@@ -61,8 +61,12 @@ namespace whatsAppShowerWpf
             string currentHouer = DateTime.Now.ToString("HH:mm");
             new TextView(from, textMsg, currentHouer);
         }
+        public TextView(string from, string textMsg, string hour)
+        {
+            new TextView(from, "", textMsg, hour);
+        }
         
-        public TextView(string from , string textMsg,string hour)
+        public TextView(string from ,string nickName,string textMsg,string hour)
         {
             
             InitializeComponent();
@@ -76,27 +80,25 @@ namespace whatsAppShowerWpf
                 textMaxWidth = WhatsappProperties.Instance.ImageMaxWidth;
             }
             this.textMsgField.MaxWidth = textMaxWidth;
-
-            parseEmjoi(from, this.fromfd);
+            string fromWithNickName = "";
+            if (string.IsNullOrEmpty(nickName))
+            {
+                fromWithNickName = from;
+            }
+            else
+            {
+                fromWithNickName = from+" - "+nickName;
+            }
+            parseEmjoi(fromWithNickName, this.fromfd);
             //this.fromField.Text = from;
-            this.fromField.Width = MeasureString(from).Width;
+            this.fromField.Width = MeasureString(fromWithNickName).Width;
             this.fromField.Foreground = NumberPropList.Instance.getPhoneColor(from);
             this.fromField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
 
             this.hourField.Text = hour;
             this.hourField.Foreground = Brushes.Gray;
             this.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
-            //double sd = this.textMsgField.DesiredSize.Width;
-            if (from.Length > textMsg.Length)
-            {
-                
-               // this.Width = MeasureString(from).Width + 30;
-            }
-            else
-            {
-               // this.Width = MeasureString(textMsg).Width + 30;
-
-            }
+           
             TextRange textRange = new TextRange(
                 // TextPointer to the start of content in the RichTextBox.
                 this.textMsgField.Document.ContentStart,

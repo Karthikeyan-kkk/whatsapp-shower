@@ -5,6 +5,7 @@ using System.Text;
 using System.Configuration;
 using System.IO;
 using System.Windows.Media;
+using System.Windows;
 
 namespace whatsAppShowerWpf
 {
@@ -29,14 +30,19 @@ namespace whatsAppShowerWpf
                 return instance;
             }
         }
-
+       
          int paddingTop = 10;
 
         public  int PaddingTop
         {
             get { return paddingTop; }
-            set { paddingTop = value; }
+            set { 
+                paddingTop = value;
+                saveToFile("paddingTop", value+"");
+            }
         }
+
+        
 
 
          int paddingLeft = 20;
@@ -57,12 +63,14 @@ namespace whatsAppShowerWpf
 
         string imageMaxWidthType = "per";
 
+        
         public string ImageMaxWidthType
         {
             get { return imageMaxWidthType; }
             set { imageMaxWidthType = value; }
         }
-
+        
+        
         string textMaxWidthType = "per";
 
         public string TextMaxWidthType
@@ -464,6 +472,12 @@ namespace whatsAppShowerWpf
 
                 return valToReturn;
             }
+        }
+
+        private void saveToFile(string p, string value)
+        {
+            string filename = "whatsappShow.property";
+          
         }
 
     }

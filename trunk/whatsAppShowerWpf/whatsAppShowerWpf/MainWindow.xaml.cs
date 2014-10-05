@@ -38,7 +38,6 @@ namespace whatsAppShowerWpf
 		string target = "972504219841";// Mobile number to send the message to
 		private static readonly ILog msgsLog = log4net.LogManager.GetLogger("msgsLog");
 		private static readonly ILog systemLog = log4net.LogManager.GetLogger("systemsLog");
-		private static readonly ILog msgHistoryLog = log4net.LogManager.GetLogger("msgHistory");
 		private DispatcherTimer sideImageTimer = new DispatcherTimer();
 		private Duration runingTextSpeedDuration = new Duration(TimeSpan.FromSeconds(20));
 	   
@@ -83,18 +82,29 @@ namespace whatsAppShowerWpf
 
 		public MainWindow()
 		{
-		   
-		  
+
+            try
+            {
+                WhatsappProperties.Instance.initProperties();
+            }
+            catch (Exception e)
+            {
+                systemLog.Error(e);
+            }
 		  Login login = new Login();
 		  login.ShowDialog();
 		  
 		  InitializeComponent();
+         
+          
+         
+          NumberPropList.Instance.loadFileProp();
 		  bool showDemo = (login.showDemo.IsChecked == true);
 		  if (login.DialogResult.HasValue && login.DialogResult.Value && !showDemo)
 		  {
 			  googleSpreadSheetsHandler googleSpreadSheetsHandler = new googleSpreadSheetsHandler();
 			  string tokenFromGSheet = googleSpreadSheetsHandler.isCanLoginIn();
-			  
+              
 			  if (string.IsNullOrEmpty(tokenFromGSheet))
 			  {
 				  string phoneToken = WhatsappProperties.Instance.PhoneToken;
@@ -247,7 +257,7 @@ namespace whatsAppShowerWpf
 					 }
 					 else
 					 {
-						 textView2 = new TextView(phoneNumber + " - " + nikeName, msgText, hour);
+						 textView2 = new TextView(phoneNumber,nikeName, msgText, hour);
 					 }
 					
 					 this.stackPanel1.Children.Add(textView2);
@@ -314,6 +324,11 @@ namespace whatsAppShowerWpf
 				
 			}
 		}
+
+        private void mainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Settings.Instance.Show();
+        }
 
 
 		//Start tests items
@@ -486,12 +501,20 @@ namespace whatsAppShowerWpf
 		private void initWhatsAppConnect()
 		{
 			WhatsApp wa = new WhatsApp(Sender, Password, Nickname, true);
+            
 			wa.OnGetMessage += wa_OnGetMessage;
 			//wa.OnGetPhoto += wa_OnGetPhoto;
 			wa.OnGetMessageImage += wa_OnGetMessageImage;
 			wa.OnConnectFailed += new WhatsEventBase.ExceptionDelegate(Instance_OnConnectFailed);
+            wa.OnDisconnect += new WhatsEventBase.ExceptionDelegate(wa_OnDisconnect);
 			WhatsAppApi.Helper.DebugAdapter.Instance.OnPrintDebug += Instance_OnPrintDebug;
-			wa.Connect();
+            wa.OnConnectFailed += new WhatsEventBase.ExceptionDelegate(wa_OnDisconnect);
+            wa.OnError += new WhatsEventBase.OnErrorDelegate(wa_OnError);
+            wa.OnGetPaused += new WhatsEventBase.OnGetChatStateDelegate(wa_OnGetPaused);
+            wa.OnLoginFailed += new WhatsEventBase.StringDelegate(wa_OnLoginFailed);
+            wa.Connect();
+            
+            
 
 			try
 			{
@@ -509,6 +532,27 @@ namespace whatsAppShowerWpf
 			}
 			ProcessChat(wa, target);
 		}
+
+        void wa_OnLoginFailed(string data)
+        {
+            systemLog.Error("disconnect!!!");
+        }
+
+        void wa_OnGetPaused(string from)
+        {
+            systemLog.Error("disconnect!!!");
+        }
+
+        void wa_OnError(string id, string from, int code, string text)
+        {
+            systemLog.Error("disconnect!!!");
+        }
+
+        void wa_OnDisconnect(Exception ex)
+        {
+            systemLog.Error("disconnect!!!");
+            initWhatsAppConnect();
+        }
 		// End whatsApp Connection
 
 
@@ -626,6 +670,8 @@ namespace whatsAppShowerWpf
 				}
 			}
 		}
+
+        
 
 		//End op msgs
 
