@@ -30,12 +30,15 @@ namespace whatsAppShowerWpf
                     {
                         instance = new NumberPropList();
                         instance.loadFileProp();
-                        FileSystemWatcher watcher = new FileSystemWatcher();
-                        watcher.NotifyFilter = NotifyFilters.LastWrite;
-                        watcher.Path = WhatsappProperties.Instance.PremissionsDir;
-                        watcher.Filter = WhatsappProperties.Instance.PremissionsFileName;
-                        watcher.Changed += new FileSystemEventHandler(watcher_Changed);
-                        watcher.EnableRaisingEvents = true;
+                        if (Directory.Exists(WhatsappProperties.Instance.PremissionsDir))
+                        {
+                            FileSystemWatcher watcher = new FileSystemWatcher();
+                            watcher.NotifyFilter = NotifyFilters.LastWrite;
+                            watcher.Path = WhatsappProperties.Instance.PremissionsDir;
+                            watcher.Filter = WhatsappProperties.Instance.PremissionsFileName;
+                            watcher.Changed += new FileSystemEventHandler(watcher_Changed);
+                            watcher.EnableRaisingEvents = true;
+                        }
                     }
                     catch (Exception e)
                     {
@@ -70,7 +73,12 @@ namespace whatsAppShowerWpf
 
         public void loadFileProp()
         {
-
+            string fullFilePath = WhatsappProperties.Instance.PremissionsDir + @"\" + WhatsappProperties.Instance.PremissionsFileName;
+            if (!File.Exists(fullFilePath))
+            {
+                systemLog.Info("no PremissionsFileName to load found : " + WhatsappProperties.Instance.PremissionsFileName);
+                return;
+            }
             if (WhatsappProperties.Instance.PremissionsFileName.EndsWith("xls"))
             {
                 loadXls(WhatsappProperties.Instance.PremissionsDir + @"\" + WhatsappProperties.Instance.PremissionsFileName);
@@ -81,7 +89,7 @@ namespace whatsAppShowerWpf
                 loadCvs(WhatsappProperties.Instance.PremissionsDir + @"\" + WhatsappProperties.Instance.PremissionsFileName);
                 return;
             }
-            systemLog.Info("no PremissionsFileName to load found : " + WhatsappProperties.Instance.PremissionsFileName);
+            systemLog.Info("no PremissionsFileName surfix found : " + WhatsappProperties.Instance.PremissionsFileName);
         }
 
         private void loadXls(string file)

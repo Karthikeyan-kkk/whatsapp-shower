@@ -36,10 +36,7 @@ namespace whatsAppShowerWpf
         public  int PaddingTop
         {
             get { return paddingTop; }
-            set { 
-                paddingTop = value;
-                saveToFile("paddingTop", value+"");
-            }
+            set {paddingTop = value; }
         }
 
         
@@ -306,12 +303,12 @@ namespace whatsAppShowerWpf
                         props.Add(key.Trim(), val.Trim());
                     }
                 }
-            updateFiledFromPropsDictionary();
+            syncProp(true);
             return true;
         }
         
-
-        private  void updateFiledFromPropsDictionary()
+        
+        public  void syncProp(bool fromFile)
         {
             String prfixCode = "whatsappShow.";
             int propCount = Props.Count;
@@ -321,111 +318,300 @@ namespace whatsAppShowerWpf
                 String key = Props.Keys.ElementAt(i);
                 if (key.Equals(prfixCode + "paddingTop"))
                 {
-                   PaddingTop = parseToInt(Props[key], 10);
+                    if (fromFile)
+                    {
+                        PaddingTop = parseToInt(Props[key], 10);
+                    }
+                    else
+                    {
+                        saveToFile("paddingTop", PaddingTop+"");
+                    }
                 }
                 if (key.Equals(prfixCode + "paddingLeft"))
                 {
-                    PaddingLeft = parseToInt(Props[key], 20);
+                    if (fromFile)
+                    {
+                        PaddingLeft = parseToInt(Props[key], 20);
+                    }
+                    else
+                    {
+                        saveToFile("paddingLeft", PaddingLeft + "");
+                    }
                 }
                if (key.Equals(prfixCode + "imageMaxWidth"))
                 {
-                    ImageMaxWidth = parseToInt(Props[key], 80000000);
+                    if (fromFile)
+                    {
+                        ImageMaxWidth = parseToInt(Props[key], 80000000);
+                    }
+                    else
+                    {
+                        saveToFile("imageMaxWidth", ImageMaxWidth + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "imageMaxWidthType"))
                 {
-                    ImageMaxWidthType = parsString(Props[key], "per");
+                    if (fromFile)
+                    {
+                        ImageMaxWidthType = parsString(Props[key], "per");
+                    }
+                    else
+                    {
+                        saveToFile("imageMaxWidthType", ImageMaxWidthType + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "textMaxWidthType"))
                 {
-                    TextMaxWidthType = parsString(Props[key], "per");
+                    if (fromFile)
+                    {
+                        TextMaxWidthType = parsString(Props[key], "per");
+                    }
+                    else
+                    {
+                        saveToFile("textMaxWidthType", TextMaxWidthType + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "imageMaxHeight"))
                 {
-                    ImageMaxHeight = parseToInt(Props[key], 400);
+                    if (fromFile)
+                    {
+                        ImageMaxHeight = parseToInt(Props[key], 400);
+                    }
+                    else
+                    {
+                        saveToFile("imageMaxHeight", ImageMaxHeight + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "runingTextSpeed"))
                 {
-                    RuningTextSpeed = parseToInt(Props[key], 50);
+                    if (fromFile)
+                    {
+                        RuningTextSpeed = parseToInt(Props[key], 50);
+                    }
+                    else
+                    {
+                        saveToFile("runingTextSpeed", RuningTextSpeed + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "runingTextjumpingLocation"))
                 {
-                    RuningTextjumpingLocation = parseToInt(Props[key], 10);
+                    if (fromFile)
+                    {
+                        RuningTextjumpingLocation = parseToInt(Props[key], 10);
+                    }
+                    else
+                    {
+                        saveToFile("runingTextjumpingLocation", RuningTextjumpingLocation + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "runnigText"))
                 {
-                    RunnigText = parsString(Props[key], " ");
+                    if (fromFile)
+                    {
+                        RunnigText = parsString(Props[key], " ");
+                    }
+                    else
+                    {
+                        saveToFile("runnigText", RunnigText + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "textFontSize"))
                 {
-                    TextFontSize = parseToInt(Props[key], 18);
+                    if (fromFile)
+                    {
+                        TextFontSize = parseToInt(Props[key], 18);
+                    }
+                    else
+                    {
+                        saveToFile("textFontSize", TextFontSize + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "phoneFontSize"))
                 {
-                    PhoneFontSize = parseToInt(Props[key], 18);
+                    if (fromFile)
+                    {
+                        PhoneFontSize = parseToInt(Props[key], 18);
+                    }
+                    else
+                    {
+                        saveToFile("phoneFontSize", PhoneFontSize + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "houerFontSize"))
                 {
-                    HouerFontSize = parseToInt(Props[key], 10);
+                    if (fromFile)
+                    {
+                        HouerFontSize = parseToInt(Props[key], 10);
+                    }
+                    else
+                    {
+                        saveToFile("houerFontSize", HouerFontSize + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "runnigTextSize"))
                 {
-                    RunnigTextSize = parseToInt(Props[key], 24);
+                    if (fromFile)
+                    {
+                        RunnigTextSize = parseToInt(Props[key], 24);
+                    }
+                    else
+                    {
+                        saveToFile("runnigTextSize", RunnigTextSize + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "fullScreen"))
                 {
-                    FullScreen = parseBoolean(Props[key], false);
+                    if (fromFile)
+                    {
+                        FullScreen = parseBoolean(Props[key], false);
+                    }
+                    else
+                    {
+                        saveToFile("fullScreen", FullScreen + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "commandsOpOnlyFrom"))
                 {
-                    commandsOpOnlyFrom = parsString(Props[key], "");
+                    if (fromFile)
+                    {
+                        CommandsOpOnlyFrom = parsString(Props[key], "");
+                    }
+                    else
+                    {
+                        saveToFile("commandsOpOnlyFrom", CommandsOpOnlyFrom + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "commandsOpPassword"))
                 {
-                    commandsOpPassword = parsString(Props[key], "");
+                    if (fromFile)
+                    {
+                        CommandsOpPassword = parsString(Props[key], "");
+                    }
+                    else
+                    {
+                        saveToFile("commandsOpPassword", CommandsOpPassword + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "maxTextWidth"))
                 {
-                    MaxTextWidth = parseToInt(Props[key], 400);
+                    if (fromFile)
+                    {
+                        MaxTextWidth = parseToInt(Props[key], 400);
+                    }
+                    else
+                    {
+                        saveToFile("maxTextWidth", MaxTextWidth + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "runnigTextShow"))
                 {
-                    RunnigTextShow = parseBoolean(Props[key], true);
+                    if (fromFile)
+                    {
+                        RunnigTextShow = parseBoolean(Props[key], true);
+                    }
+                    else
+                    {
+                        saveToFile("runnigTextShow", RunnigTextShow + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "sideImageRunEveryInSec"))
                 {
-                    SideImageRunEveryInSec = parseToInt(Props[key], 10);
+                    if (fromFile)
+                    {
+                        SideImageRunEveryInSec = parseToInt(Props[key], 10);
+                    }
+                    else
+                    {
+                        saveToFile("sideImageRunEveryInSec", SideImageRunEveryInSec + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "sideImagefadingSpeedInSec"))
                 {
-                    SideImagefadingSpeedInSec = parseToInt(Props[key], 10);
+                    if (fromFile)
+                    {
+                        SideImagefadingSpeedInSec = parseToInt(Props[key], 10);
+                    }
+                    else
+                    {
+                        saveToFile("sideImagefadingSpeedInSec", SideImagefadingSpeedInSec + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "showSideImages"))
                 {
-                    ShowSideImages = parseBoolean(Props[key], true);
+                    if (fromFile)
+                    {
+                        ShowSideImages = parseBoolean(Props[key], true);
+                    }
+                    else
+                    {
+                        saveToFile("showSideImages", ShowSideImages + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "backgroundimage"))
                 {
-                    Backgroundimage = parsString(Props[key], "");
+                    if (fromFile)
+                    {
+                        Backgroundimage = parsString(Props[key], "");
+                    }
+                    else
+                    {
+                        saveToFile("backgroundimage", Backgroundimage + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "downloadImgTo"))
                 {
-                    DownloadImgTo = parsString(Props[key], "");
+                    if (fromFile)
+                    {
+                        DownloadImgTo = parsString(Props[key], "");
+                    }
+                    else
+                    {
+                        saveToFile("downloadImgTo", DownloadImgTo + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "appToken"))
                 {
-                    AppToken = parsString(Props[key], "");
+                    if (fromFile)
+                    {
+                        AppToken = parsString(Props[key], "");
+                    }
+                    else
+                    {
+                        saveToFile("appToken", AppToken + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "phoneToken"))
                 {
-                    phoneToken = parsString(Props[key], "");
+                    if (fromFile)
+                    {
+                        PhoneToken = parsString(Props[key], "");
+                    }
+                    else
+                    {
+                        saveToFile("phoneToken", PhoneToken + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "premissionsFileName"))
                 {
-                    PremissionsFileName = parsString(Props[key], "whatsAppShowePermissions.csv");
+                    if (fromFile)
+                    {
+                        PremissionsFileName = parsString(Props[key], "whatsAppShowePermissions.csv");
+                    }
+                    else
+                    {
+                        saveToFile("premissionsFileName", PremissionsFileName + "");
+                    }
                 }
                 if (key.Equals(prfixCode + "premissionsDir"))
                 {
-                    PremissionsDir = parsString(Props[key], Environment.CurrentDirectory);
+                    if (fromFile)
+                    {
+                        PremissionsDir = parsString(Props[key], Environment.CurrentDirectory);
+                    }
+                    else
+                    {
+                        saveToFile("premissionsDir", PremissionsDir + "");
+                    }
                 }
             }
 
@@ -474,9 +660,50 @@ namespace whatsAppShowerWpf
             }
         }
 
-        private void saveToFile(string p, string value)
+        public void saveToFile()
         {
             string filename = "whatsappShow.property";
+            String prfixCode = "whatsappShow.";
+
+
+
+            string text = File.ReadAllText(filename);
+            foreach (var row in File.ReadAllLines("whatsappShow.property"))
+            {
+                if (!String.IsNullOrEmpty(row))
+                {
+                    if (row.Trim().Contains("paddingTop"))
+                    {
+                        text = text.Replace(row, prfixCode + "paddingTop = " + PaddingTop);
+                    }
+
+                }
+            }
+
+            File.WriteAllText(filename, text);
+
+        }
+
+        public void saveToFile(string propName, string value)
+        {
+            string filename = "whatsappShow.property";
+            String prfixCode = "whatsappShow.";
+
+
+
+            string text = File.ReadAllText(filename);
+            foreach (var row in File.ReadAllLines("whatsappShow.property")) { 
+                if (!String.IsNullOrEmpty(row))
+                {
+                    if (row.Trim().Contains(propName))
+                    {
+                        text = text.Replace(row, prfixCode + propName+" = " + value);
+                    }
+                   
+                }
+            }
+
+            File.WriteAllText(filename, text);
           
         }
 
