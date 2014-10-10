@@ -49,6 +49,8 @@ namespace whatsAppShowerWpf
         private void button_Click(object sender, RoutedEventArgs e)
         {
             WhatsappProperties.Instance.PaddingTop = validateNumber(this.paddingTopsettingRow.textBox1.Text, WhatsappProperties.Instance.PaddingTop);
+            WhatsappProperties.Instance.PaddingLeft = validateNumber(this.paddingLeftsettingRow.textBox1.Text, WhatsappProperties.Instance.PaddingLeft);
+            WhatsappProperties.Instance.syncProp(false);
         }
 
         private int validateNumber(string newParam, int paramToReturn)

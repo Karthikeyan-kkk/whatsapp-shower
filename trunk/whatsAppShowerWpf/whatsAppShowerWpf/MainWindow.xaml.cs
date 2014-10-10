@@ -328,6 +328,7 @@ namespace whatsAppShowerWpf
         private void mainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Settings.Instance.Show();
+            Settings.Instance.Focus();
         }
 
 
@@ -459,7 +460,7 @@ namespace whatsAppShowerWpf
 			WhatsUserManager usrMan = new WhatsUserManager();
 			var tmpUser = usrMan.CreateUser(dst, "User");
 
-			while (false)
+			/*while (false)
 			{
 				string line = Console.ReadLine();
 				if (line == null && line.Length == 0)
@@ -494,7 +495,7 @@ namespace whatsAppShowerWpf
 						wa.SendMessage(tmpUser.GetFullJid(), line);
 						break;
 				}
-			}
+			}*/
 		}
 
 
