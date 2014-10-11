@@ -37,8 +37,43 @@ namespace whatsAppShowerWpf
         {
             Closing += new System.ComponentModel.CancelEventHandler(Settings_Closing);
             InitializeComponent();
-            //this.paddingTopsettingRow.textBox1.Text = WhatsappProperties.Instance.PaddingTop + "";
-           // this.paddingLeftsettingRow.textBox1.Text = WhatsappProperties.Instance.PaddingLeft+"";
+
+           
+
+
+            
+            Label testLabel = new Label();
+            testLabel.Name="aa";
+            testLabel.Content = "testLabel";
+            testLabel.Height=28;
+            testLabel.HorizontalAlignment = HorizontalAlignment.Left;
+            testLabel.VerticalAlignment = VerticalAlignment.Top;
+            this.flowGrid.Children.Add(testLabel);
+            Grid.SetColumn(testLabel, 0);
+
+            TextBox textBox = new TextBox();
+            textBox.Height = 36;
+            textBox.HorizontalAlignment = HorizontalAlignment.Left;
+            textBox.Name = "textBox";
+            textBox.VerticalAlignment = VerticalAlignment.Top;
+            textBox.Width = 120;
+
+           
+
+
+
+            this.flowGrid.Children.Add(textBox);
+            Grid.SetColumn(textBox, 1);
+
+            var binding = new Binding("textBox");
+            binding.Source = this.flowGrid;
+            //      binding.Path = new PropertyPath(ListBox.SelectedValueProperty);
+            var bound = this.flowGrid.SetBinding(textBox.Text, binding);
+
+
+
+
+            
         }
 
         void Settings_Closing(object sender, System.ComponentModel.CancelEventArgs e)

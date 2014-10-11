@@ -16,15 +16,12 @@
              </Grid.ColumnDefinitions>
             <StackPanel Height="600" HorizontalAlignment="Stretch" Margin="0,6,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="auto" Grid.ColumnSpan="2">
                 <Button Content="Update" Height="23" Name="buttonUp" Width="75" Click="button_Click"/>
-                <Grid FlowDirection="LeftToRight">
+                <Grid FlowDirection="LeftToRight" Name="flowGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*" />
                         <ColumnDefinition Width="80*" />
                     </Grid.ColumnDefinitions>
-                    <Label Content="Label" Height="28" HorizontalAlignment="Left"  Name="label1" VerticalAlignment="Top" Grid.Column="0"/>
-                    <TextBox Height="36" HorizontalAlignment="Left"  Name="textBox1" VerticalAlignment="Top"  Width="120" Grid.Column="1" Text="{Binding Source={StaticResource WhatsappPropertiesKey},Path=Instance.PaddingTop, Mode=TwoWay }" />
-                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="0,40,0,0"  Name="label2" VerticalAlignment="Top" Grid.Column="0"/>
-                    <TextBox Height="36" HorizontalAlignment="Left"  Name="textBox2" Margin="0,40,0,0" VerticalAlignment="Top"  Width="120" Grid.Column="1" Text="{Binding Source={StaticResource WhatsappPropertiesKey},Path=Instance.PaddingLeft, Mode=TwoWay }" />
+                    
 
 
 
