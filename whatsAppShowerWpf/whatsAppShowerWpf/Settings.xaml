@@ -2,9 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:whatsAppShowerWpf"       
-        Title="Settings" Height="669" Width="300" xmlns:my="clr-namespace:whatsAppShowerWpf">
-    
-    <Grid>
+        Title="Settings" Height="669" Width="300"
+        xmlns:my="clr-namespace:whatsAppShowerWpf" xmlns:Classes="clr-namespace:whatsAppShowerWpf">
+    <Window.Resources>
+        <Classes:WhatsappProperties x:Key="WhatsappPropertiesKey"/>
+    </Window.Resources>
+
+        <Grid>
         <Grid HorizontalAlignment="Stretch" Name="grid1" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*" />
@@ -12,15 +16,20 @@
              </Grid.ColumnDefinitions>
             <StackPanel Height="600" HorizontalAlignment="Stretch" Margin="0,6,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="auto" Grid.ColumnSpan="2">
                 <Button Content="Update" Height="23" Name="buttonUp" Width="75" Click="button_Click"/>
-                <my:SettingRow x:Name="paddingTopsettingRow" LabelText="Padding Top"/>
-                <my:SettingRow x:Name="paddingLeftsettingRow" LabelText="Padding Left"/>
-                <my:SettingRow x:Name="imageMaxWidth" LabelText="Image Max Width"/>
-                <my:SettingRow x:Name="settingRow4" LabelText="Image Max Width Type"/>
-                <my:SettingRow x:Name="settingRow5" LabelText="Image Max Height"/>
-                <my:SettingRow x:Name="settingRow6" LabelText="Max Text Width"/>
-                <my:SettingRow x:Name="settingRow7" LabelText="Text Max Width Type"/>
-                <my:SettingRow x:Name="settingRow8" LabelText="Text Font Size"/>
-                <my:SettingRow x:Name="settingRow9" LabelText="Runing Text Speed"/>
+                <Grid FlowDirection="LeftToRight">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="80*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left"  Name="label1" VerticalAlignment="Top" Grid.Column="0"/>
+                    <TextBox Height="36" HorizontalAlignment="Left"  Name="textBox1" VerticalAlignment="Top"  Width="120" Grid.Column="1" Text="{Binding Source={StaticResource WhatsappPropertiesKey},Path=Instance.PaddingTop, Mode=TwoWay }" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="0,40,0,0"  Name="label2" VerticalAlignment="Top" Grid.Column="0"/>
+                    <TextBox Height="36" HorizontalAlignment="Left"  Name="textBox2" Margin="0,40,0,0" VerticalAlignment="Top"  Width="120" Grid.Column="1" Text="{Binding Source={StaticResource WhatsappPropertiesKey},Path=Instance.PaddingLeft, Mode=TwoWay }" />
+
+
+
+
+                </Grid>
                 <Button Content="Update" Height="23" Name="buttonDown" Width="75" Click="button_Click" />
             </StackPanel>
         </Grid>
