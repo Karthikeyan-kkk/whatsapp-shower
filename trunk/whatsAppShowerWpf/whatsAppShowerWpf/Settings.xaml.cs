@@ -37,8 +37,8 @@ namespace whatsAppShowerWpf
         {
             Closing += new System.ComponentModel.CancelEventHandler(Settings_Closing);
             InitializeComponent();
-            this.paddingTopsettingRow.textBox1.Text = WhatsappProperties.Instance.PaddingTop + "";
-            this.paddingLeftsettingRow.textBox1.Text = WhatsappProperties.Instance.PaddingLeft+"";
+            //this.paddingTopsettingRow.textBox1.Text = WhatsappProperties.Instance.PaddingTop + "";
+           // this.paddingLeftsettingRow.textBox1.Text = WhatsappProperties.Instance.PaddingLeft+"";
         }
 
         void Settings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -48,8 +48,10 @@ namespace whatsAppShowerWpf
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            WhatsappProperties.Instance.PaddingTop = validateNumber(this.paddingTopsettingRow.textBox1.Text, WhatsappProperties.Instance.PaddingTop);
-            WhatsappProperties.Instance.PaddingLeft = validateNumber(this.paddingLeftsettingRow.textBox1.Text, WhatsappProperties.Instance.PaddingLeft);
+            //WhatsappProperties.Instance.PaddingTop = validateNumber(this.paddingTopsettingRow.textBox1.Text, WhatsappProperties.Instance.PaddingTop);
+           // WhatsappProperties.Instance.PaddingLeft = validateNumber(this.paddingLeftsettingRow.textBox1.Text, WhatsappProperties.Instance.PaddingLeft);
+
+
             WhatsappProperties.Instance.syncProp(false);
         }
 

@@ -37,7 +37,18 @@ namespace whatsAppShowerWpf
                label1.Content =  value;
             }
         }
-       
+        public  readonly DependencyProperty ItemsProperty =
+        DependencyProperty.Register(
+            "TextBoxText",
+            typeof(string),
+            typeof(SettingRow),
+            new PropertyMetadata(default(ItemCollection), OnItemsPropertyChanged));
+
+        private static void OnItemsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            //this.textBox1.Text = e.NewValue.ToString() ;
+            Console.WriteLine("");
+        }
         public string TextBoxText
         {
             get
