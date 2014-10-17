@@ -97,7 +97,6 @@
     <Compile Include="TextView.xaml.cs">
       <DependentUpon>TextView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WhatsApp.cs" />
     <Compile Include="WhatsappProperties.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

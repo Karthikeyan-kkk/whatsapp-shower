@@ -9,7 +9,7 @@ whatsappShow.maxTextWidth = 20
 whatsappShow.textMaxWidthType = per
 whatsappShow.textFontSize = 24
 
-whatsappShow.runingTextSpeed = 100
+whatsappShow.runingTextSpeed = 0.01
 whatsappShow.runnigText = שלחו הודעת וואטסאפ למספר 053-4321-484
 whatsappShow.runnigTextShow = true 
 whatsappShow.runnigTextSize = 50

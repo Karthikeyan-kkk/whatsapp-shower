@@ -60,23 +60,18 @@ namespace whatsAppShowerWpf
             this.imageSourceLink = imageSource;
             this.hour = hour;
             this.imgField.Source = imageSource;
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.ImageMaxWidth) / 100;
-            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
-            {
-                imageMaxWidth = WhatsappProperties.Instance.ImageMaxWidth;
-            }
-            this.imgField.MaxWidth = imageMaxWidth;
             this.phoneField.Text = PhoneNumber;
             this.phoneField.Foreground = NumberPropList.Instance.getPhoneColor(phoneNumber);
-            this.phoneField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
-
             this.hourField.Text = hour;
             this.hourField.Foreground = Brushes.Gray;
-            this.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
             this.HorizontalAlignment = HorizontalAlignment.Left;
-            this.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, WhatsappProperties.Instance.PaddingTop, 0, 0);
+            Helpers helper = new Helpers();
+            helper.buildImgView(this);
         }
+
+       
+
+        
 
         
     }

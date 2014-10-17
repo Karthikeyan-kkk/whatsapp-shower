@@ -55,16 +55,7 @@ namespace whatsAppShowerWpf
         {
             InitializeComponent();
         }
-        public TextView(string from, string textMsg)
-        {
-            InitializeComponent();
-            string currentHouer = DateTime.Now.ToString("HH:mm");
-            new TextView(from, textMsg, currentHouer);
-        }
-        public TextView(string from, string textMsg, string hour)
-        {
-            new TextView(from, "", textMsg, hour);
-        }
+       
         
         public TextView(string from ,string nickName,string textMsg,string hour)
         {
@@ -72,14 +63,9 @@ namespace whatsAppShowerWpf
             InitializeComponent();
             parseEmjoi(textMsg,this.fld);
             //this.textMsgField.Text = textMsg;
-            this.textMsgField.FontSize = WhatsappProperties.Instance.TextFontSize;
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double textMaxWidth = (screenWidth * WhatsappProperties.Instance.ImageMaxWidth) / 100;
-            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.TextMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.TextMaxWidthType))
-            {
-                textMaxWidth = WhatsappProperties.Instance.ImageMaxWidth;
-            }
-            this.textMsgField.MaxWidth = textMaxWidth;
+            
+            
+            
             string fromWithNickName = "";
             if (string.IsNullOrEmpty(nickName))
             {
@@ -93,11 +79,11 @@ namespace whatsAppShowerWpf
             //this.fromField.Text = from;
             this.fromField.Width = MeasureString(fromWithNickName).Width;
             this.fromField.Foreground = NumberPropList.Instance.getPhoneColor(from);
-            this.fromField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
+            
 
             this.hourField.Text = hour;
             this.hourField.Foreground = Brushes.Gray;
-            this.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
+           
            
             TextRange textRange = new TextRange(
                 // TextPointer to the start of content in the RichTextBox.
@@ -110,10 +96,13 @@ namespace whatsAppShowerWpf
             // representing the plain text content of the TextRange. 
             string s= textRange.Text;
             this.HorizontalAlignment = HorizontalAlignment.Left;
-
-            this.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, WhatsappProperties.Instance.PaddingTop, 0, 0);
             this.Width = Double.NaN;
+            Helpers helper = new Helpers();
+            helper.buildTextView(this);
+           
         }
+
+        
 
         
 
