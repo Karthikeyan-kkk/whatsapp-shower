@@ -39,14 +39,7 @@ namespace whatsAppShowerWpf
 		private static readonly ILog msgsLog = log4net.LogManager.GetLogger("msgsLog");
 		private static readonly ILog systemLog = log4net.LogManager.GetLogger("systemsLog");
 		private DispatcherTimer sideImageTimer = new DispatcherTimer();
-		private Duration runingTextSpeedDuration = new Duration(TimeSpan.FromSeconds(20));
-	   
-
-		public Duration RuningTextSpeedDuration
-		{
-			get { return new Duration(TimeSpan.FromSeconds(WhatsappProperties.Instance.RuningTextSpeed)); }
-			set { runingTextSpeedDuration = value; }
-		}
+		
 		Queue<string> queue = new Queue<string>();
 
 		public string Nickname
@@ -253,7 +246,7 @@ namespace whatsAppShowerWpf
 				 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => {
 					 if (string.IsNullOrEmpty(nikeName))
 					 {
-						 textView2 = new TextView(phoneNumber, msgText, hour);
+						 textView2 = new TextView(phoneNumber,"",msgText, hour);
 					 }
 					 else
 					 {
@@ -294,12 +287,8 @@ namespace whatsAppShowerWpf
 		}
 		private void startRunningText()
 		{
-			
-			txtKron.Text = WhatsappProperties.Instance.RunnigText;
-			txtKron.Foreground = WhatsappProperties.Instance.RunnigTextColor;
-			txtKron.FontSize = WhatsappProperties.Instance.RunnigTextSize;
-			txtKron2.Foreground = WhatsappProperties.Instance.RunnigTextColor;
-			txtKron2.FontSize = WhatsappProperties.Instance.RunnigTextSize;
+            Helpers helpers = new Helpers();
+            helpers.buildRunningText(this);
 
 			var formattedText = new FormattedText(
 				txtKron.Text,
@@ -309,10 +298,20 @@ namespace whatsAppShowerWpf
 				this.txtKron.FontSize,
 				Brushes.Black);
 			this.firstRow.Height = new GridLength(formattedText.Height);
+            
 
 
 			
 		}
+
+        
+
+        
+
+        private void buildRunningText()
+        {
+            
+        }
 	   
 		private void stackPanel1MouseDown(object sender, MouseButtonEventArgs e)
 		{
@@ -329,9 +328,60 @@ namespace whatsAppShowerWpf
         {
             Settings.Instance.Show();
             Settings.Instance.Focus();
+            Settings.Instance.OnUpdate += new Settings.OnUpdateEvent(UpdateUi);
         }
 
+        public void UpdateUi(object source, EventArgs e)
+        {
+            int paddingLeft = WhatsappProperties.Instance.PaddingLeft;
+            UIElementCollection uIElementCollection = this.stackPanel1.Children;
+            Helpers helper = new Helpers();
+            for (int i = 0; i < uIElementCollection.Count; i++)
+            {
+                if(uIElementCollection[i].GetType() == typeof(TextView)){
+                    TextView textView = (TextView)uIElementCollection[i];
+                    helper.buildTextView(textView);
+                }
+                if (uIElementCollection[i].GetType() == typeof(ImgView))
+                {
+                    ImgView imgView = (ImgView)uIElementCollection[i];
+                    helper.buildImgView(imgView);
+                }
+            }
+            helper.buildRunningText(this);
 
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.Backgroundimage))
+            {
+                try
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    Uri uri = new Uri(WhatsappProperties.Instance.Backgroundimage.Trim(), UriKind.RelativeOrAbsolute);
+                    if (File.Exists(uri.ToString()))
+                    {
+                        bi.UriSource = uri;
+                        bi.EndInit();
+                        this.mainGrid.Background.SetValue(ImageBrush.ImageSourceProperty, bi);
+                    }
+
+                }
+                catch (Exception e2)
+                {
+                    systemLog.Error("no background img " + WhatsappProperties.Instance.Backgroundimage + " " + e2);
+
+                }
+
+            }
+            if (WhatsappProperties.Instance.FullScreen)
+            {
+                this.WindowStyle = WindowStyle.None;
+            }
+            else
+            {
+                this.WindowStyle = WindowStyle.ThreeDBorderWindow;
+            }
+
+        }
 		//Start tests items
 
 		private void addImageSide()
@@ -360,14 +410,15 @@ namespace whatsAppShowerWpf
 
 		private void addTexts()
 		{
-			TextView textView2 = new TextView("0524376464", "", "10:10");
+            TextView textView2 = new TextView("0524376464", "", "", "10:10");
 			this.stackPanel1.Children.Add(textView2);
 			for (int i = 0; i < 5; i++)
 			{
-				this.stackPanel1.Children.Add(new TextView("0524376464" + i, "מזל טוב ומבורך וובדיקה לטקסט ארוך מאוד מאוד מאוד לבדיקה שהוא טקסט ארוך מאוד מאוד מאוד מאוד נראה איך הוא יהיה", "10:10"));
-				this.stackPanelScroller.ScrollToBottom();
+                TextView textView = new TextView("0524376464" + i, "","מזל טוב ומבורך וובדיקה לטקסט ארוך מאוד מאוד מאוד לבדיקה שהוא טקסט ארוך מאוד מאוד מאוד מאוד נראה איך הוא יהיה", "10:10");
+				this.stackPanel1.Children.Add(textView);
 			}
-			this.stackPanelScroller.ScrollToBottom();
+            this.stackPanelScroller.ScrollToBottom();
+			
 		}
 
 		//End test items

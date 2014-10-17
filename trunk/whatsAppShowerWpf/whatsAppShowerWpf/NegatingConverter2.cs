@@ -12,7 +12,7 @@ namespace whatsAppShowerWpf
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return new Duration(TimeSpan.FromSeconds(WhatsappProperties.Instance.RuningTextSpeed));
+            return System.Convert.ToDouble(WhatsappProperties.Instance.RuningTextSpeed);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

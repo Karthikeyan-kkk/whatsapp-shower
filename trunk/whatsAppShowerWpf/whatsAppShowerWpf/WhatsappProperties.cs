@@ -57,6 +57,13 @@ namespace whatsAppShowerWpf
             get { return imageMaxWidth; }
             set { imageMaxWidth = value; }
         }
+        int imageMaxHeight = 400;
+
+        public int ImageMaxHeight
+        {
+            get { return imageMaxHeight; }
+            set { imageMaxHeight = value; }
+        }
 
         string imageMaxWidthType = "per";
 
@@ -66,8 +73,23 @@ namespace whatsAppShowerWpf
             get { return imageMaxWidthType; }
             set { imageMaxWidthType = value; }
         }
-        
-        
+
+        int maxTextWidth = 400;
+
+        public int MaxTextWidth
+        {
+            get { return maxTextWidth; }
+            set { maxTextWidth = value; }
+        }
+
+        Single textFontSize = 18;
+
+        public Single TextFontSize
+        {
+            get { return WhatsappProperties.Instance.textFontSize; }
+            set { WhatsappProperties.Instance.textFontSize = value; }
+        }
+
         string textMaxWidthType = "per";
 
         public string TextMaxWidthType
@@ -76,30 +98,17 @@ namespace whatsAppShowerWpf
             set { textMaxWidthType = value; }
         }
 
-         int imageMaxHeight = 400;
 
-        public  int ImageMaxHeight
-        {
-            get { return imageMaxHeight; }
-            set { imageMaxHeight = value; }
-        }
 
-         int runingTextSpeed = 50;
+        double runingTextSpeed = 0.01;
 
-        public  int RuningTextSpeed
+        public double RuningTextSpeed
         {
             get { return runingTextSpeed; }
             set { runingTextSpeed = value; }
         }
-         
-         int runingTextjumpingLocation = 10;
-
-        public  int RuningTextjumpingLocation
-        {
-            get { return runingTextjumpingLocation; }
-            set { runingTextjumpingLocation = value; }
-        }
-         string runnigText = "שלחו הודעת וואטסאפ למספר 0524376363";
+        
+        string runnigText = "שלחו הודעת וואטסאפ למספר 0524376363";
 
         public  string RunnigText
         {
@@ -107,13 +116,7 @@ namespace whatsAppShowerWpf
             set { runnigText = value; }
         }
 
-         Single textFontSize = 18;
-
-        public  Single TextFontSize
-        {
-            get { return WhatsappProperties.Instance.textFontSize; }
-            set { WhatsappProperties.Instance.textFontSize = value; }
-        }
+        
          Single phoneFontSize = 12;
 
         public  Single PhoneFontSize
@@ -207,13 +210,7 @@ namespace whatsAppShowerWpf
             set { fullScreen = value; }
         }
 
-        bool runnigTextShow = true;
-
-        public bool RunnigTextShow
-        {
-            get { return runnigTextShow; }
-            set { runnigTextShow = value; }
-        }
+        
 
        string commandsOpOnlyFrom = "";
 
@@ -231,13 +228,7 @@ namespace whatsAppShowerWpf
             set { commandsOpPassword = value; }
         }
 
-        int maxTextWidth = 400;
-
-        public int MaxTextWidth
-        {
-            get { return maxTextWidth; }
-            set { maxTextWidth = value; }
-        }
+        
 
         int sideImagefadingSpeedInSec = 10;
 
@@ -300,7 +291,9 @@ namespace whatsAppShowerWpf
                     {
                         String key = prop.Split('=')[0];
                         String val = string.Join("=", prop.Split('=').Skip(1).ToArray());
-                        props.Add(key.Trim(), val.Trim());
+                        if (!props.ContainsKey(key.Trim())) { 
+                            props.Add(key.Trim(), val.Trim());
+                        }
                     }
                 }
             syncProp(true);
@@ -386,22 +379,11 @@ namespace whatsAppShowerWpf
                 {
                     if (fromFile)
                     {
-                        RuningTextSpeed = parseToInt(Props[key], 50);
+                        RuningTextSpeed = parseToDouble(Props[key], 0.01);
                     }
                     else
                     {
                         saveToFile("runingTextSpeed", RuningTextSpeed + "");
-                    }
-                }
-                if (key.Equals(prfixCode + "runingTextjumpingLocation"))
-                {
-                    if (fromFile)
-                    {
-                        RuningTextjumpingLocation = parseToInt(Props[key], 10);
-                    }
-                    else
-                    {
-                        saveToFile("runingTextjumpingLocation", RuningTextjumpingLocation + "");
                     }
                 }
                 if (key.Equals(prfixCode + "runnigText"))
@@ -501,17 +483,6 @@ namespace whatsAppShowerWpf
                     else
                     {
                         saveToFile("maxTextWidth", MaxTextWidth + "");
-                    }
-                }
-                if (key.Equals(prfixCode + "runnigTextShow"))
-                {
-                    if (fromFile)
-                    {
-                        RunnigTextShow = parseBoolean(Props[key], true);
-                    }
-                    else
-                    {
-                        saveToFile("runnigTextShow", RunnigTextShow + "");
                     }
                 }
                 if (key.Equals(prfixCode + "sideImageRunEveryInSec"))
@@ -617,9 +588,11 @@ namespace whatsAppShowerWpf
 
         }
 
+       
+
         private static bool parseBoolean(string val, bool valToReturn)
         {
-            if (!string.IsNullOrEmpty(val) && ("true".Equals(val) || "TRUE".Equals(val)))
+            if (!string.IsNullOrEmpty(val) && ("true".Equals(val, StringComparison.InvariantCultureIgnoreCase) || "TRUE".Equals(val, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return true;
             }
@@ -628,13 +601,6 @@ namespace whatsAppShowerWpf
 
         private static Color parseToColor(string colorName, Color color)
         {
-
-
-            //Color colorFromArgb = Color.FromArgb(Convert.ToInt32(colorName.Split(',')[0]), Convert.ToInt32(colorName.Split(',')[1]), Convert.ToInt32(colorName.Split(',')[2]), Convert.ToInt32(colorName.Split(',')[3]));
-            //if (colorFromArgb != null)
-            // {
-            //     return colorFromArgb;
-            // }
             return color;
         }
 
@@ -652,6 +618,18 @@ namespace whatsAppShowerWpf
             try
             {
                 return Convert.ToInt32(val);
+            }
+            catch (Exception)
+            {
+
+                return valToReturn;
+            }
+        }
+        private double parseToDouble(string val, double valToReturn)
+        {
+            try
+            {
+                return Convert.ToDouble(val);
             }
             catch (Exception)
             {
@@ -695,7 +673,7 @@ namespace whatsAppShowerWpf
             foreach (var row in File.ReadAllLines("whatsappShow.property")) { 
                 if (!String.IsNullOrEmpty(row))
                 {
-                    if (row.Trim().Contains(propName))
+                    if (row.Trim().Contains(prfixCode + propName + " = "))
                     {
                         text = text.Replace(row, prfixCode + propName+" = " + value);
                     }
@@ -704,6 +682,7 @@ namespace whatsAppShowerWpf
             }
 
             File.WriteAllText(filename, text);
+            
           
         }
 

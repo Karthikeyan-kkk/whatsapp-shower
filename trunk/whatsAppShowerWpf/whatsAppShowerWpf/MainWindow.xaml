@@ -20,10 +20,10 @@
                 <local:NegatingConverter  x:Key="NegatingConverter" />
                 <local:NegatingConverter2  x:Key="NegatingConverter2" />
                 <Storyboard x:Key="slide" Name="runningTextDoubleAnimation">
-                    <DoubleAnimation  From="0" To="{Binding Width, ElementName=canvas}" Duration="{Binding Width, ElementName=canvas, Converter={StaticResource NegatingConverter2}}"
+                    <DoubleAnimation  From="0" To="{Binding Width, ElementName=canvas}"
                       Storyboard.TargetProperty="X"
                       Storyboard.TargetName="transferCurreny"
-                      RepeatBehavior="Forever"/>
+                      RepeatBehavior="Forever" SpeedRatio="{Binding double, ElementName=canvas, Converter={StaticResource NegatingConverter2}}"/>
                 </Storyboard>
             </StackPanel.Resources>
             <StackPanel.RenderTransform>
