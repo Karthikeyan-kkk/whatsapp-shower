@@ -56,7 +56,7 @@ namespace whatsAppShowerWpf
             foreach (PropertyInfo property in properties)
             {
                 systemLog.Info("Name: " + property.Name + ", Value: " + property.GetValue(WhatsappProperties.Instance, null));
-                if (property.Name.Equals("Instance"))
+                if (property.Name.Equals("Instance") || property.Name.Equals("ImageMaxHeight") || property.Name.Equals("RunnigTextColor") || property.Name.Equals("PhoneNumber") || property.Name.Equals("Password") || property.Name.Equals("AppToken") || property.Name.Equals("NickName") || property.Name.Equals("PhoneToken"))
                 {
                     continue;
                 }

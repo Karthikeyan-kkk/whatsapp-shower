@@ -261,7 +261,7 @@ namespace whatsAppShowerWpf
 			 addTextInfoToLog("Text", msgText, phoneNumber, isCanShowMsgMet(phoneNumber, "TEXT"));
 		 }
 		
-		private void addImg(string phoneNumber, string imgFileName, string hour)
+		private void addImg(string phoneNumber,string nickName,string imgFileName, string hour)
 		{
 			phoneNumber = Helpers.filterFromNumber(phoneNumber);
 		   
@@ -269,7 +269,7 @@ namespace whatsAppShowerWpf
 			{
 				phoneNumber = Helpers.formatPhoneNumber(phoneNumber);
 				ImgView imgView = null;
-				this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { imgView = new ImgView(phoneNumber, (ImageSource)new ImageSourceConverter().ConvertFromString(imgFileName), hour); }));
+				this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { imgView = new ImgView(phoneNumber,nickName, (ImageSource)new ImageSourceConverter().ConvertFromString(imgFileName), hour); }));
 				this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanel1.Children.Add(imgView); }));
 				this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanelScroller.ScrollToBottom(); }));
 				queue.Enqueue(Environment.CurrentDirectory+@"\"+imgFileName);
@@ -340,12 +340,12 @@ namespace whatsAppShowerWpf
             {
                 if(uIElementCollection[i].GetType() == typeof(TextView)){
                     TextView textView = (TextView)uIElementCollection[i];
-                    helper.buildTextView(textView);
+                    TextView.buildTextView(textView);
                 }
                 if (uIElementCollection[i].GetType() == typeof(ImgView))
                 {
                     ImgView imgView = (ImgView)uIElementCollection[i];
-                    helper.buildImgView(imgView);
+                    ImgView.buildImgView(imgView);
                 }
             }
             helper.buildRunningText(this);
@@ -397,13 +397,13 @@ namespace whatsAppShowerWpf
 		private void addImages()
 		{
 
-			ImgView imgView = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\1.jpg"), "10:10");
+			ImgView imgView = new ImgView("0524376464","nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\1.jpg"), "10:10");
 			this.stackPanel1.Children.Add(imgView);
-			ImgView imgView2 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\2.jpg"), "10:10");
+            ImgView imgView2 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\2.jpg"), "10:10");
 			this.stackPanel1.Children.Add(imgView2);
-			ImgView imgView3 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\3.jpg"), "10:10");
+            ImgView imgView3 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\3.jpg"), "10:10");
 			this.stackPanel1.Children.Add(imgView3);
-			ImgView imgView4 = new ImgView("0524376464", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\4.jpg"), "10:10");
+            ImgView imgView4 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\4.jpg"), "10:10");
 			this.stackPanel1.Children.Add(imgView4);
 			this.stackPanelScroller.ScrollToBottom();
 		}
@@ -438,12 +438,12 @@ namespace whatsAppShowerWpf
 			addText(from, Helpers.getNikeName(node), message, DateTime.Now.ToString("HH:mm"));
 		}
 
-		void wa_OnGetMessageImage(string from, string id, string fileName, int size, string url, byte[] preview)
-		{
-			OnGetMedia(Helpers.getImgFullPath(fileName), url, preview);
+        void wa_OnGetMessageImage(string from, string id, string fileName, int fileSize, string url, byte[] preview, ProtocolTreeNode node)
+        {
+            OnGetMedia(Helpers.getImgFullPath(fileName), url, preview);
 
-			addImg(from, Helpers.getImgFullPath(fileName), DateTime.Now.ToString("HH:mm"));
-		}
+            addImg(from,Helpers.getNikeName(node),Helpers.getImgFullPath(fileName), DateTime.Now.ToString("HH:mm"));
+        }
 
 		static void OnGetMedia(string file, string url, byte[] data)
 		{
@@ -556,7 +556,7 @@ namespace whatsAppShowerWpf
             
 			wa.OnGetMessage += wa_OnGetMessage;
 			//wa.OnGetPhoto += wa_OnGetPhoto;
-			wa.OnGetMessageImage += wa_OnGetMessageImage;
+            wa.OnGetMessageImage += new WhatsEventBase.OnGetMediaDelegate(wa_OnGetMessageImage);
 			wa.OnConnectFailed += new WhatsEventBase.ExceptionDelegate(Instance_OnConnectFailed);
             wa.OnDisconnect += new WhatsEventBase.ExceptionDelegate(wa_OnDisconnect);
 			WhatsAppApi.Helper.DebugAdapter.Instance.OnPrintDebug += Instance_OnPrintDebug;
@@ -585,6 +585,8 @@ namespace whatsAppShowerWpf
 			ProcessChat(wa, target);
 		}
 
+       
+       
         void wa_OnLoginFailed(string data)
         {
             systemLog.Error("disconnect!!!");
