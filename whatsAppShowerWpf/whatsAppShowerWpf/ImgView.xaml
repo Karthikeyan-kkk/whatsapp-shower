@@ -34,7 +34,13 @@
                 </Grid>
             </Border>
         </Border>
-        <TextBlock  Name="phoneField" Margin="12,10,0,30" HorizontalAlignment="Left" FontFamily="Choco" FontWeight="Bold" VerticalAlignment="Top" />
+        <RichTextBox Margin="12,10,0,30" Name="phoneField"  HorizontalAlignment="Left" FontFamily="Choco" FontWeight="Bold" VerticalAlignment="Top"   BorderThickness="0" Background="Transparent">
+            <FlowDocument x:Name="fromfd">
+
+            </FlowDocument>
+        </RichTextBox>
+
+
         <TextBlock Name ="hourField" Margin="0,0,10,15" HorizontalAlignment="Right" FontFamily="Choco" FontWeight="Bold" VerticalAlignment="Bottom" />
 
     </Grid>

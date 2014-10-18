@@ -22,6 +22,7 @@ namespace whatsAppShowerWpf
     public partial class ImgView : UserControl
     {
         private string phoneNumber;
+        private string nickName;
         private ImageSource imageSourceLink;
         private string hour;
         private double maximumSize;
@@ -48,30 +49,62 @@ namespace whatsAppShowerWpf
             set { hour = value; }
         }
 
+        public string NickName
+        {
+            get { return nickName; }
+            set { nickName = value; }
+        }
+
         public ImgView()
         {
             InitializeComponent();
         }
         
-        public ImgView(string phoneNumber, ImageSource imageSource, string hour)
+        public ImgView(string phoneNumber, string nickName , ImageSource imageSource, string hour)
         {
             InitializeComponent();
-            this.phoneNumber = phoneNumber;
-            this.imageSourceLink = imageSource;
-            this.hour = hour;
-            this.imgField.Source = imageSource;
-            this.phoneField.Text = PhoneNumber;
+            this.PhoneNumber = phoneNumber;
+            this.NickName = nickName;
+            this.ImageSourceLink = imageSource;
+            this.Hour = hour;
+            
+            this.imgField.Source = ImageSourceLink;
+            string from = PhoneNumber;
+            if (string.IsNullOrEmpty(nickName))
+            {
+                from = PhoneNumber;
+            }
+            else
+            {
+                from = PhoneNumber + " - " + nickName;
+                
+            }
+           
+            Helpers.parseEmjoi(from, this.fromfd);
             this.phoneField.Foreground = NumberPropList.Instance.getPhoneColor(phoneNumber);
-            this.hourField.Text = hour;
+            this.hourField.Text = Hour;
             this.hourField.Foreground = Brushes.Gray;
             this.HorizontalAlignment = HorizontalAlignment.Left;
-            Helpers helper = new Helpers();
-            helper.buildImgView(this);
+            buildImgView(this);
+            this.phoneField.Width = Helpers.MeasureString(from, this.phoneField.FontFamily, this.phoneField.FontStyle, this.phoneField.FontWeight, this.phoneField.FontStretch, this.phoneField.FontSize).Width + 50;
+            
         }
 
-       
 
-        
+
+        public static void buildImgView(ImgView imgView)
+        {
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.ImageMaxWidth) / 100;
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+            {
+                imageMaxWidth = WhatsappProperties.Instance.ImageMaxWidth;
+            }
+            imgView.imgField.MaxWidth = imageMaxWidth;
+            imgView.phoneField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
+            imgView.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
+            imgView.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, WhatsappProperties.Instance.PaddingTop, 0, 0);
+        }
 
         
     }
