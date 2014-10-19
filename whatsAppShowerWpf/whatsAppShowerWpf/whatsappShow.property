@@ -24,7 +24,7 @@ whatsappShow.showSideImages = true
 whatsappShow.commandsOpOnlyFrom = 524376363
 whatsappShow.commandsOpPassword = aa
 
-whatsappShow.fullScreen = false
+whatsappShow.fullScreen = true
 whatsappShow.backgroundimage =backgorundImg\1.jpg
 whatsappShow.downloadImgTo = images
 
