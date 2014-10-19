@@ -311,27 +311,19 @@ namespace whatsAppShowerWpf
             
         }
 
-        
 
-        
-
-        private void buildRunningText()
-        {
-            
-        }
-       
         private void stackPanel1MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-            if (e.ClickCount == 2)
-            {
-                WhatsappProperties.Instance.initProperties();
-                initVisualProp();
-                
-            }
-        }
+		{
+			
+			if (e.ClickCount == 2)
+			{
+				WhatsappProperties.Instance.initProperties();
+				initVisualProp();
+				
+			}
+		}
 
-        private void mainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+       private void mainGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Settings.Instance.Show();
             Settings.Instance.Focus();
