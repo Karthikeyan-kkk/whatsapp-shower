@@ -395,15 +395,23 @@ namespace whatsAppShowerWpf
 
         private void addImages()
         {
-
-            ImgView imgView = new ImgView("0524376464","nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\1.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView);
-            ImgView imgView2 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\2.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView2);
-            ImgView imgView3 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\3.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView3);
-            ImgView imgView4 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\4.jpg"), "10:10");
-            this.stackPanel1.Children.Add(imgView4);
+            if (File.Exists(@"C:\whatsappPicTest\1.jpg")) { 
+                ImgView imgView = new ImgView("0524376464","nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\1.jpg"), "10:10");
+                this.stackPanel1.Children.Add(imgView);
+            }
+            if (File.Exists(@"C:\whatsappPicTest\2.jpg"))
+            {
+                ImgView imgView2 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\2.jpg"), "10:10");
+                this.stackPanel1.Children.Add(imgView2);
+            }
+            if (File.Exists(@"C:\whatsappPicTest\3.jpg")) { 
+                ImgView imgView3 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\3.jpg"), "10:10");
+                this.stackPanel1.Children.Add(imgView3);
+            }
+            if (File.Exists(@"C:\whatsappPicTest\4.jpg")) { 
+                ImgView imgView4 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\4.jpg"), "10:10");
+                this.stackPanel1.Children.Add(imgView4);
+            }
             this.stackPanelScroller.ScrollToBottom();
         }
 
