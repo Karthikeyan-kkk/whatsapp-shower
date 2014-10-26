@@ -1,4 +1,6 @@
-﻿whatsappShow.paddingTop = 10
+﻿whatsappShow.msgSectionWidth = 300
+whatsappShow.msgSectionWidthType = per
+whatsappShow.paddingTop = 10
 whatsappShow.paddingLeft = 20
 
 whatsappShow.imageMaxWidth = 20
@@ -20,6 +22,7 @@ whatsappShow.houerFontSize = 12
 whatsappShow.sideImagefadingSpeedInSec = 4
 whatsappShow.sideImageRunEveryInSec = 4
 whatsappShow.showSideImages = true
+whatsappShow.demoImgs = demoImgs
 
 whatsappShow.commandsOpOnlyFrom = 524376363
 whatsappShow.commandsOpPassword = aa

@@ -94,13 +94,30 @@ namespace whatsAppShowerWpf
 
         public static void buildImgView(ImgView imgView)
         {
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.ImageMaxWidth) / 100;
-            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+            if (WhatsappProperties.Instance.ImageMaxWidth != 0)
             {
-                imageMaxWidth = WhatsappProperties.Instance.ImageMaxWidth;
+                double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.ImageMaxWidth) / 100;
+                if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+                {
+                    imageMaxWidth = WhatsappProperties.Instance.ImageMaxWidth;
+                }
+                imgView.imgField.MaxWidth = imageMaxWidth;
             }
-            imgView.imgField.MaxWidth = imageMaxWidth;
+            else
+            {
+                double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                
+                double imageMaxWidth = ((screenWidth * WhatsappProperties.Instance.MsgSectionWidth) / 100);
+                imageMaxWidth = imageMaxWidth - WhatsappProperties.Instance.PaddingLeft - 20;
+                if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+                {
+                    imageMaxWidth = WhatsappProperties.Instance.MsgSectionWidth;
+                }
+                imgView.imgField.MaxWidth = imageMaxWidth;
+               
+            }
+            
             imgView.phoneField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
             imgView.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
             imgView.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, WhatsappProperties.Instance.PaddingTop, 0, 0);

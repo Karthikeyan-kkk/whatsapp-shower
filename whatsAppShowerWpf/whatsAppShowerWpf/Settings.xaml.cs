@@ -55,8 +55,7 @@ namespace whatsAppShowerWpf
 
             foreach (PropertyInfo property in properties)
             {
-                systemLog.Info("Name: " + property.Name + ", Value: " + property.GetValue(WhatsappProperties.Instance, null));
-                if (property.Name.Equals("Instance") || property.Name.Equals("ImageMaxHeight") || property.Name.Equals("RunnigTextColor") || property.Name.Equals("PhoneNumber") || property.Name.Equals("Password") || property.Name.Equals("AppToken") || property.Name.Equals("NickName") || property.Name.Equals("PhoneToken"))
+                if (property.Name.Equals("Instance") || property.Name.Equals("ImageMaxHeight") || property.Name.Equals("RunnigTextColor") || property.Name.Equals("PhoneNumber") || property.Name.Equals("Password") || property.Name.Equals("AppToken") || property.Name.Equals("NickName") || property.Name.Equals("PhoneToken") || property.Name.Equals("SideImageWidth") || property.Name.Equals("SideImageWidthType"))
                 {
                     continue;
                 }
@@ -88,6 +87,8 @@ namespace whatsAppShowerWpf
                 BindingExpressions.Add(be);
                 marginTop = marginTop + 40;
 
+                
+
             }
     }
 
@@ -99,19 +100,36 @@ namespace whatsAppShowerWpf
         public event OnUpdateEvent OnUpdate;
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (BindingExpression be in BindingExpressions)
+           
+            updateStatusBar("Updating...",Brushes.Black);
+            try
             {
-                be.UpdateSource();
-            }
+                foreach (BindingExpression be in BindingExpressions)
+                {
+                    be.UpdateSource();
+                }
 
-            WhatsappProperties.Instance.syncProp(false);
-            EventArgs eventArgs = new EventArgs();
-            if (OnUpdate != null) {
-                OnUpdate(this, eventArgs);
+                WhatsappProperties.Instance.syncProp(false);
+                EventArgs eventArgs = new EventArgs();
+                if (OnUpdate != null)
+                {
+                    OnUpdate(this, eventArgs);
+                }
+            }
+            catch (Exception ex)
+            {
+                updateStatusBar("Error", Brushes.Red);
+                systemLog.Error("error will updateProperties: " + ex);
             }
            
         }
-
+        public void updateStatusBar(string msg,Brush Color){
+            statusBarTop.Text = msg;
+            statusBarTop.Foreground = Color;
+            
+            statusBarBottom.Text = msg;
+            statusBarBottom.Foreground = Color;
+        }
         private int validateNumber(string newParam, int paramToReturn)
         {
             int n;

@@ -17,15 +17,26 @@
              </Grid.ColumnDefinitions>
             <ScrollViewer VerticalScrollBarVisibility="Visible">
             <StackPanel Height="auto" HorizontalAlignment="Stretch" Margin="0,6,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="auto" Grid.ColumnSpan="2">
+                    <StatusBar Height="32" Width="auto">
+                        <StatusBarItem>
+                            <TextBlock Name="statusBarTop" />
+                        </StatusBarItem>
+                    </StatusBar>
                     <Button Content="Update" Height="32" Name="buttonUp" Width="103" Click="button_Click" Margin="0,10,0,20"/>
-                <Grid FlowDirection="LeftToRight" Name="flowGrid">
+                    <TextBox Height="22" Name="elementsToUpdate" Width="102" ToolTip="Elements to update" Text="5"/>
+                    <Grid FlowDirection="LeftToRight" Name="flowGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="80*" />
                         <ColumnDefinition Width="80*" />
                     </Grid.ColumnDefinitions>
                   </Grid>
                     <Button Content="Update" Height="32" Name="buttonDown" Width="103" Click="button_Click" Margin="0,20,0,10"/>
-            </StackPanel>
+                   <StatusBar Height="32" Width="auto">
+                        <StatusBarItem>
+                            <TextBlock Name="statusBarBottom" />
+                        </StatusBarItem>
+                    </StatusBar>
+                </StackPanel>
             </ScrollViewer>
         </Grid>
       
