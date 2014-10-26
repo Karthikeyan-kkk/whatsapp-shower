@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Reflection;
 using log4net;
+using Xceed.Wpf.Toolkit;
 
 namespace whatsAppShowerWpf
 {
@@ -61,8 +62,8 @@ namespace whatsAppShowerWpf
                 }
 
                 Label testLabel = new Label();
-                testLabel.Margin = new Thickness(0, marginTop, 0, 0); 
-                testLabel.Name = property.Name+"Label";
+                testLabel.Margin = new Thickness(0, marginTop, 0, 0);
+                testLabel.Name = property.Name + "Label";
                 testLabel.Content = property.Name;
                 testLabel.Height = 28;
                 testLabel.HorizontalAlignment = HorizontalAlignment.Left;
@@ -70,27 +71,95 @@ namespace whatsAppShowerWpf
                 this.flowGrid.Children.Add(testLabel);
                 Grid.SetColumn(testLabel, 0);
 
-                TextBox textBox = new TextBox();
-                textBox.Margin = new Thickness(0, marginTop, 0, 0);
-                textBox.Height = 36;
-                textBox.HorizontalAlignment = HorizontalAlignment.Left;
-                textBox.Name = property.Name+"textBox";
-                textBox.VerticalAlignment = VerticalAlignment.Top;
-                textBox.Width = 120;
-                this.flowGrid.Children.Add(textBox);
-                Grid.SetColumn(textBox, 1);
-                Binding binding = new Binding(property.Name);
-                binding.Source = WhatsappProperties.Instance;
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.Explicit;
-                textBox.SetBinding(TextBox.TextProperty, binding);
-                BindingExpression be = textBox.GetBindingExpression(TextBox.TextProperty);
-                BindingExpressions.Add(be);
+                string userType = property.Name;
+                if (property.Name.EndsWith("Color"))
+                {
+                    userType = "Color";
+                }
+                if (property.Name.EndsWith("Type"))
+                {
+                    userType = "Type";
+                }
+                UIElement uIElement = null;
+                switch (userType)
+                {
+                    case "Color":
+                        uIElement = createColorPicker(marginTop, property.Name);
+                        break;
+                    case "Type":
+                        uIElement = createSizeType(marginTop, property.Name);
+                        break;
+                    default:
+                        uIElement = createTextBox(marginTop, property.Name);
+                        break;
+                }
+
+
+
+                this.flowGrid.Children.Add(uIElement);
+                Grid.SetColumn(uIElement, 1);
+
                 marginTop = marginTop + 40;
 
-                
+
 
             }
-    }
+        }
+
+        private UIElement createSizeType(int marginTop, string propName)
+        {
+            ListBox listBox = new ListBox();
+            listBox.Margin = new Thickness(0, marginTop, 0, 0);
+            listBox.Height = 36;
+            listBox.HorizontalAlignment = HorizontalAlignment.Left;
+            listBox.Name = propName + "textBox";
+            listBox.VerticalAlignment = VerticalAlignment.Top;
+            listBox.Width = 120;
+            listBox.Items.Insert(0, "pix");
+            listBox.Items.Insert(1, "per");
+
+            Binding binding = new Binding(propName);
+            binding.Source = WhatsappProperties.Instance;
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.Explicit;
+            listBox.SetBinding(ListBox.SelectedValueProperty, binding);
+            BindingExpression be = listBox.GetBindingExpression(ListBox.SelectedValueProperty);
+            BindingExpressions.Add(be);
+
+            return listBox;
+        }
+
+        private UIElement createColorPicker(int marginTop, string propName)
+        {
+            ColorPicker colorPicker = new ColorPicker();
+            colorPicker.Margin = new Thickness(0, marginTop, 0, 0);
+            colorPicker.Height = 36;
+            colorPicker.HorizontalAlignment = HorizontalAlignment.Left;
+            colorPicker.Name = propName + "textBox";
+            colorPicker.VerticalAlignment = VerticalAlignment.Top;
+            colorPicker.Width = 120;
+            return colorPicker;
+        }
+
+        private UIElement createTextBox(int marginTop, string propName)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Margin = new Thickness(0, marginTop, 0, 0);
+            textBox.Height = 36;
+            textBox.HorizontalAlignment = HorizontalAlignment.Left;
+            textBox.Name = propName + "textBox";
+            textBox.VerticalAlignment = VerticalAlignment.Top;
+            textBox.Width = 120;
+
+            Binding binding = new Binding(propName);
+            binding.Source = WhatsappProperties.Instance;
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.Explicit;
+            Control control = (Control)textBox;
+            control.SetBinding(TextBox.TextProperty, binding);
+            BindingExpression be = control.GetBindingExpression(TextBox.TextProperty);
+            BindingExpressions.Add(be);
+
+            return textBox;
+        }
 
         void Settings_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -100,8 +169,8 @@ namespace whatsAppShowerWpf
         public event OnUpdateEvent OnUpdate;
         private void button_Click(object sender, RoutedEventArgs e)
         {
-           
-            updateStatusBar("Updating...",Brushes.Black);
+
+            updateStatusBar("Updating...", Brushes.Black);
             try
             {
                 foreach (BindingExpression be in BindingExpressions)
@@ -119,14 +188,15 @@ namespace whatsAppShowerWpf
             catch (Exception ex)
             {
                 updateStatusBar("Error", Brushes.Red);
-                systemLog.Error("error will updateProperties: " + ex);
+                systemLog.Error("error in updateProperties: " + ex);
             }
-           
+
         }
-        public void updateStatusBar(string msg,Brush Color){
+        public void updateStatusBar(string msg, Brush Color)
+        {
             statusBarTop.Text = msg;
             statusBarTop.Foreground = Color;
-            
+
             statusBarBottom.Text = msg;
             statusBarBottom.Foreground = Color;
         }

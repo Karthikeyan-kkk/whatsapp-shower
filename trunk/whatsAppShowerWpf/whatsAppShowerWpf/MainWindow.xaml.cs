@@ -160,7 +160,7 @@ namespace whatsAppShowerWpf
         {
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.MsgSectionWidth) / 100;
-            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.MsgSectionWidthType) && "pix".Equals(WhatsappProperties.Instance.MsgSectionWidthType))
             {
                 imageMaxWidth = WhatsappProperties.Instance.MsgSectionWidth;
             }
@@ -354,7 +354,7 @@ namespace whatsAppShowerWpf
 
             double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
             double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.MsgSectionWidth) / 100;
-            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.MsgSectionWidthType) && "pix".Equals(WhatsappProperties.Instance.MsgSectionWidthType))
             {
                 imageMaxWidth = WhatsappProperties.Instance.MsgSectionWidth;
             }
@@ -373,8 +373,16 @@ namespace whatsAppShowerWpf
                     {
                         elementsToUpdate = uIElementCollection.Count;
                     }
-                    else { 
-                        elementsToUpdate = n;
+                    else {
+                        if (elementsToUpdate > uIElementCollection.Count)
+                        {
+                            elementsToUpdate = uIElementCollection.Count;
+                        }
+                        else
+                        {
+                            elementsToUpdate = n;
+                        }
+                        
                     }
                 }
             }
