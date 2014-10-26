@@ -97,6 +97,14 @@ namespace whatsAppShowerWpf
                 storyboard.SpeedRatio = WhatsappProperties.Instance.RuningTextSpeed;
                 mainWindow.stack.BeginStoryboard(storyboard);
             }
+            var formattedText = new FormattedText(
+                    mainWindow.txtKron.Text,
+                    CultureInfo.CurrentUICulture,
+                    FlowDirection.LeftToRight,
+                    new Typeface(mainWindow.txtKron.FontFamily, mainWindow.txtKron.FontStyle, mainWindow.txtKron.FontWeight, mainWindow.txtKron.FontStretch),
+                    mainWindow.txtKron.FontSize,
+                    Brushes.Black);
+            mainWindow.firstRow.Height = new GridLength(formattedText.Height);
         }
         public static void parseEmjoi(string textMsg, FlowDocument flowDocument)
         {

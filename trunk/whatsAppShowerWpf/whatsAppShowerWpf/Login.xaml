@@ -5,9 +5,9 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
-        ShowInTaskbar="False"
+        ShowInTaskbar="True"
         SizeToContent="WidthAndHeight"
-        FocusManager.FocusedElement="{Binding ElementName=txtUserName}">
+        FocusManager.FocusedElement="{Binding ElementName=txtUserName}" Icon="/whatsAppShowerWpf;component/Images/mensage.ico">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Margin"

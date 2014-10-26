@@ -77,7 +77,7 @@ namespace whatsAppShowerWpf
             //this.fromField.Text = from;
 
 
-            this.fromField.Width = Helpers.MeasureString(fromWithNickName, this.textMsgField.FontFamily, this.textMsgField.FontStyle, this.textMsgField.FontWeight, this.textMsgField.FontStretch, this.textMsgField.FontSize).Width;
+            //this.fromField.Width = Helpers.MeasureString(fromWithNickName, this.textMsgField.FontFamily, this.textMsgField.FontStyle, this.textMsgField.FontWeight, this.textMsgField.FontStretch, this.textMsgField.FontSize).Width;
             this.fromField.Foreground = NumberPropList.Instance.getPhoneColor(from);
             
 
@@ -103,17 +103,35 @@ namespace whatsAppShowerWpf
 
         public static void buildTextView(TextView textView)
         {
+            string text = new TextRange(textView.fromField.Document.ContentStart, textView.fromField.Document.ContentEnd).Text;
+            textView.fromField.Width = Helpers.MeasureString(text, textView.textMsgField.FontFamily, textView.textMsgField.FontStyle, textView.textMsgField.FontWeight, textView.textMsgField.FontStretch, textView.textMsgField.FontSize).Width;
+            
             textView.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, WhatsappProperties.Instance.PaddingTop, 0, 0);
             textView.textMsgField.FontSize = WhatsappProperties.Instance.TextFontSize;
             textView.fromField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
             textView.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double textMaxWidth = (screenWidth * WhatsappProperties.Instance.MaxTextWidth) / 100;
-            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.TextMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.TextMaxWidthType))
+            if (WhatsappProperties.Instance.MaxTextWidth != 0)
             {
-                textMaxWidth = WhatsappProperties.Instance.MaxTextWidth;
+                double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                double textMaxWidth = (screenWidth * WhatsappProperties.Instance.MaxTextWidth) / 100;
+                if (!string.IsNullOrEmpty(WhatsappProperties.Instance.TextMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.TextMaxWidthType))
+                {
+                    textMaxWidth = WhatsappProperties.Instance.MaxTextWidth;
+                }
+                textView.textMsgField.MaxWidth = textMaxWidth;
             }
-            textView.textMsgField.MaxWidth = textMaxWidth;
+            else
+            {
+                double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+
+                double imageMaxWidth = ((screenWidth * WhatsappProperties.Instance.MsgSectionWidth) / 100);
+                imageMaxWidth = imageMaxWidth - WhatsappProperties.Instance.PaddingLeft - 20;
+                if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+                {
+                    imageMaxWidth = WhatsappProperties.Instance.MsgSectionWidth;
+                }
+                textView.textMsgField.MaxWidth = imageMaxWidth;
+            }
         }
 
         

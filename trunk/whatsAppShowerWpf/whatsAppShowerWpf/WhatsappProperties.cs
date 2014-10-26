@@ -30,8 +30,24 @@ namespace whatsAppShowerWpf
                 return instance;
             }
         }
-       
-         int paddingTop = 10;
+
+        int msgSectionWidth = 300;
+
+        public int MsgSectionWidth
+        {
+            get { return msgSectionWidth; }
+            set { msgSectionWidth = value; }
+        }
+        string msgSectionWidthType = "per";
+
+        public string MsgSectionWidthType
+        {
+            get { return msgSectionWidthType; }
+            set { msgSectionWidthType = value; }
+        }
+        
+        
+        int paddingTop = 10;
 
         public  int PaddingTop
         {
@@ -39,10 +55,7 @@ namespace whatsAppShowerWpf
             set {paddingTop = value; }
         }
 
-        
-
-
-         int paddingLeft = 20;
+        int paddingLeft = 20;
 
         public  int PaddingLeft
         {
@@ -50,7 +63,7 @@ namespace whatsAppShowerWpf
             set { paddingLeft = value; }
         }
 
-        int imageMaxWidth = 80000000;
+        int imageMaxWidth = 800;
 
         public  int ImageMaxWidth
         {
@@ -255,6 +268,33 @@ namespace whatsAppShowerWpf
             set { showSideImages = value; }
         }
 
+        string sideImageWidthType = "per";
+
+        public string SideImageWidthType
+        {
+            get { return sideImageWidthType; }
+            set { sideImageWidthType = value; }
+        }
+
+        int sideImageWidth = 0;
+
+        public int SideImageWidth
+        {
+            get { return sideImageWidth; }
+            set { sideImageWidth = value; }
+        }
+
+
+
+        string demoImageFolder = "demoImgs";
+
+        public string DemoImageFolder
+        {
+            get { return demoImageFolder; }
+            set { demoImageFolder = value; }
+        }
+
+
         string backgroundimage = "";
 
         public string Backgroundimage
@@ -309,6 +349,29 @@ namespace whatsAppShowerWpf
             for (int i = 0; i < propCount; i++)
             {
                 String key = Props.Keys.ElementAt(i);
+                if (key.Equals(prfixCode + "msgSectionWidth"))
+                {
+                    if (fromFile)
+                    {
+                        MsgSectionWidth = parseToInt(Props[key], 300);
+                    }
+                    else
+                    {
+                        saveToFile("msgSectionWidth", MsgSectionWidth + "");
+                    }
+                }
+                if (key.Equals(prfixCode + "msgSectionWidthType"))
+                {
+                    if (fromFile)
+                    {
+                        msgSectionWidthType = parsString(Props[key], "per");
+                    }
+                    else
+                    {
+                        saveToFile("msgSectionWidthType", MsgSectionWidthType + "");
+                    }
+                }
+
                 if (key.Equals(prfixCode + "paddingTop"))
                 {
                     if (fromFile)
@@ -518,6 +581,28 @@ namespace whatsAppShowerWpf
                         saveToFile("showSideImages", ShowSideImages + "");
                     }
                 }
+                if (key.Equals(prfixCode + "sideImageWidthType"))
+                {
+                    if (fromFile)
+                    {
+                        SideImageWidthType = parsString(Props[key], "per");
+                    }
+                    else
+                    {
+                        saveToFile("sideImageWidthType", SideImageWidthType + "");
+                    }
+                }
+                if (key.Equals(prfixCode + "sideImageWidth"))
+                {
+                    if (fromFile)
+                    {
+                        SideImageWidth = parseToInt(Props[key], 600);
+                    }
+                    else
+                    {
+                        saveToFile("sideImageWidth", SideImageWidth + "");
+                    }
+                }
                 if (key.Equals(prfixCode + "backgroundimage"))
                 {
                     if (fromFile)
@@ -527,6 +612,17 @@ namespace whatsAppShowerWpf
                     else
                     {
                         saveToFile("backgroundimage", Backgroundimage + "");
+                    }
+                }
+                if (key.Equals(prfixCode + "demoImageFolder"))
+                {
+                    if (fromFile)
+                    {
+                        DemoImageFolder = parsString(Props[key], "demoImgs");
+                    }
+                    else
+                    {
+                        saveToFile("demoImageFolder", DemoImageFolder + "");
                     }
                 }
                 if (key.Equals(prfixCode + "downloadImgTo"))

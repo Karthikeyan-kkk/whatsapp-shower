@@ -33,23 +33,20 @@ namespace whatsAppShowerWpf
     {
         string nickname = "";
         bool showExample = false;
-        string sender = "972524376363"; // Mobile number with country code (but without + or 00)
-        string password = "TicJAMworhafW+84w3vuA4yMS5o=";//v2 password
-        string target = "972504219841";// Mobile number to send the message to
+        string sender = ""; // Mobile number with country code (but without + or 00)
+        string password = "";//v2 password
+        string target = "";// Mobile number to send the message to
         private static readonly ILog msgsLog = log4net.LogManager.GetLogger("msgsLog");
         private static readonly ILog systemLog = log4net.LogManager.GetLogger("systemsLog");
         private DispatcherTimer sideImageTimer = new DispatcherTimer();
-        
-        Queue<string> queue = new Queue<string>();
+        private Queue<string> queue = new Queue<string>();
+
+       
 
         public string Nickname
         {
-            get { return nickname; }
-            set { nickname = value;
-           
-            Storyboard storyboard = new Storyboard();
-            storyboard.SetSpeedRatio(1);
-            canvas.BeginStoryboard(storyboard); }
+            get { return nickname;}
+            set { nickname = value;}
         }
         public string Sender
         {
@@ -71,28 +68,42 @@ namespace whatsAppShowerWpf
             get { return showExample; }
             set { showExample = value; }
         }
+        public Queue<string> Queue
+        {
+            get { return queue; }
+            set { queue = value; }
+        }
        
 
         public MainWindow()
         {
 
-            try
-            {
-                WhatsappProperties.Instance.initProperties();
-            }
-            catch (Exception e)
-            {
-                systemLog.Error(e);
-            }
+            
           Login login = new Login();
           login.ShowDialog();
           
           InitializeComponent();
-         
+          try
+          {
+              WhatsappProperties.Instance.initProperties();
+          }
+          catch (Exception e)
+          {
+              systemLog.Error("error initProperties Exception: " + e);
+          }
+          try
+          {
+              NumberPropList.Instance.loadFileProp();
+          }
+          catch (Exception e)
+          {
+              systemLog.Error("error loadFileProp Exception: " + e);
+          }
           
          
-          NumberPropList.Instance.loadFileProp();
+          
           bool showDemo = (login.showDemo.IsChecked == true);
+
           if (login.DialogResult.HasValue && login.DialogResult.Value && !showDemo)
           {
               googleSpreadSheetsHandler googleSpreadSheetsHandler = new googleSpreadSheetsHandler();
@@ -116,6 +127,7 @@ namespace whatsAppShowerWpf
               this.Password = tokenFromGSheet;
               initWhatsAppConnect();
             }
+
             else
             {
                 if (login.DialogResult.HasValue && login.DialogResult.Value == false)
@@ -126,7 +138,6 @@ namespace whatsAppShowerWpf
                 {
                     addTexts();
                     addImages();
-                    addImageSide();
                 }
             }
 
@@ -147,6 +158,14 @@ namespace whatsAppShowerWpf
 
         private void initVisualProp()
         {
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.MsgSectionWidth) / 100;
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+            {
+                imageMaxWidth = WhatsappProperties.Instance.MsgSectionWidth;
+            }
+
+            this.firstColumn.Width = new GridLength(imageMaxWidth);
             if (!string.IsNullOrEmpty(WhatsappProperties.Instance.Backgroundimage))
             {
                 try
@@ -183,7 +202,6 @@ namespace whatsAppShowerWpf
         
         private void startSideMethod(object sender, EventArgs e2)
         {
-            //(sender as DispatcherTimer).Stop();
             startSideImageShow();
         }
 
@@ -197,20 +215,28 @@ namespace whatsAppShowerWpf
 
             var fadeInAnimation = new DoubleAnimation(1d, fadeInTime);
             var fadeOutAnimation = new DoubleAnimation(0d, fadeOutTime);
-            if (queue.Count == 0)
+            if (Queue.Count == 0)
             {
                 
                 image.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
                 sideImageBorder.BeginAnimation(Image.OpacityProperty, fadeOutAnimation);
                 return;
             }
-            string imgUrl = queue.Dequeue();
+            string imgUrl = Queue.Dequeue();
             BitmapImage logo = new BitmapImage();
             logo.BeginInit();
             logo.UriSource = new Uri(imgUrl);
             logo.EndInit();
             ImageSource source = logo;
-
+            if (WhatsappProperties.Instance.SideImageWidth != 0) { 
+                double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.SideImageWidth) / 100;
+                if (!string.IsNullOrEmpty(WhatsappProperties.Instance.SideImageWidthType) && "pix".Equals(WhatsappProperties.Instance.SideImageWidthType))
+                {
+                    imageMaxWidth = WhatsappProperties.Instance.SideImageWidth;
+                }
+                image.Width = imageMaxWidth;
+            }   
             if (image.Source != null)
             {
 
@@ -272,7 +298,7 @@ namespace whatsAppShowerWpf
                 this.stackPanel1.Dispatcher.BeginInvoke(new Action(() => { imgView = new ImgView(phoneNumber,nickName, (ImageSource)new ImageSourceConverter().ConvertFromString(imgFileName), hour); }));
                 this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanel1.Children.Add(imgView); }));
                 this.stackPanel1.Dispatcher.Invoke((Action)(() => { this.stackPanelScroller.ScrollToBottom(); }));
-                queue.Enqueue(Environment.CurrentDirectory+@"\"+imgFileName);
+                Queue.Enqueue(Environment.CurrentDirectory + @"\" + imgFileName);
             }
             addTextInfoToLog("IMG", imgFileName, phoneNumber, isCanShowMsgMet(phoneNumber, "IMG"));
         }
@@ -292,14 +318,7 @@ namespace whatsAppShowerWpf
                 Helpers helpers = new Helpers();
                 helpers.buildRunningText(this);
 
-                var formattedText = new FormattedText(
-                    txtKron.Text,
-                    CultureInfo.CurrentUICulture,
-                    FlowDirection.LeftToRight,
-                    new Typeface(this.txtKron.FontFamily, this.txtKron.FontStyle, this.txtKron.FontWeight, this.txtKron.FontStretch),
-                    this.txtKron.FontSize,
-                    Brushes.Black);
-                this.firstRow.Height = new GridLength(formattedText.Height);
+                
             }
             catch (Exception e)
             {
@@ -332,10 +351,35 @@ namespace whatsAppShowerWpf
 
         public void UpdateUi(object source, EventArgs e)
         {
+
+            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+            double imageMaxWidth = (screenWidth * WhatsappProperties.Instance.MsgSectionWidth) / 100;
+            if (!string.IsNullOrEmpty(WhatsappProperties.Instance.ImageMaxWidthType) && "pix".Equals(WhatsappProperties.Instance.ImageMaxWidthType))
+            {
+                imageMaxWidth = WhatsappProperties.Instance.MsgSectionWidth;
+            }
+
+            this.firstColumn.Width = new GridLength(imageMaxWidth);
             int paddingLeft = WhatsappProperties.Instance.PaddingLeft;
             UIElementCollection uIElementCollection = this.stackPanel1.Children;
             Helpers helper = new Helpers();
-            for (int i = 0; i < uIElementCollection.Count; i++)
+            int elementsToUpdate = 5;
+            if (!string.IsNullOrEmpty(Settings.Instance.elementsToUpdate.Text))
+            {
+                int n;
+                bool isNumeric = int.TryParse(Settings.Instance.elementsToUpdate.Text, out n);
+                if (isNumeric) {
+                    if (n == -1)
+                    {
+                        elementsToUpdate = uIElementCollection.Count;
+                    }
+                    else { 
+                        elementsToUpdate = n;
+                    }
+                }
+            }
+
+            for (int i = uIElementCollection.Count - 1; i > uIElementCollection.Count - 1 - elementsToUpdate; i--)
             {
                 if(uIElementCollection[i].GetType() == typeof(TextView)){
                     TextView textView = (TextView)uIElementCollection[i];
@@ -347,8 +391,8 @@ namespace whatsAppShowerWpf
                     ImgView.buildImgView(imgView);
                 }
             }
+            
             helper.buildRunningText(this);
-
             if (!string.IsNullOrEmpty(WhatsappProperties.Instance.Backgroundimage))
             {
                 try
@@ -380,37 +424,32 @@ namespace whatsAppShowerWpf
                 this.WindowStyle = WindowStyle.ThreeDBorderWindow;
             }
 
+            Settings.Instance.updateStatusBar("Finish Updating...", Brushes.DarkGreen);
+            
+
         }
         //Start tests items
 
-        private void addImageSide()
-        {
-            queue.Enqueue(@"C:\whatsappPicTest\5.jpg");
-            queue.Enqueue(@"C:\whatsappPicTest\1.jpg");
-            queue.Enqueue(@"C:\whatsappPicTest\2.jpg");
-            queue.Enqueue(@"C:\whatsappPicTest\3.jpg");
-            queue.Enqueue(@"C:\whatsappPicTest\4.jpg");
-
-        }
-
         private void addImages()
         {
-            if (File.Exists(@"C:\whatsappPicTest\1.jpg")) { 
-                ImgView imgView = new ImgView("0524376464","nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\1.jpg"), "10:10");
-                this.stackPanel1.Children.Add(imgView);
-            }
-            if (File.Exists(@"C:\whatsappPicTest\2.jpg"))
+            
+            string[] imageFilePaths = Directory.GetFiles(WhatsappProperties.Instance.DemoImageFolder, "*.*",SearchOption.AllDirectories);
+            if (imageFilePaths != null && imageFilePaths.Length>0)
             {
-                ImgView imgView2 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\2.jpg"), "10:10");
-                this.stackPanel1.Children.Add(imgView2);
-            }
-            if (File.Exists(@"C:\whatsappPicTest\3.jpg")) { 
-                ImgView imgView3 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\3.jpg"), "10:10");
-                this.stackPanel1.Children.Add(imgView3);
-            }
-            if (File.Exists(@"C:\whatsappPicTest\4.jpg")) { 
-                ImgView imgView4 = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(@"C:\whatsappPicTest\4.jpg"), "10:10");
-                this.stackPanel1.Children.Add(imgView4);
+                for (int i = 0; i < imageFilePaths.Length; i++)
+                {
+                    string file = imageFilePaths[i];
+                    if (file.EndsWith(".png") || file.EndsWith(".jpg"))
+                    {
+                        if (File.Exists(file))
+                        {
+                            ImgView imgView = new ImgView("0524376464", "nickName", (ImageSource)new ImageSourceConverter().ConvertFromString(file), "10:10");
+                            this.stackPanel1.Children.Add(imgView);
+                            string fullPath = System.IO.Path.GetFullPath(file);
+                            Queue.Enqueue(fullPath);
+                        }
+                    }
+                }
             }
             this.stackPanelScroller.ScrollToBottom();
         }
