@@ -90,7 +90,13 @@ namespace whatsAppShowerWpf
                         uIElement = createSizeType(marginTop, property.Name);
                         break;
                     default:
-                        uIElement = createTextBox(marginTop, property.Name);
+                        if (property.PropertyType == typeof(bool))
+                        {
+                            uIElement = createBooleanComboBox(marginTop, property.Name);
+                        }
+                        else { 
+                            uIElement = createTextBox(marginTop, property.Name);
+                        }
                         break;
                 }
 
@@ -106,26 +112,56 @@ namespace whatsAppShowerWpf
             }
         }
 
-        private UIElement createSizeType(int marginTop, string propName)
+        private UIElement createBooleanComboBox(int marginTop, string propName)
         {
-            ListBox listBox = new ListBox();
-            listBox.Margin = new Thickness(0, marginTop, 0, 0);
-            listBox.Height = 36;
-            listBox.HorizontalAlignment = HorizontalAlignment.Left;
-            listBox.Name = propName + "textBox";
-            listBox.VerticalAlignment = VerticalAlignment.Top;
-            listBox.Width = 120;
-            listBox.Items.Insert(0, "pix");
-            listBox.Items.Insert(1, "per");
+            ComboBox comboBox = new ComboBox();
+            comboBox.Margin = new Thickness(0, marginTop, 0, 0);
+            comboBox.Height = 28;
+            comboBox.HorizontalAlignment = HorizontalAlignment.Left;
+            comboBox.Name = propName + "textBox";
+            comboBox.VerticalAlignment = VerticalAlignment.Top;
+            comboBox.Width = 120;
+
+
+            ComboBoxItem trueCbi = new ComboBoxItem();
+            trueCbi.Content = true;
+            comboBox.Items.Add(trueCbi);
+            ComboBoxItem falseCbi = new ComboBoxItem();
+            falseCbi.Content = false;
+            comboBox.Items.Add(falseCbi);
+            
 
             Binding binding = new Binding(propName);
             binding.Source = WhatsappProperties.Instance;
             binding.UpdateSourceTrigger = UpdateSourceTrigger.Explicit;
-            listBox.SetBinding(ListBox.SelectedValueProperty, binding);
-            BindingExpression be = listBox.GetBindingExpression(ListBox.SelectedValueProperty);
+            Control control = (Control)comboBox;
+            control.SetBinding(ComboBox.TextProperty, binding);
+            BindingExpression be = control.GetBindingExpression(ComboBox.TextProperty);
             BindingExpressions.Add(be);
 
-            return listBox;
+            return comboBox;
+        }
+
+        private UIElement createSizeType(int marginTop, string propName)
+        {
+            ComboBox comboBox = new ComboBox();
+            comboBox.Margin = new Thickness(0, marginTop, 0, 0);
+            comboBox.Height = 28;
+            comboBox.HorizontalAlignment = HorizontalAlignment.Left;
+            comboBox.Name = propName + "textBox";
+            comboBox.VerticalAlignment = VerticalAlignment.Top;
+            comboBox.Width = 120;
+            comboBox.Items.Insert(0, "pix");
+            comboBox.Items.Insert(1, "per");
+
+            Binding binding = new Binding(propName);
+            binding.Source = WhatsappProperties.Instance;
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.Explicit;
+            comboBox.SetBinding(ComboBox.SelectedValueProperty, binding);
+            BindingExpression be = comboBox.GetBindingExpression(ComboBox.SelectedValueProperty);
+            BindingExpressions.Add(be);
+
+            return comboBox;
         }
 
         private UIElement createColorPicker(int marginTop, string propName)
