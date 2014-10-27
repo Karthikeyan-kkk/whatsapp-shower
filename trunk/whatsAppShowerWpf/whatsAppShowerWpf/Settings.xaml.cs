@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Reflection;
 using log4net;
 using Xceed.Wpf.Toolkit;
+using DropDownCustomColorPicker;
 
 namespace whatsAppShowerWpf
 {
@@ -56,7 +57,7 @@ namespace whatsAppShowerWpf
 
             foreach (PropertyInfo property in properties)
             {
-                if (property.Name.Equals("Instance") || property.Name.Equals("ImageMaxHeight") || property.Name.Equals("RunnigTextColor") || property.Name.Equals("PhoneNumber") || property.Name.Equals("Password") || property.Name.Equals("AppToken") || property.Name.Equals("NickName") || property.Name.Equals("PhoneToken") || property.Name.Equals("SideImageWidth") || property.Name.Equals("SideImageWidthType"))
+                if (property.Name.Equals("Instance") || property.Name.Equals("ImageMaxHeight") || property.Name.Equals("PhoneNumber") || property.Name.Equals("Password") || property.Name.Equals("AppToken") || property.Name.Equals("NickName") || property.Name.Equals("PhoneToken") || property.Name.Equals("SideImageWidth") || property.Name.Equals("SideImageWidthType"))
                 {
                     continue;
                 }
@@ -79,6 +80,10 @@ namespace whatsAppShowerWpf
                 if (property.Name.EndsWith("Type"))
                 {
                     userType = "Type";
+                }
+                if (property.Name.EndsWith("Color"))
+                {
+                    userType = "Color";
                 }
                 UIElement uIElement = null;
                 switch (userType)
@@ -166,14 +171,17 @@ namespace whatsAppShowerWpf
 
         private UIElement createColorPicker(int marginTop, string propName)
         {
-            ColorPicker colorPicker = new ColorPicker();
-            colorPicker.Margin = new Thickness(0, marginTop, 0, 0);
-            colorPicker.Height = 36;
-            colorPicker.HorizontalAlignment = HorizontalAlignment.Left;
-            colorPicker.Name = propName + "textBox";
-            colorPicker.VerticalAlignment = VerticalAlignment.Top;
-            colorPicker.Width = 120;
-            return colorPicker;
+
+            CustomColorPicker customColorPicker = new CustomColorPicker();
+            customColorPicker.Margin = new Thickness(0, marginTop, 0, 0);
+            customColorPicker.Height = 28;
+            customColorPicker.HorizontalAlignment = HorizontalAlignment.Left;
+            customColorPicker.Name = propName + "textBox";
+            customColorPicker.VerticalAlignment = VerticalAlignment.Top;
+            customColorPicker.Width = 120;
+
+
+            return customColorPicker;
         }
 
         private UIElement createTextBox(int marginTop, string propName)
