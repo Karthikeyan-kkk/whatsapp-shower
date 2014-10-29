@@ -1,4 +1,4 @@
-﻿whatsappShow.msgSectionWidth = 300
+﻿whatsappShow.msgSectionWidth = 30
 whatsappShow.msgSectionWidthType = per
 whatsappShow.paddingTop = 10
 whatsappShow.paddingLeft = 20
@@ -15,6 +15,7 @@ whatsappShow.runingTextSpeed = 0.01
 whatsappShow.runnigText = שלחו הודעת וואטסאפ למספר 053-4321-484
 whatsappShow.runnigTextShow = true 
 whatsappShow.runnigTextSize = 50
+whatsappShow.runnigTextColor = #ffffff
 
 whatsappShow.phoneFontSize = 18
 whatsappShow.houerFontSize = 12

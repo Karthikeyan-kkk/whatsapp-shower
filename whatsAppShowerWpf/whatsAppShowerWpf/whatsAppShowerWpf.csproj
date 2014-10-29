@@ -41,9 +41,6 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomColorPicker">
-      <HintPath>Ref\CustomColorPicker.dll</HintPath>
-    </Reference>
     <Reference Include="Google.GData.Client, Version=2.2.0.0, Culture=neutral, PublicKeyToken=04a59ca9b0273830, processorArchitecture=MSIL">
       <HintPath>Ref\Google.GData.Client.dll</HintPath>
     </Reference>
@@ -1040,6 +1037,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\mensage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\WPFColorPicker\WPFColorPicker\DropDownCustomColorPicker\DropDownCustomColorPicker.csproj">
+      <Project>{FD2EC7D4-4316-4F8F-8108-8381F0B4B340}</Project>
+      <Name>DropDownCustomColorPicker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
