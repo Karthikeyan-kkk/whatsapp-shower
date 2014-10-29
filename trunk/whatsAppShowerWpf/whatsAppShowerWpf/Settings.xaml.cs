@@ -179,10 +179,23 @@ namespace whatsAppShowerWpf
             customColorPicker.Name = propName + "textBox";
             customColorPicker.VerticalAlignment = VerticalAlignment.Top;
             customColorPicker.Width = 120;
+            
+            
+
+            Binding binding = new Binding(propName);
+            binding.Source = WhatsappProperties.Instance;
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            customColorPicker.SetBinding(CustomColorPicker.SelectedColorBrushProperty, binding);
+            BindingExpression be = customColorPicker.GetBindingExpression(CustomColorPicker.SelectedColorBrushProperty);
+            BindingExpressions.Add(be);
+
+           
 
 
             return customColorPicker;
         }
+
+        
 
         private UIElement createTextBox(int marginTop, string propName)
         {

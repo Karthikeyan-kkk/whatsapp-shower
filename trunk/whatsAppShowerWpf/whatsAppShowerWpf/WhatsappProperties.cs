@@ -151,8 +151,8 @@ namespace whatsAppShowerWpf
             get { return WhatsappProperties.Instance.runnigTextSize; }
             set { WhatsappProperties.Instance.runnigTextSize = value; }
         }
-
-        Brush runnigTextColor = Brushes.White;
+       
+        Brush runnigTextColor = Brushes.Yellow;
 
         public Brush RunnigTextColor
         {
@@ -460,6 +460,17 @@ namespace whatsAppShowerWpf
                         saveToFile("runnigText", RunnigText + "");
                     }
                 }
+                if (key.Equals(prfixCode + "runnigTextColor"))
+                {
+                    if (fromFile)
+                    {
+                        RunnigTextColor = parseToBrush(Props[key],Brushes.White);
+                    }
+                    else
+                    {
+                        saveToFile("runnigTextColor", RunnigTextColor + "");
+                    }
+                }
                 if (key.Equals(prfixCode + "textFontSize"))
                 {
                     if (fromFile)
@@ -695,9 +706,20 @@ namespace whatsAppShowerWpf
             return false;
         }
 
-        private static Color parseToColor(string colorName, Color color)
+        private static Brush parseToBrush(string colorName, Brush brush)
         {
-            return color;
+
+            try
+            {
+                return (SolidColorBrush)(new BrushConverter().ConvertFrom(colorName));
+            }
+            catch (Exception e)
+            {
+                
+                
+            }
+            
+            return brush;
         }
 
         private static string parsString(string val, string valToReturn)
