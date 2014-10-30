@@ -10,15 +10,18 @@ whatsappShow.imageMaxHeight = 400
 whatsappShow.maxTextWidth = 20
 whatsappShow.textMaxWidthType = per
 whatsappShow.textFontSize = 24
+whatsappShow.textColor = #FF000000
+whatsappShow.textBackgroundColor = #FCFBF6
 
 whatsappShow.runingTextSpeed = 0.01
 whatsappShow.runnigText = שלחו הודעת וואטסאפ למספר 053-4321-484
 whatsappShow.runnigTextShow = true 
 whatsappShow.runnigTextSize = 50
-whatsappShow.runnigTextColor = #ffffff
+whatsappShow.runnigTextColor = #FFFFFF
 
 whatsappShow.phoneFontSize = 18
 whatsappShow.houerFontSize = 12
+whatsappShow.hourColor = #FF708090
 
 whatsappShow.sideImagefadingSpeedInSec = 4
 whatsappShow.sideImageRunEveryInSec = 4

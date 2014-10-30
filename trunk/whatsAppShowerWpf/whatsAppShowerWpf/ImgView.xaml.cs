@@ -83,7 +83,6 @@ namespace whatsAppShowerWpf
             Helpers.parseEmjoi(from, this.fromfd);
             this.phoneField.Foreground = NumberPropList.Instance.getPhoneColor(phoneNumber);
             this.hourField.Text = Hour;
-            this.hourField.Foreground = Brushes.Gray;
             this.HorizontalAlignment = HorizontalAlignment.Left;
             buildImgView(this);
             this.phoneField.Width = Helpers.MeasureString(from, this.phoneField.FontFamily, this.phoneField.FontStyle, this.phoneField.FontWeight, this.phoneField.FontStretch, this.phoneField.FontSize).Width + 50;
@@ -94,6 +93,7 @@ namespace whatsAppShowerWpf
 
         public static void buildImgView(ImgView imgView)
         {
+            imgView.hourField.Foreground = WhatsappProperties.Instance.HourColor;
             if (WhatsappProperties.Instance.ImageMaxWidth != 0)
             {
                 double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;

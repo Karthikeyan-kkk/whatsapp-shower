@@ -103,6 +103,26 @@ namespace whatsAppShowerWpf
             set { WhatsappProperties.Instance.textFontSize = value; }
         }
 
+        Brush textColor = Brushes.White;
+
+        public Brush TextColor
+        {
+            get { return textColor; }
+            set { textColor = value; }
+        }
+
+        Brush textBackgroundColor = Brushes.Black;
+
+        public Brush TextBackgroundColor
+        {
+            get { return textBackgroundColor; }
+            set { textBackgroundColor = value; }
+        }
+
+
+
+        
+
         string textMaxWidthType = "per";
 
         public string TextMaxWidthType
@@ -144,6 +164,15 @@ namespace whatsAppShowerWpf
             get { return WhatsappProperties.Instance.houerFontSize; }
             set { WhatsappProperties.Instance.houerFontSize = value; }
         }
+
+        Brush hourColor = Brushes.Gray;
+
+        public Brush HourColor
+        {
+            get { return hourColor; }
+            set { hourColor = value; }
+        }
+
         Single runnigTextSize = 24;
 
         public  Single RunnigTextSize
@@ -482,6 +511,28 @@ namespace whatsAppShowerWpf
                         saveToFile("textFontSize", TextFontSize + "");
                     }
                 }
+                if (key.Equals(prfixCode + "textColor"))
+                {
+                    if (fromFile)
+                    {
+                        TextColor = parseToBrush(Props[key], Brushes.Black);
+                    }
+                    else
+                    {
+                        saveToFile("textColor", TextColor + "");
+                    }
+                }
+                if (key.Equals(prfixCode + "textBackgroundColor"))
+                {
+                    if (fromFile)
+                    {
+                        TextBackgroundColor = parseToBrush(Props[key], Brushes.Black);
+                    }
+                    else
+                    {
+                        saveToFile("textBackgroundColor", TextBackgroundColor + "");
+                    }
+                }
                 if (key.Equals(prfixCode + "phoneFontSize"))
                 {
                     if (fromFile)
@@ -504,6 +555,19 @@ namespace whatsAppShowerWpf
                         saveToFile("houerFontSize", HouerFontSize + "");
                     }
                 }
+
+                if (key.Equals(prfixCode + "hourColor"))
+                {
+                    if (fromFile)
+                    {
+                        HourColor = parseToBrush(Props[key], Brushes.Gray);
+                    }
+                    else
+                    {
+                        saveToFile("hourColor", HourColor + "");
+                    }
+                }
+
                 if (key.Equals(prfixCode + "runnigTextSize"))
                 {
                     if (fromFile)

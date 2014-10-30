@@ -7,7 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid Background="Transparent" Name="gridField">
-            <Border Margin="0" BorderBrush="White" Background="#FCFBF6" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8">
+            <Border Margin="0" Name="textBorder" BorderBrush="White" Background="#FCFBF6" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8">
 
                 <RichTextBox   Margin="10,0,0,30" Name="fromField" FontSize="18"  FontWeight="Bold" FontFamily="Choco"  HorizontalAlignment="Left"  BorderThickness="0" Background="Transparent">
                     <FlowDocument x:Name="fromfd">
