@@ -76,13 +76,13 @@ namespace whatsAppShowerWpf
             Helpers.parseEmjoi(fromWithNickName, this.fromfd);
             //this.fromField.Text = from;
 
-
+           
             //this.fromField.Width = Helpers.MeasureString(fromWithNickName, this.textMsgField.FontFamily, this.textMsgField.FontStyle, this.textMsgField.FontWeight, this.textMsgField.FontStretch, this.textMsgField.FontSize).Width;
             this.fromField.Foreground = NumberPropList.Instance.getPhoneColor(from);
             
 
             this.hourField.Text = hour;
-            this.hourField.Foreground = Brushes.Gray;
+            
            
            
             TextRange textRange = new TextRange(
@@ -105,11 +105,15 @@ namespace whatsAppShowerWpf
         {
             string text = new TextRange(textView.fromField.Document.ContentStart, textView.fromField.Document.ContentEnd).Text;
             textView.fromField.Width = Helpers.MeasureString(text, textView.textMsgField.FontFamily, textView.textMsgField.FontStyle, textView.textMsgField.FontWeight, textView.textMsgField.FontStretch, textView.textMsgField.FontSize).Width;
-            
+            textView.textBorder.Background = WhatsappProperties.Instance.TextBackgroundColor;
             textView.Margin = new Thickness(WhatsappProperties.Instance.PaddingLeft, WhatsappProperties.Instance.PaddingTop, 0, 0);
             textView.textMsgField.FontSize = WhatsappProperties.Instance.TextFontSize;
             textView.fromField.FontSize = WhatsappProperties.Instance.PhoneFontSize;
             textView.hourField.FontSize = WhatsappProperties.Instance.HouerFontSize;
+            textView.textMsgField.Foreground = WhatsappProperties.Instance.TextColor;
+            textView.hourField.Foreground = WhatsappProperties.Instance.HourColor;
+
+
             if (WhatsappProperties.Instance.MaxTextWidth != 0)
             {
                 double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;

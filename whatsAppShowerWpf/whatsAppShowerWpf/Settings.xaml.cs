@@ -89,7 +89,8 @@ namespace whatsAppShowerWpf
                 switch (userType)
                 {
                     case "Color":
-                        uIElement = createColorPicker(marginTop, property.Name);
+                      
+                       uIElement = createColorPicker(marginTop, property.Name, property.GetValue(WhatsappProperties.Instance, null));
                         break;
                     case "Type":
                         uIElement = createSizeType(marginTop, property.Name);
@@ -169,9 +170,17 @@ namespace whatsAppShowerWpf
             return comboBox;
         }
 
-        private UIElement createColorPicker(int marginTop, string propName)
+        private UIElement createColorPicker(int marginTop, string propName,object color)
         {
-
+            Brush brush = null;
+            try
+            {
+                brush = (Brush)color;
+            }
+            catch (Exception e)
+            {
+                
+             }
             CustomColorPicker customColorPicker = new CustomColorPicker();
             customColorPicker.Margin = new Thickness(0, marginTop, 0, 0);
             customColorPicker.Height = 28;
@@ -179,6 +188,10 @@ namespace whatsAppShowerWpf
             customColorPicker.Name = propName + "textBox";
             customColorPicker.VerticalAlignment = VerticalAlignment.Top;
             customColorPicker.Width = 120;
+            if (brush != null) {
+                customColorPicker.updateDisplayColor(brush);
+                //customColorPicker.SelectedColor = ((SolidColorBrush)brush).Color;
+            }
             
             
 
