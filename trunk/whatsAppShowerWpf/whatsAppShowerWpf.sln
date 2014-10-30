@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "whatsAppShowerWpf", "whatsAppShowerWpf\whatsAppShowerWpf.csproj", "{3866F840-56A3-47AA-A8CA-2DB44B83C5D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropDownCustomColorPicker", "..\..\WPFColorPicker\WPFColorPicker\DropDownCustomColorPicker\DropDownCustomColorPicker.csproj", "{FD2EC7D4-4316-4F8F-8108-8381F0B4B340}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropDownCustomColorPicker", "DropDownCustomColorPicker\DropDownCustomColorPicker.csproj", "{FD2EC7D4-4316-4F8F-8108-8381F0B4B340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

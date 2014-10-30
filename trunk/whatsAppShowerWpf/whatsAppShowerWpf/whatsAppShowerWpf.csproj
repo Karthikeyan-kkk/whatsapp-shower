@@ -1038,12 +1038,6 @@
   <ItemGroup>
     <Resource Include="Images\mensage.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\WPFColorPicker\WPFColorPicker\DropDownCustomColorPicker\DropDownCustomColorPicker.csproj">
-      <Project>{FD2EC7D4-4316-4F8F-8108-8381F0B4B340}</Project>
-      <Name>DropDownCustomColorPicker</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
