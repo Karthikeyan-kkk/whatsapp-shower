@@ -280,5 +280,10 @@ namespace whatsAppShowerWpf
             }
             return paramToReturn;
         }
+
+        private void buttonExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

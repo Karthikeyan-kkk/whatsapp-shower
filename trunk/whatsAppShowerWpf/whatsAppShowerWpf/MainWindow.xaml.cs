@@ -137,7 +137,7 @@ namespace whatsAppShowerWpf
 				else
 				{
 					addTexts();
-					//addImages();
+					addImages();
 				}
 			}
 
