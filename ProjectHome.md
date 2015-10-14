@@ -1,0 +1,1 @@
+this app you can show all whatsapp massage on one screen
